@@ -6,5 +6,8 @@ release/
 dist/
 
 # WARMPET Ignored
+docker-env/mongo
+docker-env/postgres/data
+docker-env/redis/data
 
 # Compiled Files
