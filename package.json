@@ -1,0 +1,28 @@
+{
+  "name": "warmpet",
+  "version": "0.0.1",
+  "description": "webpack, angular, redis, mongodb, postgres, express, typescript",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ray-g/warmpet.git"
+  },
+  "keywords": [
+    "webpack",
+    "angular",
+    "redis",
+    "mongodb",
+    "postgres",
+    "express",
+    "typescript"
+  ],
+  "author": "Ray Guo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ray-g/warmpet/issues"
+  },
+  "homepage": "https://github.com/ray-g/warmpet#readme"
+}
