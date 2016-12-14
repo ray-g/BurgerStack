@@ -24,5 +24,20 @@
   "bugs": {
     "url": "https://github.com/ray-g/warmpet/issues"
   },
-  "homepage": "https://github.com/ray-g/warmpet#readme"
+  "homepage": "https://github.com/ray-g/warmpet#readme",
+  "dependencies": {
+    "@angular/common": "2.2.3",
+    "@angular/compiler": "2.2.3",
+    "@angular/core": "2.2.3",
+    "@angular/forms": "2.2.3",
+    "@angular/http": "2.2.3",
+    "@angular/platform-browser": "2.2.3",
+    "@angular/platform-browser-dynamic": "2.2.3",
+    "@angular/platform-server": "2.2.3",
+    "@angular/router": "3.2.3",
+    "@angular/upgrade": "2.2.3"
+  },
+  "devDependencies": {
+
+  }
 }
