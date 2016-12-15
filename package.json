@@ -35,7 +35,12 @@
     "@angular/platform-browser-dynamic": "2.2.3",
     "@angular/platform-server": "2.2.3",
     "@angular/router": "3.2.3",
-    "@angular/upgrade": "2.2.3"
+    "@angular/upgrade": "2.2.3",
+    "core-js": "2.4.1",
+    "reflect-metadata": "0.1.8",
+    "rxjs": "5.0.0-beta.12",
+    "systemjs": "0.19.39",
+    "zone.js": "0.6.25"
   },
   "devDependencies": {
     "@types/async": "2.0.31",
@@ -100,6 +105,7 @@
     "gulp-typescript": "2.13.6",
     "gulp-uglify": "2.0.0",
     "gulp-util": "3.0.7",
-    "gulp-watch": "4.3.8"
+    "gulp-watch": "4.3.8",
+    "tslint": "3.15.1"
   }
 }
