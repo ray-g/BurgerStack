@@ -1,4 +1,4 @@
-# BurgerStack
+# BurgerStack ...WIP...
 
 [![Join the chat at https://gitter.im/BurgerStack/Lobby](https://badges.gitter.im/BurgerStack/Lobby.svg)](https://gitter.im/BurgerStack/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/ray-g/BurgerStack.svg?branch=master)](https://travis-ci.org/ray-g/BurgerStack)
