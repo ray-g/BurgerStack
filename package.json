@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ray-g/warmpet.git"
+    "url": "git+https://github.com/ray-g/BurgerStack.git"
   },
   "keywords": [
     "webpack",
@@ -22,9 +22,9 @@
   "author": "Ray Guo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ray-g/warmpet/issues"
+    "url": "https://github.com/ray-g/BurgerStack/issues"
   },
-  "homepage": "https://github.com/ray-g/warmpet#readme",
+  "homepage": "https://github.com/ray-g/BurgerStack#readme",
   "dependencies": {
     "@angular/common": "2.2.3",
     "@angular/compiler": "2.2.3",
