@@ -1,7 +1,7 @@
 {
-  "name": "warmpet",
+  "name": "burgerstack",
   "version": "0.0.1",
-  "description": "webpack, angular, redis, mongodb, postgres, express, typescript",
+  "description": "All cool staffs in one stack.",
   "main": "app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0" // TODO: enable test later.
