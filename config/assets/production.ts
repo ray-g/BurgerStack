@@ -1,0 +1,5 @@
+const ProdAssets = {
+
+};
+
+export = ProdAssets;
