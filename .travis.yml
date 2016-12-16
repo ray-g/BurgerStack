@@ -28,8 +28,5 @@ os:
 branches:
   only: master
 
-env:
-  NODE_ENV: test
-
 script:
   - npm test
