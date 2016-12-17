@@ -1,5 +1,3 @@
-import { join } from 'path';
-
 const BaseAssets = {
   client: {
     lib: {
@@ -51,10 +49,13 @@ const BaseAssets = {
     }
   },
   config: {
-    gulpFile: ['gulpfile.ts'],
-    gulpTasks: ['utils/gulp/tasks/*.ts'],
-    gulpTasksDir: join(process.cwd(), 'tools', 'gulp', 'tasks', ),
     serverConfig: ['config/**/*.ts']
+  },
+  tools: {
+    gulpFile: 'gulpfile.ts',
+    gulpTasks: 'tools/gulp/tasks/*.ts',
+    utils: 'tools/utils/*.ts',
+    tools: 'tools/**/*.ts'
   },
   dist: {
     path: 'dist',

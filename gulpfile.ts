@@ -2,14 +2,14 @@ import * as gulp from 'gulp';
 import * as util from 'gulp-util';
 import * as runSequence from 'run-sequence';
 
-import { loadTasks } from './tools/gulp/task_tools';
+import { loadTasks } from './tools/utils/task_tools';
 import * as baseAssets from './config/assets/base';
 
-loadTasks(baseAssets.config.gulpTasksDir);
+loadTasks(baseAssets.tools.gulpTasks);
 
 // Default task
 gulp.task('default', (done: any) => {
-  runSequence('tslint', done);
+  runSequence('tslint.config', done);
 });
 
 // Clean dev/coverage that will only run once

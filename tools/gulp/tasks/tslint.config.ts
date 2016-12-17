@@ -1,15 +1,18 @@
+import * as _ from 'lodash';
 import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 
-let baseAssets = require('../../../config/assets/base');
-
 const plugins = <any>gulpLoadPlugins();
+
+const baseAssets = require('../../../config/assets/base');
 
 /**
  * Executes the build process, linting the TypeScript files using `codelyzer`.
  */
 export = () => {
-  return gulp.src(baseAssets.config.serverConfig)
+  let assets = _.union(baseAssets.config.serverConfig);
+
+  return gulp.src(<string[]>assets)
     .pipe(plugins.tslint({
       formatter: 'verbose'
     }))

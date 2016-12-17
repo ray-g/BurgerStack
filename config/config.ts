@@ -3,6 +3,7 @@ import chalk = require('chalk');
 import * as glob from 'glob';
 import * as fs from 'fs';
 import * as path from 'path';
+import { getGlobbedPaths } from './tools/utils/utils';
 
 class Config {
 
@@ -12,50 +13,6 @@ class Config {
 
   private initVersion(config: any) {
     config.baymax = { 'version': this.VERSION };
-  };
-
-  /**
-  * Get files by glob patterns
-  */
-  private getGlobbedPaths(globPatterns: any, excludes: any) {
-    // URL paths regex
-    let urlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
-
-    // The output array
-    let output: any[] = [];
-
-    // If glob pattern is array then we use each pattern in a recursive way, otherwise we use glob
-    if (_.isArray(globPatterns)) {
-      globPatterns.forEach(function (globPattern) {
-        output = _.union(output, this.getGlobbedPaths(globPattern, excludes));
-      });
-    } else if (_.isString(globPatterns)) {
-      if (urlRegex.test(globPatterns)) {
-        output.push(globPatterns);
-      } else {
-        let files = glob.sync(globPatterns);
-        if (excludes) {
-          files = files.map(function (file: any) {
-            if (_.isArray(excludes)) {
-              excludes.forEach(function (item) {
-                file = file.replace(item, '');
-              });
-              for (let i in excludes) {
-                if (excludes.hasOwnProperty(i)) {
-                  file = file.replace(excludes[i], '');
-                }
-              }
-            } else {
-              file = file.replace(excludes, '');
-            }
-            return file;
-          });
-        }
-        output = _.union(output, files);
-      }
-    }
-
-    return output;
   };
 
   /**
@@ -133,31 +90,31 @@ class Config {
     };
 
     // Setting Globbed model files
-    config.files.server.mdmodels = this.getGlobbedPaths(assets.server.mdmodels, []);
-    config.files.server.pgmodels = this.getGlobbedPaths(assets.server.pgmodels, []);
+    config.files.server.mdmodels = getGlobbedPaths(assets.server.mdmodels, []);
+    config.files.server.pgmodels = getGlobbedPaths(assets.server.pgmodels, []);
 
     // Setting Globbed route files
-    config.files.server.routes = this.getGlobbedPaths(assets.server.routes, []);
+    config.files.server.routes = getGlobbedPaths(assets.server.routes, []);
 
     // Setting Globbed config files
-    config.files.server.configs = this.getGlobbedPaths(assets.server.config, []);
+    config.files.server.configs = getGlobbedPaths(assets.server.config, []);
 
     // Setting Globbed socket files
-    config.files.server.sockets = this.getGlobbedPaths(assets.server.sockets, []);
+    config.files.server.sockets = getGlobbedPaths(assets.server.sockets, []);
 
     // Setting Globbed policies files
-    config.files.server.policies = this.getGlobbedPaths(assets.server.policies, []);
+    config.files.server.policies = getGlobbedPaths(assets.server.policies, []);
 
     // Setting Globbed js files
-    config.files.client.js = this.getGlobbedPaths(assets.client.lib.js, 'client/')
-      .concat(this.getGlobbedPaths(assets.client.js, ['client/']));
+    config.files.client.js = getGlobbedPaths(assets.client.lib.js, 'client/')
+      .concat(getGlobbedPaths(assets.client.js, ['client/']));
 
     // Setting Globbed css files
-    config.files.client.css = this.getGlobbedPaths(assets.client.lib.css, 'client/')
-      .concat(this.getGlobbedPaths(assets.client.css, ['client/']));
+    config.files.client.css = getGlobbedPaths(assets.client.lib.css, 'client/')
+      .concat(getGlobbedPaths(assets.client.css, ['client/']));
 
     // Setting Globbed test files
-    config.files.client.tests = this.getGlobbedPaths(assets.client.tests, []);
+    config.files.client.tests = getGlobbedPaths(assets.client.tests, []);
   };
 
   /**
@@ -167,23 +124,23 @@ class Config {
     // Validate NODE_ENV existence
     this.validateEnvironmentVariable();
 
-    // Get the default assets
-    let defaultAssets = require(path.join(process.cwd(), 'config/assets/default'));
+    // Get the base assets
+    let baseAssets = require(path.join(process.cwd(), 'config/assets/base'));
 
     // Get the current assets
     let environmentAssets = require(path.join(process.cwd(), 'config/assets/', process.env.NODE_ENV)) || {};
 
     // Merge assets
-    let assets = _.merge(defaultAssets, environmentAssets);
+    let assets = _.merge(baseAssets, environmentAssets);
 
-    // Get the default config
-    let defaultConfig = require(path.join(process.cwd(), 'config/env/default'));
+    // Get the base config
+    let baseConfig = require(path.join(process.cwd(), 'config/env/base'));
 
     // Get the current config
     let environmentConfig = require(path.join(process.cwd(), 'config/env/', process.env.NODE_ENV)) || {};
 
     // Merge config files
-    let config = _.merge(defaultConfig, environmentConfig);
+    let config = _.merge(baseConfig, environmentConfig);
 
     // read package.json for Baymax project information
     // let pkg = require(path.resolve('./package.json'));
@@ -206,15 +163,9 @@ class Config {
     // Validate session secret
     this.validateSessionSecret(config, false);
 
-    // Expose configuration utilities
-    config.utils = {
-      getGlobbedPaths: this.getGlobbedPaths,
-      validateSessionSecret: this.validateSessionSecret
-    };
-
     return config;
   };
 };
 
-let config = new Config();
-export default config.initGlobalConfig();
+let config = new Config().initGlobalConfig();
+export default config;
