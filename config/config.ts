@@ -1,8 +1,8 @@
 import _ = require('lodash');
 import chalk = require('chalk');
-const glob = require('glob');
-const fs = require('fs');
-const path = require('path');
+import * as glob from 'glob';
+import * as fs from 'fs';
+import * as path from 'path';
 
 class Config {
 
