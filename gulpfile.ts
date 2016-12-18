@@ -2,7 +2,7 @@ import * as gulp from 'gulp';
 import * as util from 'gulp-util';
 import * as runSequence from 'run-sequence';
 
-import { loadTasks } from './tools/utils/task_tools';
+import { loadTasks } from './tools/utils';
 import * as baseAssets from './config/assets/base';
 
 loadTasks(baseAssets.tools.gulpTasks);

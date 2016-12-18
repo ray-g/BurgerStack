@@ -3,7 +3,7 @@ import chalk = require('chalk');
 import * as glob from 'glob';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getGlobbedPaths } from './tools/utils/utils';
+import { getGlobbedPaths } from './tools/utils';
 
 class Config {
 
