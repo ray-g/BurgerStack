@@ -40,7 +40,10 @@
     "no-duplicate-variable": true,
     "no-empty": false,
     "no-eval": true,
-    "no-inferrable-types": true,
+    "no-inferrable-types": [
+      true,
+      "ignore-params"
+    ],
     "no-shadowed-variable": true,
     "no-string-literal": false,
     "no-switch-case-fall-through": true,
@@ -71,8 +74,7 @@
       "allow-null-check"
     ],
     "typedef-whitespace": [
-      true,
-      {
+      true, {
         "call-signature": "nospace",
         "index-signature": "nospace",
         "parameter": "nospace",
