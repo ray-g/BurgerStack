@@ -3,14 +3,16 @@
     "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
+    // "lib": ["es6", "es2015", "dom"],
+    // "noLib": false,
+    "compileOnSave": false,
     "declaration": false,
     "removeComments": true,
-    "noLib": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "lib": ["es6", "es2015", "dom"],
+    "newLine": "LF",
     "sourceMap": true,
     "pretty": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "noImplicitAny": true,
@@ -32,8 +34,6 @@
   },
   "exclude": [
     "node_modules",
-    "dist",
-    "src"
-  ],
-  "compileOnSave": false
+    "dist"
+  ]
 }

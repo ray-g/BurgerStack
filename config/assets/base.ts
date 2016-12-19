@@ -59,6 +59,9 @@ const BaseAssets = {
   },
   dist: {
     path: 'dist',
+    config: 'dist/config',
+    server: 'dist/server',
+    client: 'dist/client',
     npm_relative: '../node_modules',
     all: ['dist/**/*.js'],
     entry: 'dist/server.js',
