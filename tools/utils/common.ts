@@ -44,3 +44,11 @@ export function getGlobbedPaths(globPatterns: any, excludes: any): any[] {
 
   return output;
 };
+
+/**
+  * Wrapper lodash.union to return a string[] to pass to a gulp.src.
+  * To avoid error: cannot assign {}[] to string[].
+  */
+export function assetsUnion(...args: any[]): string[] {
+  return <string[]>_.union(...args);
+}
