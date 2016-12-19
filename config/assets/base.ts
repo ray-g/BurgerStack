@@ -53,7 +53,7 @@ const BaseAssets = {
   },
   tools: {
     gulpFile: 'gulpfile.ts',
-    gulpTasks: 'tools/gulp/tasks/*.ts',
+    gulpTasks: 'tools/gulp/tasks/!(_)*.ts',
     utils: 'tools/utils/*.ts',
     tools: 'tools/**/*.ts'
   },
