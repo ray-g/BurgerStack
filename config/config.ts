@@ -3,7 +3,7 @@ import chalk = require('chalk');
 import * as glob from 'glob';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getGlobbedPaths } from './tools/utils';
+import { getGlobbedPaths } from '../tools/utils';
 
 class Config {
 
@@ -40,7 +40,7 @@ class Config {
    * Validate Secure=true parameter can actually be turned on
    * because it requires certs and key files to be available
    */
-  private validateSecureMode(config: any) {
+  private validateSecureMode(config: any): boolean {
 
     if (!config.secure || config.secure.ssl !== true) {
       return true;
@@ -54,7 +54,9 @@ class Config {
       console.log(chalk.red('  To create them, simply run the following from your shell: sh ./scripts/generate-ssl-certs.sh'));
       console.log();
       config.secure.ssl = false;
+      return false;
     }
+    return true;
   };
 
   /**

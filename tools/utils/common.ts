@@ -14,7 +14,7 @@ export function getGlobbedPaths(globPatterns: any, excludes: any): any[] {
   // If glob pattern is array then we use each pattern in a recursive way, otherwise we use glob
   if (_.isArray(globPatterns)) {
     globPatterns.forEach(function (globPattern) {
-      output = _.union(output, this.getGlobbedPaths(globPattern, excludes));
+      output = _.union(output, getGlobbedPaths(globPattern, excludes));
     });
   } else if (_.isString(globPatterns)) {
     if (urlRegex.test(globPatterns)) {
