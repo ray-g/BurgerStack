@@ -14,9 +14,15 @@ export = () => {
 
   return gulp.src(assets)
     .pipe(plugins.tslint({
-      formatter: 'verbose'
+      formatter: 'verbose',
+      rulesDirectory: customRules()
     }))
     .pipe(plugins.tslint.report({
       emitError: require('is-ci')
     }));
 };
+
+function customRules(): string[] {
+  let lintConf = require('../../../tslint.json');
+  return lintConf.rulesDirectory;
+}
