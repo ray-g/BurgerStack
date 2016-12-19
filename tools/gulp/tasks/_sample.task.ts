@@ -11,6 +11,6 @@ const plugins = <any>gulpLoadPlugins();
 export = () => {
   // Write your own tasks here.
   return gulp.src('/not_exist_src')
-  .pipe(gulp.dest('/not_exist_dest'))
-  .pipe(plugins.util.log(plugins.util.yellow('This is a sample task')));
+    .pipe(gulp.dest('/not_exist_dest'))
+    .pipe(plugins.util.log(plugins.util.yellow('This is a sample task')));
 };
