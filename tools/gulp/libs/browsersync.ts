@@ -44,6 +44,7 @@ export class BrowserSync {
   public delayReload() {
     if (this.browserSync) {
       setTimeout(function () {
+        console.log('File changed, refreshing browser...');
         this.browserSync.reload({ stream: false });
       }, config.browserSync.delayReload);
     }
