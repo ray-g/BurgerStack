@@ -44,9 +44,7 @@ const DevelopmentEnv = {
     title: BaseEnv.app.title + ' - Development Environment'
   },
   browserSync: {
-    enabled: true,
-    browser: 'default',
-    logFileChanges: false,
+    enable: true,
     port: 7000
   }
 };
