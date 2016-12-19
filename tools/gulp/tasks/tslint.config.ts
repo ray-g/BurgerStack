@@ -9,7 +9,7 @@ const baseAssets = require('../../../config/assets/base');
 export = () => {
   let assets = assetsUnion(baseAssets.config.serverConfig);
 
-  TSLinter.getInstance().check(assets);
+  return TSLinter.getInstance().check(assets);
 };
 
 
