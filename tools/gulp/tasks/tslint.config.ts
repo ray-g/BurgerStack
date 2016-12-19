@@ -1,8 +1,5 @@
-import * as gulp from 'gulp';
-import * as gulpLoadPlugins from 'gulp-load-plugins';
+import { TSLinter } from '../libs/tslinter';
 import { assetsUnion } from '../../utils';
-
-const plugins = <any>gulpLoadPlugins();
 
 const baseAssets = require('../../../config/assets/base');
 
@@ -12,17 +9,7 @@ const baseAssets = require('../../../config/assets/base');
 export = () => {
   let assets = assetsUnion(baseAssets.config.serverConfig);
 
-  return gulp.src(assets)
-    .pipe(plugins.tslint({
-      formatter: 'verbose',
-      rulesDirectory: customRules()
-    }))
-    .pipe(plugins.tslint.report({
-      emitError: require('is-ci')
-    }));
+  TSLinter.getInstance().check(assets);
 };
 
-function customRules(): string[] {
-  let lintConf = require('../../../tslint.json');
-  return lintConf.rulesDirectory;
-}
+
