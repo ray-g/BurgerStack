@@ -5,11 +5,28 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { getGlobbedPaths } from '../tools/utils';
 
-class Config {
+export class Config {
+
+  private static _instance: Config = new Config();
 
   private VERSION = '0.0.1';
+  private config: any = {};
 
-  constructor() { };
+  public static getInstance(): Config {
+    return Config._instance;
+  }
+
+  constructor() {
+    if (Config._instance) {
+      throw new Error('Error: Instantiation failed: Use Config.getInstance() instead of new.');
+    }
+    this.config = this.initGlobalConfig();
+    Config._instance = this;
+  }
+
+  public getConfig() {
+    return this.config;
+  }
 
   private initVersion(config: any) {
     config.baymax = { 'version': this.VERSION };
@@ -55,8 +72,9 @@ class Config {
       console.log();
       config.secure.ssl = false;
       return false;
+    } else {
+      return true;
     }
-    return true;
   };
 
   /**
@@ -168,6 +186,3 @@ class Config {
     return config;
   };
 };
-
-let config = new Config().initGlobalConfig();
-export default config;
