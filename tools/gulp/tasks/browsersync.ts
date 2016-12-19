@@ -11,9 +11,8 @@ export = () => {
     console.log(browserSync);
     browserSync.init(null, {
       proxy: server,
-      // logLevel: 'silent',
       logFileChanges: false,
-      files: [], // defaultAssets.dist.clientAll,
+      files: [],
       browser: 'default',
       port: config.browserSync.port,
       open: false
