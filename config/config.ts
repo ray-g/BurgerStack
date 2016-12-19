@@ -140,7 +140,7 @@ export class Config {
   /**
   * Initialize global configuration
   */
-  public initGlobalConfig() {
+  private initGlobalConfig() {
     // Validate NODE_ENV existence
     this.validateEnvironmentVariable();
 
