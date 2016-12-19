@@ -45,7 +45,8 @@ const DevelopmentEnv = {
   },
   browserSync: {
     enable: true,
-    port: 7000
+    port: 7000,
+    delayReload: 3000 // delay 3 seconds waiting for nodemon to finish restart.
   }
 };
 

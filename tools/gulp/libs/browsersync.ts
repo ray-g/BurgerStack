@@ -45,7 +45,7 @@ export class BrowserSync {
     if (this.browserSync) {
       setTimeout(function () {
         this.browserSync.reload({ stream: false });
-      }, 3000); // delay 3 seconds due to node restart.
+      }, config.browserSync.delayReload);
     }
   }
 
