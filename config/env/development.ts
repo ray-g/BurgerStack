@@ -43,7 +43,12 @@ const DevelopmentEnv = {
   app: {
     title: BaseEnv.app.title + ' - Development Environment'
   },
-  browserSync: true
+  browserSync: {
+    enabled: true,
+    browser: 'default',
+    logFileChanges: false,
+    port: 7000
+  }
 };
 
 export = DevelopmentEnv;
