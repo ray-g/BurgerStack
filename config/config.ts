@@ -1,5 +1,5 @@
-import _ = require('lodash');
-import chalk = require('chalk');
+import * as _ from 'lodash';
+import * as chalk from 'chalk';
 import * as glob from 'glob';
 import * as fs from 'fs';
 import * as path from 'path';
