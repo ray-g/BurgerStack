@@ -13,6 +13,10 @@ export class TSLinter {
     return TSLinter._instance;
   }
 
+  public static check(srcAssets: string[]) {
+    return TSLinter._instance.check(srcAssets);
+  }
+
   constructor() {
     if (TSLinter._instance) {
       throw new Error('Error: Instantiation failed: Use TSLinter.getInstance() instead of new.');
