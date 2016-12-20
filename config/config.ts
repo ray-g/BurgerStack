@@ -10,22 +10,26 @@ export class Config {
   private static _instance: Config = new Config();
 
   private VERSION = '0.0.1';
-  private config: any = {};
+  private _config: any = {};
 
   public static getInstance(): Config {
     return Config._instance;
+  }
+
+  public static config() {
+    return Config._instance.getConfig();
   }
 
   constructor() {
     if (Config._instance) {
       throw new Error('Error: Instantiation failed: Use Config.getInstance() instead of new.');
     }
-    this.config = this.initGlobalConfig();
+    this._config = this.initGlobalConfig();
     Config._instance = this;
   }
 
   public getConfig() {
-    return this.config;
+    return this._config;
   }
 
   private initVersion(config: any) {

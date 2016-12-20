@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as winston from 'winston';
 import { Config } from '../config';
 
-let config = Config.getInstance().getConfig();
+let config = Config.config();
 
 // list of valid formats for the logging
 const VALID_FORMATS = ['combined', 'common', 'dev', 'short', 'tiny'];

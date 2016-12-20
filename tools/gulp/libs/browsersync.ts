@@ -1,7 +1,7 @@
 import { Config } from '../../../config/config';
 import * as browserSync from 'browser-sync';
 
-const config = <any>Config.getInstance().getConfig();
+const config = Config.config();
 
 export class BrowserSync {
   private static _instance: BrowserSync = new BrowserSync();
