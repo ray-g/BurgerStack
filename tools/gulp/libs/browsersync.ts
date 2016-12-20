@@ -12,6 +12,18 @@ export class BrowserSync {
     return BrowserSync._instance;
   }
 
+  public static startServer(): void {
+    BrowserSync._instance.startServer();
+  }
+
+  public static delayReload(): void {
+    BrowserSync._instance.delayReload();
+  }
+
+  public static reload(): void {
+    BrowserSync._instance.reload();
+  }
+
   constructor() {
     if (BrowserSync._instance) {
       throw new Error('Error: Instantiation failed: Use BrowserSync.getInstance() instead of new.');
