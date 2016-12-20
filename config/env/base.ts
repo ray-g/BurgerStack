@@ -23,7 +23,11 @@ const BaseEnv = {
   // sessionKey is set to the generic sessionId key used by PHP applications
   // for obsecurity reasons
   sessionKey: 'sessionId',
-  sessionCollection: 'sessions',
+  // sessionStorage is to specify where to store sessions.
+  // There are 3 options: 'mongodb', 'postgresql', 'redis'.
+  // 'redis' is the default option.
+  sessionStorage: 'redis',
+  sessionStoreName: 'BurgerStackSessions',
   // Lusca config
   csrf: {
     csrf: false,
