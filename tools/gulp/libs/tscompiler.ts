@@ -16,6 +16,10 @@ export class TSCompiler {
     return TSCompiler._instance;
   }
 
+  public static compile(srcAssets: string[], destDir: string) {
+    return TSCompiler._instance.compile(srcAssets, destDir);
+  }
+
   constructor() {
     if (TSCompiler._instance) {
       throw new Error('Error: Instantiation failed: Use TSCompiler.getInstance() instead of new.');
@@ -23,7 +27,7 @@ export class TSCompiler {
     TSCompiler._instance = this;
   }
 
-  public compile(srcAssets: string[], destDir: string) {
+  private compile(srcAssets: string[], destDir: string) {
     let tsProject: any;
     let typings = gulp.src([
       './tools/manual_typings/**/*.d.ts'
