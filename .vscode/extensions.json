@@ -12,6 +12,7 @@
     "donjayamanne.githistory",
     "robinbentley.sass-indented",
     "robertohuertasm.vscode-icons",
-    "alefragnani.project-manager"
+    "alefragnani.project-manager",
+    "formulahendry.code-runner"
 	]
 }
