@@ -1,4 +1,4 @@
-# Dockers to run WARMPET
+# Dockers to run BurgerStack
 
 Depends on docker and docker-compose
 

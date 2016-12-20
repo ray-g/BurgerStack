@@ -2,10 +2,11 @@
 *.log.*
 node_modules/
 .sass-cache
+.netrc
 release/
 dist/
 
-# WARMPET Ignored
+# BurgerStack Ignored
 docker-env/mongo
 docker-env/postgres/data
 docker-env/redis/data
