@@ -11,6 +11,7 @@ import flash = require('connect-flash');
 import { Express, Request, Response } from 'express';
 import { Config } from '../config';
 import { Logger } from './logger';
+import { SocketIO } from './socket.io';
 let express = require('express');
 let session = require('express-session');
 let consolidate = require('consolidate');
@@ -170,7 +171,6 @@ export class ExpressServer {
    */
   private initSession(app: Express, db: any) {
     // Express MongoDB session storage
-    console.log(config);
     app.use(session({
       saveUninitialized: true,
       resave: true,
@@ -282,7 +282,7 @@ export class ExpressServer {
    */
   private configureSocketIO(app: Express, db: any) {
     // Load the Socket.io configuration
-    let server = require('./socket.io')(app, db);
+    let server = SocketIO.startServer(app, db);
 
     // Return server object
     return server;
