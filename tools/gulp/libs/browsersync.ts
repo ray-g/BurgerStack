@@ -1,7 +1,11 @@
-import { Config } from '../../../config/config';
+import * as baseEnv from '../../../config/env/base';
 import * as browserSync from 'browser-sync';
 
-const config = Config.config();
+const bsConf = {
+  enable: true,
+  port: 7000,
+  delayReload: 3000 // delay 3 seconds waiting for nodemon to finish restart.
+};
 
 export class BrowserSync {
   private static _instance: BrowserSync = new BrowserSync();
@@ -33,21 +37,21 @@ export class BrowserSync {
   }
 
   private initBrowserSync() {
-    if (config.browserSync && config.browserSync.enable === true) {
+    if (bsConf.enable === true) {
       this.browserSync = browserSync.create();
     }
   }
 
   public startServer() {
     if (this.browserSync) {
-      let server = (process.env.NODE_ENV === 'secure' ? 'https://' : 'http://') + config.host + ':' + config.port;
+      let server = (process.env.NODE_ENV === 'secure' ? 'https://' : 'http://') + baseEnv.host + ':' + baseEnv.port;
 
       this.browserSync.init(null, {
         proxy: server,
         logFileChanges: false,
         files: [],
         browser: 'default',
-        port: config.browserSync.port,
+        port: bsConf.port,
         open: false
       });
     }
@@ -58,7 +62,7 @@ export class BrowserSync {
       setTimeout(function () {
         console.log('File changed, refreshing browser...');
         this.browserSync.reload({ stream: false });
-      }, config.browserSync.delayReload);
+      }, bsConf.delayReload);
     }
   }
 

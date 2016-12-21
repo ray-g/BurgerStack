@@ -42,11 +42,6 @@ const DevelopmentEnv = {
   },
   app: {
     title: BaseEnv.app.title + ' - Development Environment'
-  },
-  browserSync: {
-    enable: true,
-    port: 7000,
-    delayReload: 3000 // delay 3 seconds waiting for nodemon to finish restart.
   }
 };
 
