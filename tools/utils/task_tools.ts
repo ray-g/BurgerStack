@@ -4,7 +4,7 @@ import * as util from 'gulp-util';
 import * as isstream from 'isstream';
 import * as tildify from 'tildify';
 import { resolve } from 'path';
-import { getGlobbedPaths } from './common';
+import { getGlobbedPaths } from '../../config/utils/common';
 
 /**
  * Loads the tasks within the given path.

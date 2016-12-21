@@ -3,13 +3,13 @@ import * as chalk from 'chalk';
 import * as glob from 'glob';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getGlobbedPaths } from '../tools/utils';
+import { getGlobbedPaths } from './utils/common';
 
 export class Config {
 
   private static _instance: Config = new Config();
 
-  private VERSION = '0.0.1';
+  private static VERSION = '0.0.1';
   private _config: any = {};
 
   public static getInstance(): Config {
@@ -31,10 +31,6 @@ export class Config {
   public getConfig() {
     return this._config;
   }
-
-  private initVersion(config: any) {
-    config.baymax = { 'version': this.VERSION };
-  };
 
   /**
    * Validate NODE_ENV existence
@@ -90,7 +86,7 @@ export class Config {
       return true;
     }
 
-    if (config.sessionSecret === 'Baymax') {
+    if (config.sessionSecret === 'BurgerStack') {
       if (!testing) {
         console.log(chalk.red('+ WARNING: It is strongly recommended that you change sessionSecret config while running in production!'));
         console.log(chalk.red('  Please add `sessionSecret: process.env.SESSION_SECRET || \'super amazing secret\'` to '));
@@ -166,10 +162,8 @@ export class Config {
     // Merge config files
     let config = _.merge(baseConfig, environmentConfig);
 
-    // read package.json for Baymax project information
-    // let pkg = require(path.resolve('./package.json'));
-    // config.baymax = pkg;
-    this.initVersion(config);
+    let version = {app: {version: Config.VERSION}};
+    config = _.merge(config, version);
 
     // Extend the config object with the local-NODE_ENV.js custom/local environment.
     // This will override any settings present in the local configuration.
