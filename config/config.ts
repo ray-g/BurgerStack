@@ -100,6 +100,20 @@ export class Config {
   };
 
   /**
+ * Initialize global configuration files
+ */
+  initGlobalConfigFolders(config: any, assets: any) {
+    // Appending files
+    config.folders = {
+      server: {},
+      client: {}
+    };
+
+    // Setting globbed client paths
+    config.folders.client = getGlobbedPaths(path.join(process.cwd(), 'modules/*/client/'), process.cwd().replace(new RegExp(/\\/g), '/'));
+  };
+
+  /**
    * Initialize global configuration files
    */
   private initGlobalConfigFiles(config: any, assets: any) {
@@ -162,7 +176,7 @@ export class Config {
     // Merge config files
     let config = _.merge(baseConfig, environmentConfig);
 
-    let version = {app: {version: Config.VERSION}};
+    let version = { app: { version: Config.VERSION } };
     config = _.merge(config, version);
 
     // Extend the config object with the local-NODE_ENV.js custom/local environment.
@@ -174,6 +188,9 @@ export class Config {
 
     // Initialize global globbed files
     this.initGlobalConfigFiles(config, assets);
+
+    // Initialize global globbed folders
+    this.initGlobalConfigFolders(config, assets);
 
     // Validate Secure SSL mode can be used
     this.validateSecureMode(config);
