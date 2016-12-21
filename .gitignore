@@ -7,6 +7,7 @@ release/
 dist/
 
 # BurgerStack Ignored
+config/env/local-*.ts
 docker-env/mongo
 docker-env/postgres/data
 docker-env/redis/data
