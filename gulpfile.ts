@@ -11,13 +11,21 @@ loadTasks(baseAssets.tools.gulpTasks);
 
 // Default task
 gulp.task('default', (done: any) => {
-  runSequence('tslint.config', done);
+  runSequence('tslint', done);
 });
 
 // Watch Files For Changes
 let onChange = (event: any) => {
   console.log('File ' + event.path + ' was ' + event.type);
 };
+
+gulp.task('compile', (done: any) => {
+  runSequence(['compile.config', 'compile.server', 'compile.client'], done);
+});
+
+gulp.task('tslint', (done: any) => {
+  runSequence(['tslint.config', 'tslint.server', 'tslint.client'], done);
+})
 
 gulp.task('watch', () => {
   // Add watch rules
