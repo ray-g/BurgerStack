@@ -39,6 +39,7 @@ const BaseAssets = {
   },
   server: {
     ts: ['server/!(typings)/**/*.ts', 'server.ts'],
+    entry: 'server.ts',
     runtime: {
       postgresModels: 'server/modules/*/pgmodels/**/*.js',
       mongodbModels: 'server/modules/*/mdmodels/**/*.js',
@@ -49,7 +50,7 @@ const BaseAssets = {
     }
   },
   config: {
-    serverConfig: ['config/**/*.ts']
+    serverConfig: ['config/**/*.ts'],
   },
   tools: {
     gulpFile: 'gulpfile.ts',
@@ -60,7 +61,7 @@ const BaseAssets = {
   dist: {
     path: 'dist',
     config: 'dist/config',
-    server: 'dist/server',
+    server: 'dist',
     client: 'dist/client',
     npm_relative: '../node_modules',
     all: ['dist/**/*.js'],
