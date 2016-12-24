@@ -15,7 +15,7 @@ import { SocketIO } from './socket.io';
 import { Databases } from './databases';
 let express = require('express');
 let session = require('express-session');
-let consolidate = require('consolidate');
+let hbs = require('express-hbs');
 let lusca = require('lusca');
 let config = Config.config();
 
@@ -158,12 +158,14 @@ export class ExpressServer {
    * Configure view engine
    */
   private initViewEngine(app: Express) {
-    // Set swig as the template engine
-    app.engine('html', consolidate[config.templateEngine]);
+    // Set views path and view engine
+    app.engine('.html', hbs.express4({
+      extname: '.html'
+    }));
 
     // Set views path and view engine
     app.set('view engine', 'html');
-    app.set('views', './');
+    app.set('views', path.resolve('./'));
   };
 
   /**

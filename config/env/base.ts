@@ -5,7 +5,6 @@ const BaseEnv = {
   },
   port: process.env.PORT || 3000,
   host: process.env.HOST || '0.0.0.0',
-  templateEngine: 'swig',
   // Session Cookie settings
   sessionCookie: {
     // session expiration is set by default to 24 hours
