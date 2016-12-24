@@ -1,6 +1,5 @@
 import * as chalk from 'chalk';
-import { Mongoose } from './mongoose';
-import { PostgreSql } from './postgresql';
+import { Databases } from './databases';
 import { ExpressServer } from './express';
 import { Config } from '../config';
 
@@ -38,7 +37,7 @@ export class AppServer {
         console.log();
         console.log(chalk.green('Environment:     ' + process.env.NODE_ENV));
         console.log(chalk.green('Server:          ' + server));
-        console.log(chalk.green('PostgreSQL:      ' + PostgreSql.getUri()));
+        console.log(chalk.green('PostgreSQL:      ' + Databases.getPostgreSql().getUri()));
         console.log(chalk.green('MongoDB:         ' + conf.mongo.uri));
         console.log(chalk.green('App version:     ' + conf.app.version));
         console.log('--');
@@ -47,20 +46,12 @@ export class AppServer {
   }
 
   private init(callback: Function): void {
-    PostgreSql.connect((conn: any) => {
-      PostgreSql.getSequelize()
-        .sync({
-          force: config.postgres.sync.force
-        })
-        .then(() => {
-          Mongoose.connect((db: any) => {
-            // Initialize express
-            let app = ExpressServer.init(db);
-            if (callback) {
-              callback(app, db, config);
-            }
-          });
-        });
+    Databases.connect((db: any) => {
+      // Initialize express
+      let app = ExpressServer.init(db);
+      if (callback) {
+        callback(app, db, config);
+      }
     });
   }
 }

@@ -12,11 +12,11 @@ import { Express, Request, Response } from 'express';
 import { Config } from '../config';
 import { Logger } from './logger';
 import { SocketIO } from './socket.io';
+import { Databases } from './databases';
 let express = require('express');
 let session = require('express-session');
 let consolidate = require('consolidate');
 let lusca = require('lusca');
-let MongoStore = require('connect-mongo')(session);
 let config = Config.config();
 
 export class ExpressServer {
@@ -181,10 +181,7 @@ export class ExpressServer {
         secure: config.sessionCookie.secure && config.secure.ssl
       },
       key: config.sessionKey,
-      store: new MongoStore({
-        mongooseConnection: db.connection,
-        collection: config.sessionCollection
-      })
+      store: Databases.getSessionStore(db)
     }));
 
     // Add Lusca CSRF Middleware

@@ -7,10 +7,9 @@ import * as passport from 'passport';
 import * as socketio from 'socket.io';
 import { Express, Response } from 'express';
 
+import { Databases } from './databases';
 import { Config } from '../config';
 
-let expressSession = require('express-session');
-let MongoStore = require('connect-mongo')(expressSession);
 let config = Config.config();
 
 export class SocketIO {
@@ -68,10 +67,7 @@ export class SocketIO {
     let io = socketio.listen(server);
 
     // Create a MongoDB storage object
-    let mongoStore = new MongoStore({
-      mongooseConnection: db.connection,
-      collection: config.sessionCollection
-    });
+    let mongoStore = Databases.getSessionStore(db);
 
     // Intercept Socket.io's handshake request
     io.use((socket, next: any) => {
