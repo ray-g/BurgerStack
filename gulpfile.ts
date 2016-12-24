@@ -25,7 +25,7 @@ gulp.task('compile', (done: any) => {
 
 gulp.task('tslint', (done: any) => {
   runSequence(['tslint.config', 'tslint.server', 'tslint.client'], done);
-})
+});
 
 gulp.task('watch', () => {
   // Add watch rules
