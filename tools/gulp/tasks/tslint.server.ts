@@ -1,5 +1,5 @@
 import { TSLinter } from '../libs/tslinter';
-import { assetsUnion } from '../../utils';
+import { assetsUnion } from '../../../config/utils';
 
 const baseAssets = require('../../../config/assets/base');
 
