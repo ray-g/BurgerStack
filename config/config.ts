@@ -9,7 +9,6 @@ export class Config {
 
   private static _instance: Config = new Config();
 
-  private static VERSION = '0.0.1';
   private _config: any = {};
 
   public static getInstance(): Config {
@@ -175,9 +174,6 @@ export class Config {
 
     // Merge config files
     let config = _.merge(baseConfig, environmentConfig);
-
-    let version = { app: { version: Config.VERSION } };
-    config = _.merge(config, version);
 
     // Extend the config object with the local-NODE_ENV.js custom/local environment.
     // This will override any settings present in the local configuration.
