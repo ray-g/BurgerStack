@@ -26,8 +26,8 @@ export class ExpressServer {
     return ExpressServer._instance;
   }
 
-  public static init(db: any): Express {
-    return ExpressServer._instance.init(db);
+  public static init(): Express {
+    return ExpressServer._instance.init();
   }
 
   constructor() {
@@ -40,7 +40,7 @@ export class ExpressServer {
   /**
  * Initialize the Express application
  */
-  private init(db: any): Express {
+  private init(): Express {
     // Initialize express app
     let app = express();
 
@@ -63,10 +63,10 @@ export class ExpressServer {
     this.init3rdModulesStatics(app);
 
     // Initialize Express session
-    this.initSession(app, db);
+    this.initSession(app);
 
     // Initialize Modules configuration
-    this.initModulesConfiguration(app, {});
+    this.initModulesConfiguration(app);
 
     // Initialize modules server authorization policies
     this.initModulesServerPolicies(app);
@@ -78,7 +78,7 @@ export class ExpressServer {
     this.initErrorRoutes(app);
 
     // Configure Socket.io
-    app = this.configureSocketIO(app, db);
+    app = this.configureSocketIO(app);
 
     return app;
   };
@@ -171,7 +171,7 @@ export class ExpressServer {
   /**
    * Configure Express session
    */
-  private initSession(app: Express, db: any) {
+  private initSession(app: Express) {
     // Express MongoDB session storage
     app.use(session({
       saveUninitialized: true,
@@ -183,7 +183,7 @@ export class ExpressServer {
         secure: config.sessionCookie.secure && config.secure.ssl
       },
       key: config.sessionKey,
-      store: Databases.getSessionStore(db)
+      store: Databases.getSessionStore()
     }));
 
     // Add Lusca CSRF Middleware
@@ -193,9 +193,9 @@ export class ExpressServer {
   /**
    * Invoke modules server configuration
    */
-  private initModulesConfiguration(app: Express, db: any) {
+  private initModulesConfiguration(app: Express) {
     config.files.server.configs.forEach((configPath: string) => {
-      require(path.resolve(configPath))(app, db);
+      require(path.resolve(configPath))(app);
     });
   };
 
@@ -279,9 +279,9 @@ export class ExpressServer {
   /**
    * Configure Socket.io
    */
-  private configureSocketIO(app: Express, db: any) {
+  private configureSocketIO(app: Express) {
     // Load the Socket.io configuration
-    let server = SocketIO.startServer(app, db);
+    let server = SocketIO.startServer(app);
 
     // Return server object
     return server;

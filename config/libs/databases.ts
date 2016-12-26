@@ -11,15 +11,19 @@ export class Databases {
   private static _instance: Databases = new Databases();
 
   public static session = require('express-session');
+  public static postgresDB: any = {};
+  public static mongoDB: any = {};
 
   public static connect(connectCB: Function): void {
     PostgreSql.connect((conn: any) => {
+      Databases.postgresDB = conn;
       PostgreSql.getSequelize()
         .sync({
           force: config.postgres.sync.force
         })
         .then(() => {
           Mongoose.connect((db: any) => {
+            Databases.mongoDB = db;
             if (connectCB) {
               connectCB(db);
             }
@@ -36,9 +40,9 @@ export class Databases {
 
   }
 
-  public static getSessionStore(db: any) {
+  public static getSessionStore() {
     return new MongoStore({
-        mongooseConnection: db.connection,
+        mongooseConnection: Databases.mongoDB.connection,
         collection: config.sessionCollection
       });
   }

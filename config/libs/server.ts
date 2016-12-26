@@ -48,7 +48,7 @@ export class AppServer {
   private init(callback: Function): void {
     Databases.connect((db: any) => {
       // Initialize express
-      let app = ExpressServer.init(db);
+      let app = ExpressServer.init();
       if (callback) {
         callback(app, db, config);
       }

@@ -19,7 +19,7 @@ export class SocketIO {
     return SocketIO._instance;
   }
 
-  public static startServer(app: Express, db: any) {
+  public static startServer(app: Express) {
     let server;
     if (config.secure && config.secure.ssl === true) {
       // Load SSL key and certificate
@@ -67,7 +67,7 @@ export class SocketIO {
     let io = socketio.listen(server);
 
     // Create a MongoDB storage object
-    let mongoStore = Databases.getSessionStore(db);
+    let mongoStore = Databases.getSessionStore();
 
     // Intercept Socket.io's handshake request
     io.use((socket, next: any) => {
