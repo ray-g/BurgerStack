@@ -38,7 +38,7 @@ export class AppServer {
         console.log(chalk.green('Environment:     ' + process.env.NODE_ENV));
         console.log(chalk.green('Server:          ' + server));
         console.log(chalk.green('PostgreSQL:      ' + Databases.getPostgreSql().getUri()));
-        console.log(chalk.green('MongoDB:         ' + conf.mongo.uri));
+        console.log(chalk.green('MongoDB:         ' + conf.mongodb.uri));
         console.log(chalk.green('App version:     ' + conf.app.version));
         console.log('--');
       });

@@ -25,7 +25,7 @@ export class Mongoose {
   }
 
   public static connect(callback: Function): void {
-    let db = mongoose.connect(config.mongo.uri, config.mongo.options, function (err) {
+    let db = mongoose.connect(config.mongodb.uri, config.mongodb.options, function (err) {
       // Log Error
       if (err) {
         console.error(chalk.red('Could not connect to MongoDB!'));
@@ -33,7 +33,7 @@ export class Mongoose {
       } else {
 
         // Enabling mongoose debug mode if required
-        mongoose.set('debug', config.mongo.debug);
+        mongoose.set('debug', config.mongodb.debug);
 
         // Call callback FN
         if (callback) {

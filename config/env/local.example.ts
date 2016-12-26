@@ -13,7 +13,7 @@
 // local-production.js
 //
 
-/* For example (Development):
+/* For example (Development):*/
 
 const LocalEnv = {
   postgres: {
@@ -34,4 +34,4 @@ const LocalEnv = {
 };
 
 export = LocalEnv;
-*/
+
