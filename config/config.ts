@@ -35,7 +35,7 @@ export class Config {
    * Validate NODE_ENV existence
    */
   private validateEnvironmentVariable() {
-    let environmentFiles = glob.sync('./config/env/' + process.env.NODE_ENV + '.js');
+    let environmentFiles = glob.sync('./config/env/' + process.env.NODE_ENV + '.(j|t)s');
     console.log();
     if (!environmentFiles.length) {
       if (process.env.NODE_ENV) {
@@ -181,6 +181,14 @@ export class Config {
       config,
       (fs.existsSync(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.js'))
         && require(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.js'))) || {});
+
+    if (process.env.NODE_ENV === 'development') {
+      config = _.merge(
+        config,
+        (fs.existsSync(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.ts'))
+          && require(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.ts'))) || {});
+
+    }
 
     // Initialize global globbed files
     this.initGlobalConfigFiles(config, assets);
