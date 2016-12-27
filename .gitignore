@@ -5,6 +5,7 @@ node_modules/
 .netrc
 release/
 dist/
+sandbox/
 
 # BurgerStack Ignored
 config/env/local-*.ts
