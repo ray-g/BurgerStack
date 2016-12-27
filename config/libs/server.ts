@@ -23,35 +23,27 @@ export class AppServer {
     AppServer._instance = this;
   }
 
-  private start() {
-    this.init((app: any, db: any, conf: any) => {
-      // Start the app by listening on <port> at <host>
-      app.listen(conf.port, conf.host, () => {
-        // Create server URL
-        let server = (process.env.NODE_ENV === 'secure' ? 'https://' : 'http://') + conf.host + ':' + conf.port;
-
-        // Logging initialization
-        console.log('--');
-        console.log(chalk.green(conf.app.title));
-        console.log();
-        console.log(chalk.green('Environment:     ' + process.env.NODE_ENV));
-        console.log(chalk.green('Server:          ' + server));
-        console.log(chalk.green('PostgreSQL:      ' + Databases.getPostgreSql().getUri()));
-        console.log(chalk.green('MongoDB:         ' + conf.mongodb.uri));
-        console.log(chalk.green('App version:     ' + conf.app.version));
-        console.log('--');
-      });
-    });
-  }
-
-  private init(callback: Function): void {
+  private start(): void {
     Databases.connect()
-      .then((db) => {
+      .then(() => {
         // Initialize express
         let app = ExpressServer.init();
-        if (callback) {
-          callback(app, db, config);
-        }
+
+        app.listen(config.port, config.host, () => {
+          // Create server URL
+          let serverUrl = (process.env.NODE_ENV === 'secure' ? 'https://' : 'http://') + config.host + ':' + config.port;
+
+          // Logging initialization
+          console.log('--');
+          console.log(chalk.green(config.app.title));
+          console.log();
+          console.log(chalk.green('Environment:     ' + process.env.NODE_ENV));
+          console.log(chalk.green('Server:          ' + serverUrl));
+          console.log(chalk.green('PostgreSQL:      ' + Databases.getPostgreSql().getUri()));
+          console.log(chalk.green('MongoDB:         ' + config.mongodb.uri));
+          console.log(chalk.green('App version:     ' + config.app.version));
+          console.log('--');
+        });
       })
       .catch((err) => {
         console.log(chalk.red(err));
