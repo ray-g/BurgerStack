@@ -2,9 +2,6 @@ import { Mongoose } from './mongoose';
 import { PostgreSql } from './postgresql';
 import { Config } from '../config';
 
-let session = require('express-session');
-let MongoStore = require('connect-mongo')(session);
-
 const config = Config.config();
 
 export class Databases {
@@ -54,10 +51,19 @@ export class Databases {
   }
 
   public static getSessionStore() {
-    return new MongoStore({
-      mongooseConnection: Databases.mongoDB.connection,
-      collection: config.sessionCollection
-    });
+    switch (config.sessionStorage) {
+      case 'mongodb':
+        let MongoStore = require('connect-mongo')(Databases.session);
+        return new MongoStore({
+          mongooseConnection: Databases.mongoDB.connection,
+          collection: config.sessionCollection
+        });
+      case 'postgresql':
+        return null;
+      default:
+        return new Error('Invalid session stroage type');
+    }
+
   }
 
   public static getPostgreSql() {
