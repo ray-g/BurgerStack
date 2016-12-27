@@ -26,7 +26,7 @@ const BaseEnv = {
   // sessionStorage is to specify where to store sessions.
   // There are 3 options: 'mongodb', 'postgresql', 'redis'.
   // 'redis' is the default option.
-  sessionStorage: 'redis',
+  sessionStorage: 'mongodb',
   sessionStoreName: 'BurgerStackSessions',
   // Lusca config
   csrf: {
