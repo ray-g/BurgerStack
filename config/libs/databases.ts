@@ -14,21 +14,34 @@ export class Databases {
   public static postgresDB: any = {};
   public static mongoDB: any = {};
 
-  public static connect(connectCB: Function): void {
-    PostgreSql.connect((conn: any) => {
-      Databases.postgresDB = conn;
-      PostgreSql.getSequelize()
-        .sync({
-          force: config.postgres.sync.force
-        })
-        .then(() => {
-          Mongoose.connect((db: any) => {
-            Databases.mongoDB = db;
-            if (connectCB) {
-              connectCB(db);
-            }
-          });
-        });
+  public static async connect(): Promise<any> {
+    await PostgreSql.connect((db: any) => {
+      Databases.postgresDB = db;
+    }).catch((err) => {
+      console.log(err);
+    });
+    PostgreSql.getSequelize()
+      .sync({
+        force: config.postgres.sync.force
+      });
+
+    await Mongoose.connect((db: any) => {
+      Databases.mongoDB = db;
+    }).catch((err) => {
+      console.log(err);
+    });
+
+    return new Promise((resolve, reject) => {
+      switch (config.sessionStorage) {
+        case 'mongodb':
+          resolve(Databases.mongoDB);
+          break;
+        case 'postgresql':
+          resolve(Databases.postgresDB);
+          break;
+        default:
+          reject(new Error('Invalid session stroage type'));
+      }
     });
   }
 
@@ -42,9 +55,9 @@ export class Databases {
 
   public static getSessionStore() {
     return new MongoStore({
-        mongooseConnection: Databases.mongoDB.connection,
-        collection: config.sessionCollection
-      });
+      mongooseConnection: Databases.mongoDB.connection,
+      collection: config.sessionCollection
+    });
   }
 
   public static getPostgreSql() {
@@ -56,9 +69,9 @@ export class Databases {
   }
 
   constructor() {
-     if (Databases._instance) {
+    if (Databases._instance) {
       throw new Error('Error: Instantiation failed: Use Databases.getInstance() instead of new.');
     }
-  Databases._instance = this;
+    Databases._instance = this;
   }
 }

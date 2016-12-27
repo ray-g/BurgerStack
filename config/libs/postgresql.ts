@@ -27,7 +27,7 @@ export class PostgreSql {
     return PostgreSql.uri;
   }
 
-  public static connect(ConnectionCB: Function) {
+  public static connect(connectCB: Function): Promise<any> {
     // Sequelize
     PostgreSql.sequelize = new Sequelize(
       config.postgres.options.database,
@@ -44,13 +44,19 @@ export class PostgreSql {
       + config.postgres.options.port + '/'
       + config.postgres.options.database;
 
-    let conn = PostgreSql.sequelize.authenticate().then((error) => {
-      if (error) {
-        console.error(chalk.red('Could not connect to PostgreSQL!'));
-        console.log(error);
-      } else if (ConnectionCB) {
-        ConnectionCB(conn);
-      }
+    return new Promise((resolve, reject) => {
+      let db = PostgreSql.sequelize.authenticate().then((error) => {
+        if (error) {
+          console.error(chalk.red('Could not connect to PostgreSQL!'));
+          console.log(error);
+          reject(error);
+        } else {
+          if (connectCB) {
+            connectCB(db);
+          }
+          resolve(db);
+        }
+      });
     });
   }
 

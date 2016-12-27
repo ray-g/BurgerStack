@@ -25,7 +25,6 @@ export class AppServer {
 
   private start() {
     this.init((app: any, db: any, conf: any) => {
-
       // Start the app by listening on <port> at <host>
       app.listen(conf.port, conf.host, () => {
         // Create server URL
@@ -46,12 +45,16 @@ export class AppServer {
   }
 
   private init(callback: Function): void {
-    Databases.connect((db: any) => {
-      // Initialize express
-      let app = ExpressServer.init();
-      if (callback) {
-        callback(app, db, config);
-      }
-    });
+    Databases.connect()
+      .then((db) => {
+        // Initialize express
+        let app = ExpressServer.init();
+        if (callback) {
+          callback(app, db, config);
+        }
+      })
+      .catch((err) => {
+        console.log(chalk.red(err));
+      });
   }
 }

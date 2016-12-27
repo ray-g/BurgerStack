@@ -1,6 +1,7 @@
 import * as chalk from 'chalk';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
+(<any>mongoose).Promise = global.Promise;
 
 import { Config } from '../config';
 
@@ -24,27 +25,27 @@ export class Mongoose {
     }
   }
 
-  public static connect(callback: Function): void {
-    let db = mongoose.connect(config.mongodb.uri, config.mongodb.options, function (err) {
-      // Log Error
-      if (err) {
-        console.error(chalk.red('Could not connect to MongoDB!'));
-        console.log(err);
-      } else {
-
-        // Enabling mongoose debug mode if required
-        mongoose.set('debug', config.mongodb.debug);
-
-        // Call callback FN
-        if (callback) {
-          callback(db);
+  public static connect(connectCB: Function): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let db = mongoose.connect(config.mongodb.uri, config.mongodb.options, (err) => {
+        // Log Error
+        if (err) {
+          console.error(chalk.red('Could not connect to MongoDB!'));
+          reject(err);
+        } else {
+          // Enabling mongoose debug mode if required
+          mongoose.set('debug', config.mongodb.debug);
+          if (connectCB) {
+            connectCB(db);
+          }
+          resolve(db);
         }
-      }
+      });
     });
   }
 
   public static disconnect(errorHandlerCB: Function): void {
-    mongoose.disconnect( (error) => {
+    mongoose.disconnect((error) => {
       console.log(chalk.yellow('Disconnected from MongoDB.'));
       errorHandlerCB(error);
     });
