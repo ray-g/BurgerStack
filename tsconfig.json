@@ -25,7 +25,6 @@
       "./tools/manual_typings"
     ],
     "types": [
-      "core-js",
       "express",
       "jasmine",
       "node",
