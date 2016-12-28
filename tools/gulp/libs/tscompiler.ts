@@ -5,19 +5,21 @@ import * as gulpLoadPlugins from 'gulp-load-plugins';
 
 const plugins = <any>gulpLoadPlugins();
 const TYPED_COMPILE_INTERVAL = 10;
+const MANUAL_TYPINGS = ['./tools/manual_typings/**/*.d.ts'];
 
 export class TSCompiler {
   private static _instance: TSCompiler = new TSCompiler();
 
   private typedBuildCounter = TYPED_COMPILE_INTERVAL;
   private startTimeBuildCounter = 0;
+  private tsConfigFile = '';
 
   public static getInstance(): TSCompiler {
     return TSCompiler._instance;
   }
 
-  public static compile(srcAssets: string[], destDir: string) {
-    return TSCompiler._instance.compile(srcAssets, destDir);
+  public static compile(srcAssets: string[], destDir: string, configFile: string) {
+    return TSCompiler._instance.compile(srcAssets, destDir, configFile);
   }
 
   constructor() {
@@ -27,16 +29,16 @@ export class TSCompiler {
     TSCompiler._instance = this;
   }
 
-  private compile(srcAssets: string[], destDir: string) {
+  private compile(srcAssets: string[], destDir: string, configFile: string) {
     let tsProject: any;
-    let typings = gulp.src([
-      './tools/manual_typings/**/*.d.ts'
-    ]);
+    let typings = gulp.src([...MANUAL_TYPINGS]);
     let src = [...srcAssets];
 
     let projectFiles = gulp.src(src);
     let result: any;
     let isFullCompile = true;
+
+    this.tsConfigFile = configFile;
 
     // Only do a typed build every X builds, otherwise do a typeless build to speed things up
     if (this.typedBuildCounter < TYPED_COMPILE_INTERVAL) {
@@ -93,7 +95,7 @@ export class TSCompiler {
         typescript: require('typescript')
       }, options);
       tsProjects[optionsHash] =
-        plugins.typescript.createProject(join(process.cwd(), 'tsconfig.json'), config);
+        plugins.typescript.createProject(join(process.cwd(), this.tsConfigFile), config);
     }
 
     return tsProjects[optionsHash];

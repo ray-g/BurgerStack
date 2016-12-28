@@ -5,5 +5,6 @@ const baseAssets = require('../../../config/assets/base');
 export = () => {
   return TSCompiler.compile(
     baseAssets.server.ts,
-    baseAssets.dist.server);
+    baseAssets.dist.server,
+    'tsconfig.json');
 };

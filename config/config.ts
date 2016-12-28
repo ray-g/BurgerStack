@@ -175,19 +175,14 @@ export class Config {
     // Merge config files
     let config = _.merge(baseConfig, environmentConfig);
 
-    // Extend the config object with the local-NODE_ENV.js custom/local environment.
+    // Extend the config object with the local-NODE_ENV.(j|t)s custom/local environment.
     // This will override any settings present in the local configuration.
-    config = _.merge(
-      config,
-      (fs.existsSync(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.js'))
-        && require(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.js'))) || {});
-
-    if (process.env.NODE_ENV === 'development') {
-      config = _.merge(
-        config,
-        (fs.existsSync(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.ts'))
-          && require(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '.ts'))) || {});
-
+    let localEnv = getGlobbedPaths(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '\.+(j|t)s'), []);
+    if (localEnv.length === 1) {
+      let localEnvFile = localEnv.pop();
+      if (fs.existsSync(localEnvFile)) {
+        config = _.merge(config, require(localEnvFile) || {});
+      }
     }
 
     // Initialize global globbed files
