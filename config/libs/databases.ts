@@ -37,7 +37,7 @@ export class Databases {
           resolve(Databases.postgresDB);
           break;
         default:
-          reject(new Error('Invalid session stroage type'));
+          reject(new Error('Invalid session storage type'));
       }
     });
   }
@@ -61,7 +61,7 @@ export class Databases {
       case 'postgresql':
         return null;
       default:
-        return new Error('Invalid session stroage type');
+        return new Error('Invalid session storage type');
     }
 
   }
