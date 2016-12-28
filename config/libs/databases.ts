@@ -7,19 +7,22 @@ const config = Config.config();
 export class Databases {
   private static _instance: Databases = new Databases();
 
-  public static session = require('express-session');
-  public static postgresDB: any = {};
-  public static mongoDB: any = {};
+  private static session = require('express-session');
+  private static postgresDB: any = {};
+  private static mongoDB: any = {};
 
   public static async connect(): Promise<any> {
     await PostgreSql.connect((db: any) => {
-      Databases.postgresDB = db;
+      // Databases.postgresDB = PostgreSql.getDb();
     }).catch((err) => {
       console.log(err);
     });
-    PostgreSql.getSequelize()
+    await PostgreSql.getSequelize()
       .sync({
         force: config.postgres.sync.force
+      })
+      .then((db) => {
+        Databases.postgresDB = db;
       });
 
     await Mongoose.connect((db: any) => {
@@ -35,6 +38,8 @@ export class Databases {
           break;
         case 'postgresql':
           resolve(Databases.postgresDB);
+          break;
+        case 'redis':
           break;
         default:
           reject(new Error('Invalid session storage type'));
@@ -59,6 +64,13 @@ export class Databases {
           collection: config.sessionCollection
         });
       case 'postgresql':
+        let SequelizeStore = require('connect-session-sequelize')(Databases.session.Store);
+        let sequelizeStore = new SequelizeStore({
+          db: Databases.postgresDB
+        });
+        // sequelizeStore.sync();
+        return sequelizeStore;
+      case 'redis':
         return null;
       default:
         return new Error('Invalid session storage type');
