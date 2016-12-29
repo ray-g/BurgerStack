@@ -41,7 +41,7 @@ export class AppServer {
           console.log(chalk.green('Server:          ' + serverUrl));
           console.log(chalk.green('PostgreSQL:      ' + Databases.getPostgreSql().getUri()));
           console.log(chalk.green('MongoDB:         ' + config.mongodb.uri));
-          console.log(chalk.green('RedisDB:         ' + config.redis.uri));
+          console.log(chalk.green('RedisDB:         ' + config.redis.uri + '/' + config.redis.options.db));
           console.log(chalk.green('App version:     ' + config.app.version));
           console.log('--');
         });
