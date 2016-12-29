@@ -10,6 +10,7 @@ export class Databases {
   private static session = require('express-session');
   private static postgresDB: any = {};
   private static mongoDB: any = {};
+  private static redisDB: any = {};
 
   public static async connect(): Promise<any> {
     await PostgreSql.connect((db: any) => {
@@ -40,6 +41,7 @@ export class Databases {
           resolve(Databases.postgresDB);
           break;
         case 'redis':
+          resolve(Databases.redisDB);
           break;
         default:
           reject(new Error('Invalid session storage type'));
@@ -71,7 +73,9 @@ export class Databases {
         // sequelizeStore.sync();
         return sequelizeStore;
       case 'redis':
-        return null;
+        let RedisStore = require('connect-redis')(Databases.session);
+        let redisStore = new RedisStore();
+        return redisStore;
       default:
         return new Error('Invalid session storage type');
     }
