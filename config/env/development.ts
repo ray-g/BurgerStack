@@ -25,6 +25,16 @@ const DevelopmentEnv = {
     // Enable mongoose debug mode
     debug: process.env.MONGODB_DEBUG || false
   },
+  redis: {
+    uri: 'redis://' + (process.env.REDIS_ADDR || 'localhost') + ':' + (process.env.REDIS_PORT || '6379'),
+    options: {
+      db: 'burgerstack-dev'
+    },
+    auth: {
+      enabled: false,
+      pass: ''
+    }
+  },
   log: {
     // logging with Morgan - https://github.com/expressjs/morgan
     // Can specify one of 'combined', 'common', 'dev', 'short', 'tiny'

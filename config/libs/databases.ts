@@ -1,5 +1,6 @@
 import { Mongoose } from './mongoose';
 import { PostgreSql } from './postgresql';
+import { Redis } from './redis';
 import { Config } from '../config';
 
 const config = Config.config();
@@ -32,6 +33,12 @@ export class Databases {
       console.log(err);
     });
 
+    await Redis.connect((db: any) => {
+      Databases.redisDB = db;
+    }).catch((err) => {
+      console.log(err);
+    });
+
     return new Promise((resolve, reject) => {
       switch (config.sessionStorage) {
         case 'mongodb':
@@ -50,7 +57,7 @@ export class Databases {
   }
 
   public static disconnect(errorHandlerCB: Function): void {
-
+    Redis.disconnect();
   }
 
   public static loadModels(callback: Function): void {
@@ -74,7 +81,9 @@ export class Databases {
         return sequelizeStore;
       case 'redis':
         let RedisStore = require('connect-redis')(Databases.session);
-        let redisStore = new RedisStore();
+        let redisStore = new RedisStore({
+          client: Databases.redisDB
+        });
         return redisStore;
       default:
         return new Error('Invalid session storage type');
