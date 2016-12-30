@@ -16,7 +16,7 @@ export class Mongoose {
   }
 
   public static loadModels(callback: Function): void {
-    config.files.server.models.forEach((modelPath: string) => {
+    config.files.server.runtime.mongodbModels.forEach((modelPath: string) => {
       require(path.resolve(modelPath));
     });
 

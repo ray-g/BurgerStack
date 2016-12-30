@@ -62,7 +62,7 @@ export class PostgreSql {
 
   public static loadModels() {
     // Import models
-    config.files.server.pgmodels.forEach(function (modelPath: string) {
+    config.files.server.runtime.postgresModels.forEach(function (modelPath: string) {
       let model = PostgreSql.sequelize.import(path.resolve(modelPath));
       PostgreSql.db[(<any>model).name] = model;
     });
