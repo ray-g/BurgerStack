@@ -225,7 +225,7 @@ export class ExpressServer {
     app.use('/', express.static(path.resolve('./client')));
 
     // Globbing static routing
-    config.folders.client.forEach(function (staticPath: Express) {
+    config.folders.client.forEach(function (staticPath: string) {
       app.use(staticPath, express.static(path.resolve('./' + staticPath)));
     });
   };
