@@ -5,14 +5,16 @@ export class CoreServerController {
  * Render the main application page
  */
   public static renderIndex(req: Request, res: Response) {
-    res.render('public/index');
+    res.render('index', {
+      layout: 'layout'
+    });
   }
 
   /**
    * Render the server error page
    */
   public static renderServerError(req: Request, res: Response) {
-    res.status(500).render('public/500', {
+    res.status(500).render('500', {
       error: 'Oops! Something went wrong...'
     });
   }
@@ -24,7 +26,7 @@ export class CoreServerController {
   public static renderNotFound(req: Request, res: Response) {
     res.status(404).format({
       'text/html': function () {
-        res.render('public/404', {
+        res.render('404', {
           url: req.originalUrl
         });
       },
