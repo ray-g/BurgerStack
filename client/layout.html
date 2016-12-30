@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <!-- Apple META -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- Facebook META -->
+  <meta property="fb:app_id" content="{{facebookAppId}}">
+  <meta property="og:site_name" content="{{title}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:image" content="{{logo}}">
+  <meta property="og:type" content="website">
+  <!-- Twitter META -->
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:url" content="{{url}}">
+  <meta name="twitter:image" content="{{logo}}">
+  <!-- Fav Icon -->
+  <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
+  <!-- Application CSS Files -->
+  {{#each cssFiles}}
+  <link rel="stylesheet" href="{{this}}">{{/each}}
+</head>
+
+<body>
+  <section class="content">
+    <section class="container">
+      {{{block "content"}}}
+    </section>
+  </section>
+  <noscript>
+    <div class="alert alert-warning">
+      <strong>This page requires JavaScript.</strong> Please enable it in your browser.
+    </div>
+  </noscript>
+  <!--Embedding The User Object-->
+  <script type="text/javascript">
+    var user = {{{ user }}};
+    var env = "{{ env }}";
+  </script>
+  <!--Load The Socket.io File-->
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <!--Application JavaScript Files-->
+  {{#each jsFiles}}
+  <script type="text/javascript" src="{{this}}"></script>{{/each}} {{#if livereload}}
+  {{/if}}
+</body>
+
+</html>
