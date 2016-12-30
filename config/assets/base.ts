@@ -4,7 +4,7 @@ const BaseAssets = {
       npm: 'node_modules',
       local: 'client/npm',
       css: [
-        // node modeles needs copied to dist
+        // node modules needs copied to dist
         'bootstrap/dist/css/bootstrap.css',
         'normalize.css/normalize.css',
         'ionicons/css/ionicons.css',
@@ -13,7 +13,7 @@ const BaseAssets = {
         'font-awesome/fonts/*'
       ],
       js: [
-        // node modeles needs copied to dist
+        // node modules needs copied to dist
         'core-js/client/**',
         'zone.js/dist/zone.js',
         'reflect-metadata/Reflect.js',
