@@ -42,7 +42,7 @@ const BaseAssets = {
     entry: 'server.ts',
     runtime: {
       postgresModels: 'server/*/pgmodels/**/*.js',
-      mongodbModels: 'server/*/mdmodels/**/*.js',
+      mongodbModels: 'server/*/mgmodels/**/*.js',
       routes: ['server/!(core)/routes/**/*.js', 'server/core/routes/**/*.js'],
       sockets: 'server/*/sockets/**/*.js',
       config: ['server/*/config/**/*.js'],
