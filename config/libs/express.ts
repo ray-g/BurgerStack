@@ -165,7 +165,7 @@ export class ExpressServer {
 
     // Set views path and view engine
     app.set('view engine', 'html');
-    app.set('views', path.resolve('./'));
+    app.set('views', path.resolve('./client'));
   };
 
   /**
