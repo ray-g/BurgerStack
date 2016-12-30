@@ -41,12 +41,12 @@ const BaseAssets = {
     ts: ['server/!(typings)/**/*.ts', 'server.ts'],
     entry: 'server.ts',
     runtime: {
-      postgresModels: 'server/modules/*/pgmodels/**/*.js',
-      mongodbModels: 'server/modules/*/mdmodels/**/*.js',
-      routes: ['server/modules/!(core)/routes/**/*.js', 'server/modules/core/routes/**/*.js'],
-      sockets: 'server/modules/*/sockets/**/*.js',
-      config: ['server/modules/*/config/**/*.js'],
-      policies: 'server/modules/*/policies/**/*.js',
+      postgresModels: 'server/*/pgmodels/**/*.js',
+      mongodbModels: 'server/*/mdmodels/**/*.js',
+      routes: ['server/!(core)/routes/**/*.js', 'server/core/routes/**/*.js'],
+      sockets: 'server/*/sockets/**/*.js',
+      config: ['server/*/config/**/*.js'],
+      policies: 'server/*/policies/**/*.js',
     }
   },
   config: {
