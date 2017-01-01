@@ -1,5 +1,6 @@
 const BaseAssets = {
   client: {
+    path: 'client',
     lib: {
       npm: 'node_modules',
       local: 'client/npm',
