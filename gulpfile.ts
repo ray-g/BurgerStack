@@ -9,16 +9,6 @@ import * as baseAssets from './config/assets/base';
 
 loadTasks(baseAssets.tools.gulpTasks);
 
-// Default task
-gulp.task('default', (done: any) => {
-  runSequence('tslint', done);
-});
-
-// Watch Files For Changes
-let onChange = (event: any) => {
-  console.log('File ' + event.path + ' was ' + event.type);
-};
-
 gulp.task('compile', (done: any) => {
   runSequence(['compile.config', 'compile.server', 'compile.entry', 'compile.client'], done);
 });
@@ -26,6 +16,28 @@ gulp.task('compile', (done: any) => {
 gulp.task('tslint', (done: any) => {
   runSequence(['tslint.config', 'tslint.server', 'tslint.entry', 'tslint.client'], done);
 });
+
+gulp.task('lint', (done: any) => {
+  runSequence(['tslint', 'eslint', 'sasslint'], done);
+});
+
+gulp.task('copy', (done: any) => {
+  runSequence(['copy.client.views', 'copy.client.assets'], done);
+});
+
+// Build tasks
+gulp.task('build', (done: any) => {
+  runSequence('lint', 'sass', 'compile', 'copy', done);
+});
+
+gulp.task('rebuild', (done: any) => {
+  runSequence('clean', 'build', done);
+});
+
+// Watch Files For Changes
+let onChange = (event: any) => {
+  console.log('File ' + event.path + ' was ' + event.type);
+};
 
 gulp.task('watch', () => {
   // Add watch rules
@@ -81,7 +93,7 @@ gulp.task('watch', () => {
   gulp.watch(
     baseAssets.client.views,
     () => {
-      runSequence(['copy.client'], BrowserSync.reload);
+      runSequence(['copy.client.views'], BrowserSync.reload);
     })
     .on('change', (event: any) => { onChange(event); });
 
@@ -89,7 +101,7 @@ gulp.task('watch', () => {
   gulp.watch(
     baseAssets.client.assets,
     () => {
-      runSequence(['copy.client'], BrowserSync.reload);
+      runSequence(['copy.client.assets'], BrowserSync.reload);
     })
     .on('change', (event: any) => { onChange(event); });
 });
@@ -105,4 +117,13 @@ gulp.task('clean.once', (done: any) => {
     util.log('Skipping clean on rebuild');
     done();
   }
+});
+
+// Default task
+gulp.task('default', (done: any) => {
+  runSequence('env.dev', 'build', ['nodemon', 'watch'], done);
+});
+
+gulp.task('start', function (done: any) {
+  runSequence('env:dev', ['nodemon', 'watch'], done);
 });
