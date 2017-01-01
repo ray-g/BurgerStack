@@ -125,5 +125,5 @@ gulp.task('default', (done: any) => {
 });
 
 gulp.task('start', function (done: any) {
-  runSequence('env:dev', ['nodemon', 'watch'], done);
+  runSequence('env.dev', ['nodemon', 'watch'], done);
 });
