@@ -21,7 +21,7 @@ export class NodeMon {
         ext: fileExt,
         watch: watch
       })
-        .on('restart', function () {
+        .on('restart', () => {
           console.log('File changed, restarting server...');
           BrowserSync.getInstance().delayReload();
         });

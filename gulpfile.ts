@@ -121,9 +121,9 @@ gulp.task('clean.once', (done: any) => {
 
 // Default task
 gulp.task('default', (done: any) => {
-  runSequence('env.dev', 'build', ['nodemon', 'watch'], done);
+  runSequence('env.dev', 'build', ['nodemon', 'browsersync', 'watch'], done);
 });
 
-gulp.task('start', function (done: any) {
-  runSequence('env.dev', ['nodemon', 'watch'], done);
+gulp.task('start', (done: any) => {
+  runSequence('env.dev', ['nodemon', 'browsersync', 'watch'], done);
 });
