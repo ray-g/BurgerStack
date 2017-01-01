@@ -47,7 +47,7 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.server', 'compile.server'], NodeMon.reload);
     })
-    .on('change', (event: any) => { onChange(event); });
+    .on('change', onChange);
 
   // Server entry file, do lint and compile, then restart server
   gulp.watch(
@@ -55,7 +55,7 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.entry', 'compile.entry'], NodeMon.reload);
     })
-    .on('change', (event: any) => { onChange(event); });
+    .on('change', onChange);
 
   // All config TS files, do lint and compile, then restart server
   gulp.watch(
@@ -63,7 +63,7 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.config', 'compile.config'], NodeMon.reload);
     })
-    .on('change', (event: any) => { onChange(event); });
+    .on('change', onChange);
 
   // Client systemJS file, do lint and copy, then reload browser
   gulp.watch(
@@ -71,7 +71,7 @@ gulp.task('watch', () => {
     () => {
       runSequence(['eslint', 'copy.client'], BrowserSync.reload);
     })
-    .on('change', (event: any) => { onChange(event); });
+    .on('change', onChange);
 
   // All client TS files, do lint and compile, then reload browser
   gulp.watch(
@@ -79,7 +79,7 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.client', 'compile.client'], BrowserSync.reload);
     })
-    .on('change', (event: any) => { onChange(event); });
+    .on('change', onChange);
 
   // All client sass files, do lint and compile, then reload browser
   gulp.watch(
@@ -87,7 +87,7 @@ gulp.task('watch', () => {
     () => {
       runSequence(['sasslint', 'sass'], BrowserSync.reload);
     })
-    .on('change', (event: any) => { onChange(event); });
+    .on('change', onChange);
 
   // All client html files, do lint and copy, then reload browser
   gulp.watch(
@@ -95,7 +95,7 @@ gulp.task('watch', () => {
     () => {
       runSequence(['copy.client.views'], BrowserSync.reload);
     })
-    .on('change', (event: any) => { onChange(event); });
+    .on('change', onChange);
 
   // All client assets files, do copy, then reload browser
   gulp.watch(
@@ -103,7 +103,7 @@ gulp.task('watch', () => {
     () => {
       runSequence(['copy.client.assets'], BrowserSync.reload);
     })
-    .on('change', (event: any) => { onChange(event); });
+    .on('change', onChange);
 });
 
 // Clean dev/coverage that will only run once
