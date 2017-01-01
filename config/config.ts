@@ -35,14 +35,14 @@ export class Config {
    * Validate NODE_ENV existence
    */
   private validateEnvironmentVariable() {
-    let environmentFiles = glob.sync('./config/env/' + process.env.NODE_ENV + '.(j|t)s');
+    let environmentFiles = glob.sync('./config/env/' + process.env.NODE_ENV + '\.+(j|t)s');
     console.log();
     if (!environmentFiles.length) {
       if (process.env.NODE_ENV) {
         console.error(chalk.red(
           '+ Error: No configuration file found for "'
           + process.env.NODE_ENV
-          + '"environment using development instead'));
+          + '" environment using development instead'));
       } else {
         console.error(chalk.red('+ Error: NODE_ENV is not defined! Using default development environment'));
       }
@@ -89,7 +89,7 @@ export class Config {
       if (!testing) {
         console.log(chalk.red('+ WARNING: It is strongly recommended that you change sessionSecret config while running in production!'));
         console.log(chalk.red('  Please add `sessionSecret: process.env.SESSION_SECRET || \'super amazing secret\'` to '));
-        console.log(chalk.red('  `config/env/production.js` or `config/env/local.js`'));
+        console.log(chalk.red('  `config/env/production.ts` or `config/env/local.ts`'));
         console.log();
       }
       return false;
