@@ -6,6 +6,7 @@ import * as gulpLoadPlugins from 'gulp-load-plugins';
 const plugins = <any>gulpLoadPlugins();
 const TYPED_COMPILE_INTERVAL = 10;
 const MANUAL_TYPINGS = ['./tools/manual_typings/**/*.d.ts'];
+const COMPILE_TASKS = 4; // Compile tasks count
 
 export class TSCompiler {
   private static _instance: TSCompiler = new TSCompiler();
@@ -65,7 +66,7 @@ export class TSCompiler {
       this.typedBuildCounter++;
     }
 
-    if (this.startTimeBuildCounter < 3) { // 3 types of compile
+    if (this.startTimeBuildCounter < COMPILE_TASKS) {
       this.typedBuildCounter = TYPED_COMPILE_INTERVAL;
     }
 
