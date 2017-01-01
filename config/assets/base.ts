@@ -38,8 +38,8 @@ const BaseAssets = {
     views: ['client/**/*.html']
   },
   server: {
-    ts: ['server/!(typings)/**/*.ts', 'server.ts'],
-    entry: 'server.ts',
+    ts: ['server/!(typings)/**/*.ts'],
+    entry: ['server.ts'],
     runtime: {
       postgresModels: 'server/*/pgmodels/**/*.js',
       mongodbModels: 'server/*/mgmodels/**/*.js',
@@ -61,7 +61,7 @@ const BaseAssets = {
   dist: {
     path: 'dist',
     config: 'dist/config',
-    server: 'dist',
+    server: 'dist/server',
     client: 'dist/client',
     npm_relative: '../node_modules',
     all: ['dist/*'],

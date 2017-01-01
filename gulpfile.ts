@@ -20,50 +20,63 @@ let onChange = (event: any) => {
 };
 
 gulp.task('compile', (done: any) => {
-  runSequence(['compile.config', 'compile.server', 'compile.client'], done);
+  runSequence(['compile.config', 'compile.server', 'compile.entry', 'compile.client'], done);
 });
 
 gulp.task('tslint', (done: any) => {
-  runSequence(['tslint.config', 'tslint.server', 'tslint.client'], done);
+  runSequence(['tslint.config', 'tslint.server', 'tslint.entry', 'tslint.client'], done);
 });
 
 gulp.task('watch', () => {
   // Add watch rules
   gulp.watch(
     baseAssets.server.ts,
-    () => { runSequence(['tslint:server', 'compile:server'], NodeMon.reload);
-  })
-  .on('change', (event: any) => { onChange(event); });
+    () => {
+      runSequence(['tslint.server', 'compile.server'], NodeMon.reload);
+    })
+    .on('change', (event: any) => { onChange(event); });
+
+  gulp.watch(
+    baseAssets.server.entry,
+    () => {
+      runSequence(['tslint.entry', 'compile.entry'], NodeMon.reload);
+    })
+    .on('change', (event: any) => { onChange(event); });
 
   gulp.watch(
     baseAssets.config.serverConfig,
-    () => { runSequence(['tslint:config', 'compile:config'], NodeMon.reload);
-  })
-  .on('change', (event: any) => { onChange(event); });
+    () => {
+      runSequence(['tslint.config', 'compile.config'], NodeMon.reload);
+    })
+    .on('change', (event: any) => { onChange(event); });
 
   gulp.watch(
     baseAssets.client.systemJSConfig,
-    () => { runSequence(['eslint', 'copy:client'], BrowserSync.reload);
-  })
-  .on('change', (event: any) => { onChange(event); });
+    () => {
+      runSequence(['eslint', 'copy.client'], BrowserSync.reload);
+    })
+    .on('change', (event: any) => { onChange(event); });
 
   gulp.watch(
     baseAssets.client.ts,
-    () => { runSequence(['tslint:client', 'compile:client'], BrowserSync.reload);
-  })
-  .on('change', (event: any) => { onChange(event); });
+    () => {
+      runSequence(['tslint.client', 'compile.client'], BrowserSync.reload);
+    })
+    .on('change', (event: any) => { onChange(event); });
 
   gulp.watch(
     baseAssets.client.sass,
-    () => { runSequence(['sasslint', 'sass'], BrowserSync.reload);
-  })
-  .on('change', (event: any) => { onChange(event); });
+    () => {
+      runSequence(['sasslint', 'sass'], BrowserSync.reload);
+    })
+    .on('change', (event: any) => { onChange(event); });
 
   gulp.watch(
     baseAssets.client.views,
-    () => { runSequence(['copy:client'], BrowserSync.reload);
-  })
-  .on('change', (event: any) => { onChange(event); });
+    () => {
+      runSequence(['copy.client'], BrowserSync.reload);
+    })
+    .on('change', (event: any) => { onChange(event); });
 });
 
 // Clean dev/coverage that will only run once
