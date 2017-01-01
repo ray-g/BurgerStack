@@ -94,8 +94,8 @@ export class SocketIO {
           socket.request.session = session;
 
           // Use Passport to populate the user details
-          passport.initialize()(socket.request, <Response>{}, function () {
-            passport.session()(socket.request, <Response>{}, function () {
+          passport.initialize()(socket.request, <Response>{}, () => {
+            passport.session()(socket.request, <Response>{}, () => {
               if (socket.request.user) {
                 next(null, true);
               } else {

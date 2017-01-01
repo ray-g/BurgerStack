@@ -1,6 +1,6 @@
 import { CoreServerController } from '../controllers/core.server.controller';
 
-module.exports = function(app: any) {
+module.exports = (app: any) => {
   // Root routing
   // Define error pages
   app.route('/server-error').get(CoreServerController.renderServerError);

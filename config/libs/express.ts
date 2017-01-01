@@ -225,7 +225,7 @@ export class ExpressServer {
     app.use('/', express.static(path.resolve('./client')));
 
     // Globbing static routing
-    config.folders.client.forEach(function (staticPath: string) {
+    config.folders.client.forEach((staticPath: string) => {
       app.use(staticPath, express.static(path.resolve('./' + staticPath)));
     });
   };
@@ -233,7 +233,7 @@ export class ExpressServer {
   /**
    * Configure node_modules and third-parties relative to dist.
    */
-  private init3rdModulesStatics = function (app: Express) {
+  private init3rdModulesStatics(app: Express) {
     app.use('/libs', express.static(path.resolve(__dirname, './client/libs')));
     app.use(express.static(path.resolve(__dirname, '../node_modules')));
   };
@@ -243,7 +243,7 @@ export class ExpressServer {
    */
   private initModulesServerPolicies(app: Express) {
     // Globbing policy files
-    config.files.server.policies.forEach(function (policyPath: Express) {
+    config.files.server.policies.forEach((policyPath: Express) => {
       require(path.resolve(policyPath)).invokeRolesPolicies();
     });
   };
@@ -262,7 +262,7 @@ export class ExpressServer {
    * Configure error handling
    */
   private initErrorRoutes(app: Express) {
-    app.use(function (err: any, req: Request, res: Response, next: any) {
+    app.use((err: any, req: Request, res: Response, next: any) => {
       // If the error object doesn't exists
       if (!err) {
         return next();

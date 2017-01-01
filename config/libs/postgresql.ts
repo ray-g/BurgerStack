@@ -62,13 +62,13 @@ export class PostgreSql {
 
   public static loadModels() {
     // Import models
-    config.files.server.runtime.postgresModels.forEach(function (modelPath: string) {
+    config.files.server.runtime.postgresModels.forEach((modelPath: string) => {
       let model = PostgreSql.sequelize.import(path.resolve(modelPath));
       PostgreSql.db[(<any>model).name] = model;
     });
 
     // Associate models
-    Object.keys(PostgreSql.db).forEach(function (modelName) {
+    Object.keys(PostgreSql.db).forEach((modelName) => {
       if ('associate' in PostgreSql.db[modelName]) {
         PostgreSql.db[modelName].associate(PostgreSql.db);
       }

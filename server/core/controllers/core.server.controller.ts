@@ -25,17 +25,17 @@ export class CoreServerController {
    */
   public static renderNotFound(req: Request, res: Response) {
     res.status(404).format({
-      'text/html': function () {
+      'text/html': () => {
         res.render('404', {
           url: req.originalUrl
         });
       },
-      'application/json': function () {
+      'application/json': () => {
         res.json({
           error: 'Path not found'
         });
       },
-      'default': function () {
+      'default': () => {
         res.send('Path not found');
       }
     });

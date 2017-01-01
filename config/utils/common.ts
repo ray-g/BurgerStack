@@ -13,7 +13,7 @@ export function getGlobbedPaths(globPatterns: any, excludes: any): any[] {
 
   // If glob pattern is array then we use each pattern in a recursive way, otherwise we use glob
   if (_.isArray(globPatterns)) {
-    globPatterns.forEach(function (globPattern) {
+    globPatterns.forEach((globPattern) => {
       output = _.union(output, getGlobbedPaths(globPattern, excludes));
     });
   } else if (_.isString(globPatterns)) {
@@ -22,9 +22,9 @@ export function getGlobbedPaths(globPatterns: any, excludes: any): any[] {
     } else {
       let files = glob.sync(globPatterns);
       if (excludes) {
-        files = files.map(function (file: any) {
+        files = files.map((file: any) => {
           if (_.isArray(excludes)) {
-            excludes.forEach(function (item) {
+            excludes.forEach((item) => {
               file = file.replace(item, '');
             });
             for (let i in excludes) {
