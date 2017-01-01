@@ -29,6 +29,7 @@ gulp.task('tslint', (done: any) => {
 
 gulp.task('watch', () => {
   // Add watch rules
+  // All server TS files, do lint and compile, then restart server
   gulp.watch(
     baseAssets.server.ts,
     () => {
@@ -36,6 +37,7 @@ gulp.task('watch', () => {
     })
     .on('change', (event: any) => { onChange(event); });
 
+  // Server entry file, do lint and compile, then restart server
   gulp.watch(
     baseAssets.server.entry,
     () => {
@@ -43,6 +45,7 @@ gulp.task('watch', () => {
     })
     .on('change', (event: any) => { onChange(event); });
 
+  // All config TS files, do lint and compile, then restart server
   gulp.watch(
     baseAssets.config.serverConfig,
     () => {
@@ -50,6 +53,7 @@ gulp.task('watch', () => {
     })
     .on('change', (event: any) => { onChange(event); });
 
+  // Client systemJS file, do lint and copy, then reload browser
   gulp.watch(
     baseAssets.client.systemJSConfig,
     () => {
@@ -57,6 +61,7 @@ gulp.task('watch', () => {
     })
     .on('change', (event: any) => { onChange(event); });
 
+  // All client TS files, do lint and compile, then reload browser
   gulp.watch(
     baseAssets.client.ts,
     () => {
@@ -64,6 +69,7 @@ gulp.task('watch', () => {
     })
     .on('change', (event: any) => { onChange(event); });
 
+  // All client sass files, do lint and compile, then reload browser
   gulp.watch(
     baseAssets.client.sass,
     () => {
@@ -71,8 +77,17 @@ gulp.task('watch', () => {
     })
     .on('change', (event: any) => { onChange(event); });
 
+  // All client html files, do lint and copy, then reload browser
   gulp.watch(
     baseAssets.client.views,
+    () => {
+      runSequence(['copy.client'], BrowserSync.reload);
+    })
+    .on('change', (event: any) => { onChange(event); });
+
+  // All client assets files, do copy, then reload browser
+  gulp.watch(
+    baseAssets.client.assets,
     () => {
       runSequence(['copy.client'], BrowserSync.reload);
     })

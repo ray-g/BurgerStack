@@ -35,6 +35,9 @@ const BaseAssets = {
       'client/assets/img/**/*.gif',
       'client/assets/img/**/*.svg'
     ],
+    assets: [
+      'client/assets/**'
+    ],
     views: ['client/**/*.html']
   },
   server: {
