@@ -58,6 +58,9 @@ export class Databases {
 
   public static disconnect(errorHandlerCB: Function): void {
     Redis.disconnect();
+    if (errorHandlerCB) {
+      errorHandlerCB();
+    }
   }
 
   public static loadModels(callback: Function): void {
