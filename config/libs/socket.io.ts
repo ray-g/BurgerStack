@@ -66,8 +66,8 @@ export class SocketIO {
     // Create a new Socket.io server
     let io = socketio.listen(server);
 
-    // Create a MongoDB storage object
-    let mongoStore = Databases.getSessionStore();
+    // Get an Express session storage object
+    let sessionStore = Databases.getSessionStore();
 
     // Intercept Socket.io's handshake request
     io.use((socket, next: any) => {
@@ -80,8 +80,8 @@ export class SocketIO {
           return next(new Error('sessionId was not found in socket.request'), false);
         }
 
-        // Use the mongoStorage instance to get the Express session information
-        mongoStore.get(sessionId, (error: any, session: any) => {
+        // Use the sessionStore instance to get the Express session information
+        sessionStore.get(sessionId, (error: any, session: any) => {
           if (error) {
             return next(error, false);
           }
