@@ -58,6 +58,8 @@ export class Databases {
 
   public static disconnect(errorHandlerCB: Function): void {
     Redis.disconnect();
+    Mongoose.disconnect(() => {});
+    PostgreSql.disconnect();
     if (errorHandlerCB) {
       errorHandlerCB();
     }

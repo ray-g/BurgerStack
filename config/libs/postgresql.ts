@@ -60,6 +60,10 @@ export class PostgreSql {
     });
   }
 
+  public static disconnect() {
+    PostgreSql.sequelize.close();
+  }
+
   public static loadModels() {
     // Import models
     config.files.server.runtime.postgresModels.forEach((modelPath: string) => {
