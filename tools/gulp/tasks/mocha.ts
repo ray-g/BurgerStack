@@ -7,7 +7,7 @@ const taseAssets = require('../../../config/assets/test');
 
 export = (done: any) => {
   let testSuites = taseAssets.tests.server;
-  let error: any = {};
+  let error: any = null;
 
   Databases.connect()
     .then(() => {
@@ -25,8 +25,13 @@ export = (done: any) => {
         })
         .on('end', () => {
           // When the tests are done, disconnect databases and pass the error state back to gulp
-          Databases.disconnect(function () {
-            done(error);
+          Databases.disconnect(() => {
+            if (error) {
+              plugins.util.log(plugins.util.colors.red('Mocha got errors: \n'), error);
+              process.exit(1);
+            } else {
+              process.exit(0);
+            }
           });
         });
     });
