@@ -1,8 +1,8 @@
 const TestAssets = {
   tests: {
-    client: ['test/client/**/*.js'],
-    server: ['test/server/**/*.js'],
-    e2e: ['test/e2e/**/*.js']
+    client: ['test/client/**/*.ts'],
+    server: ['test/server/**/*.ts'],
+    e2e: ['test/e2e/**/*.ts']
   }
 };
 
