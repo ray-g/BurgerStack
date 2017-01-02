@@ -34,6 +34,11 @@ gulp.task('rebuild', (done: any) => {
   runSequence('clean', 'build', done);
 });
 
+// Test tasks
+gulp.task('test', (done: any) => {
+  runSequence('mocha', done);
+});
+
 // Watch Files For Changes
 let onChange = (event: any) => {
   console.log('File ' + event.path + ' was ' + event.type);

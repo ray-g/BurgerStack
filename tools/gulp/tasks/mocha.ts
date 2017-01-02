@@ -28,9 +28,10 @@ export = (done: any) => {
           Databases.disconnect(() => {
             if (error) {
               plugins.util.log(plugins.util.colors.red('Mocha got error(s).'));
-              process.exit(1);
+              // process.exit(1);
             }
           });
+          done();
         });
     });
 };
