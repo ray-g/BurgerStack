@@ -119,11 +119,15 @@ gulp.task('clean.once', (done: any) => {
   }
 });
 
+gulp.task('watch.and.serve', (done: any) => {
+  runSequence(['nodemon', 'browsersync', 'watch'], done);
+});
+
 // Default task
 gulp.task('default', (done: any) => {
-  runSequence('env.dev', 'build', ['nodemon', 'browsersync', 'watch'], done);
+  runSequence('env.dev', 'build', 'watch.and.serve', done);
 });
 
 gulp.task('start', (done: any) => {
-  runSequence('env.dev', ['nodemon', 'browsersync', 'watch'], done);
+  runSequence('env.dev', 'watch.and.serve', done);
 });
