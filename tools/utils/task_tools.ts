@@ -14,7 +14,6 @@ export function loadTasks(tasks: string): void {
   const TASKS = getGlobbedPaths(tasks, []);
 
   util.log('Loading tasks:', util.colors.yellow(tasks));
-  // readDir(path, taskname => registerTask(taskname, path));
   TASKS.forEach( file => {
     if (lstatSync(file).isFile()) {
       registerTask(file);
