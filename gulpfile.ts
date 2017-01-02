@@ -36,7 +36,7 @@ gulp.task('rebuild', (done: any) => {
 
 // Test tasks
 gulp.task('test', (done: any) => {
-  runSequence('mocha', done);
+  runSequence('env.test', 'mocha', done);
 });
 
 // Watch Files For Changes
