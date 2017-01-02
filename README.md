@@ -6,6 +6,9 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/ray-g/burgerstack/badge.svg)](https://snyk.io/test/github/ray-g/burgerstack)
 [![Dependency Status](https://david-dm.org/ray-g/BurgerStack.svg)](https://david-dm.org/ray-g/BurgerStack)
 [![devDependency Status](https://david-dm.org/ray-g/BurgerStack/dev-status.svg)](https://david-dm.org/ray-g/BurgerStack)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Badges](https://img.shields.io/badge/badges-8-orange.svg)](http://shields.io/)
+
 
 All cool staffs in one stack.
 
