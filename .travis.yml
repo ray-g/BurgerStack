@@ -25,7 +25,7 @@ services:
 before_script:
   - sleep 15
   - mongo mydb_test --eval 'db.addUser("travis", "test");'
-  - psql -c 'CREATE USER burgerstack WITH PASSWORD 'changeme'; CREATE DATABASE burgerstack_dev; GRANT ALL PRIVILEGES ON DATABASE burgerstack_test TO burgerstack;' -U postgres
+  - psql -c 'create database burgerstack_test;' -U postgres
 
 sudo: false
 

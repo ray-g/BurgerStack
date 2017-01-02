@@ -5,7 +5,7 @@ const DevelopmentEnv = {
     options: {
       host: process.env.PG_ADDR || 'localhost',
       port: process.env.PG_PORT || 5432,
-      username: '',
+      username: 'postgres',
       password: '',
       database: 'burgerstack_test',
       logging: process.env.PG_LOGGING === 'true' ? console.log : false
