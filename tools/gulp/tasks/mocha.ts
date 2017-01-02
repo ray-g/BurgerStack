@@ -23,14 +23,12 @@ export = (done: any) => {
           // If an error occurs, save it
           error = err;
         })
-        .on('end', () => {
+        .once('end', () => {
           // When the tests are done, disconnect databases and pass the error state back to gulp
           Databases.disconnect(() => {
             if (error) {
-              plugins.util.log(plugins.util.colors.red('Mocha got errors: \n'), error);
+              plugins.util.log(plugins.util.colors.red('Mocha got error(s).'));
               process.exit(1);
-            } else {
-              process.exit(0);
             }
           });
         });
