@@ -4,12 +4,12 @@ import * as glob from 'glob';
 /**
   * Get files by glob patterns
   */
-export function getGlobbedPaths(globPatterns: any, excludes: any): any[] {
+export function getGlobbedPaths(globPatterns: string | string[], excludes: string | string[]): string[] {
   // URL paths regex
   let urlRegex = new RegExp('^(?:[a-z]+:)?//', 'i');
 
   // The output array
-  let output: any[] = [];
+  let output: string[] = [];
 
   // If glob pattern is array then we use each pattern in a recursive way, otherwise we use glob
   if (_.isArray(globPatterns)) {
