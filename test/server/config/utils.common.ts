@@ -1,23 +1,12 @@
 import * as _ from 'lodash';
 import chai = require('chai');
 import sinon = require('sinon');
-import * as utilsCommon from '../../../config/utils/common';
 import * as glob from 'glob';
+import { isStringArray } from '../../../tools/utils';
+
+import * as utilsCommon from '../../../config/utils/common';
 
 let expect = chai.expect;
-
-function isStringArray(value: any) {
-  let isStrArr = true;
-  if (value instanceof Array) {
-    value.forEach((item) => {
-      if (typeof item !== 'string') {
-        isStrArr = false;
-        return;
-      }
-    });
-  }
-  return isStrArr;
-}
 
 describe('config/utils/common:', () => {
 
