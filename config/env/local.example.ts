@@ -30,6 +30,11 @@ const LocalEnv = {
       pass: ''
     }
   },
+  redis: {
+    options: {
+      db: 'burgerstack-dev'
+    }
+  }
   sessionSecret: process.env.SESSION_SECRET || 'youshouldchangethistosomethingsecret'
 };
 
