@@ -2,7 +2,7 @@
   "name": "burgerstack",
   "version": "0.0.1",
   "description": "All cool staffs in one stack.",
-  "main": "app.ts",
+  "main": "server.ts",
   "scripts": {
     "postinstall": "npm prune",
     "test": "gulp test"
@@ -151,6 +151,7 @@
     "is-ci": "1.0.9",
     "isstream": "0.1.2",
     "karma": "1.3.0",
+    "karma-chai": "^0.1.0",
     "karma-coverage": "1.1.1",
     "karma-mocha": "1.3.0",
     "merge-stream": "1.0.0",
