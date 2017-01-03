@@ -38,8 +38,8 @@ export class ExpressServer {
   }
 
   /**
- * Initialize the Express application
- */
+   * Initialize the Express application
+   */
   private init(): Express {
     // Initialize express app
     let app = express();
@@ -84,8 +84,8 @@ export class ExpressServer {
   };
 
   /**
- * Initialize local variables
- */
+   * Initialize local variables
+   */
   private initLocalVariables(app: Express) {
     // Setting application local variables
     app.locals.title = config.app.title;
