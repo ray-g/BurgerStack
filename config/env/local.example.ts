@@ -34,7 +34,7 @@ const LocalEnv = {
     options: {
       db: 'burgerstack-dev'
     }
-  }
+  },
   sessionSecret: process.env.SESSION_SECRET || 'youshouldchangethistosomethingsecret'
 };
 
