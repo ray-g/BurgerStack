@@ -5,11 +5,11 @@ export function isStringArray(value: any) {
       isStrArr = false;
     } else {
       value.forEach((item) => {
-      if (typeof item !== 'string') {
-        isStrArr = false;
-        return;
-      }
-    });
+        if (typeof item !== 'string') {
+          isStrArr = false;
+          return;
+        }
+      });
     }
   } else {
     isStrArr = false;
