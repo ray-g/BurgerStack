@@ -177,11 +177,11 @@ export class Config {
 
     // Extend the config object with the local-NODE_ENV.(j|t)s custom/local environment.
     // This will override any settings present in the local configuration.
-    let localEnv = getGlobbedPaths(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '\.+(j|t)s'), []);
-    if (localEnv.length === 1) {
-      let localEnvFile = localEnv.pop();
-      if (fs.existsSync(localEnvFile)) {
-        config = _.merge(config, require(localEnvFile) || {});
+    let localEnvFiles = getGlobbedPaths(path.join(process.cwd(), 'config/env/local-' + process.env.NODE_ENV + '\.+(j|t)s'), []);
+    if (localEnvFiles.length === 1) {
+      let localEnv = localEnvFiles.pop();
+      if (fs.existsSync(localEnv)) {
+        config = _.merge(config, require(localEnv) || {});
       }
     }
 
