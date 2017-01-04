@@ -6,6 +6,7 @@ node_modules/
 release/
 dist/
 sandbox/
+coverage/
 
 # BurgerStack Ignored
 config/env/local-*.ts
