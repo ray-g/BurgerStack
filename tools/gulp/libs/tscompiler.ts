@@ -36,7 +36,7 @@ export class TSCompiler {
     let typings = gulp.src([...MANUAL_TYPINGS]);
     let src = [...srcAssets];
 
-    let projectFiles = gulp.src(src);
+    let projectFiles = gulp.src(src, {base: './'});
     let result: any;
     let isFullCompile = true;
 
@@ -72,7 +72,8 @@ export class TSCompiler {
     }
 
     return result.js
-      .pipe(plugins.if(devMode, plugins.sourcemaps.write()))
+      .pipe(plugins.if(devMode,
+      plugins.sourcemaps.write({includeContent: false, sourceRoot: '.'})))
       // Use for debugging with Webstorm/IntelliJ
       // https://github.com/mgechev/angular2-seed/issues/1220
       //    .pipe(plugins.sourcemaps.write('.', {

@@ -5,6 +5,6 @@ const config = require('../config');
 export = () => {
   return TSCompiler.compile(
     config.config.serverConfig,
-    config.dist.config,
+    config.dist.path,
     'tsconfig.json');
 };

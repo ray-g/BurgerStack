@@ -10,6 +10,6 @@ export = () => {
 
   return TSCompiler.compile(
     assets,
-    config.dist.tests,
+    config.dist.path,
     'tsconfig.json');
 };
