@@ -31,6 +31,7 @@ export class TSCompiler {
   }
 
   private compile(srcAssets: string[], destDir: string, configFile: string) {
+    let devMode = process.env.NODE_ENV !== 'production';
     let tsProject: any;
     let typings = gulp.src([...MANUAL_TYPINGS]);
     let src = [...srcAssets];
@@ -71,7 +72,7 @@ export class TSCompiler {
     }
 
     return result.js
-      .pipe(plugins.sourcemaps.write())
+      .pipe(plugins.if(devMode, plugins.sourcemaps.write()))
       // Use for debugging with Webstorm/IntelliJ
       // https://github.com/mgechev/angular2-seed/issues/1220
       //    .pipe(plugins.sourcemaps.write('.', {
