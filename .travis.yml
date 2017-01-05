@@ -2,18 +2,8 @@ language: node_js
 node_js:
   - 6
 
-# NodeJS v4 requires gcc 4.8
 env:
-  - NODE_ENV=travis CXX="g++-4.8" CC="gcc-4.8"
-# gcc 4.8 requires ubuntu-toolchain-r-test
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
-      - gcc-4.8
-      - clang
+  - NODE_ENV=travis
 
 services:
   - mongodb
