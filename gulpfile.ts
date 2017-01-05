@@ -9,12 +9,16 @@ const config = require('./tools/gulp/config');
 
 loadTasks(config.tools.gulpTasks);
 
+gulp.task('clean', (done: any) => {
+  runSequence(['clean.dist', 'clean.coverage'], done);
+});
+
 gulp.task('compile', (done: any) => {
   runSequence(['compile.config', 'compile.server', 'compile.entry', 'compile.client'], done);
 });
 
 gulp.task('tslint', (done: any) => {
-  runSequence(['tslint.config', 'tslint.server', 'tslint.entry', 'tslint.client'], done);
+  runSequence(['tslint.config', 'tslint.server', 'tslint.client'], done);
 });
 
 gulp.task('lint', (done: any) => {
@@ -34,9 +38,21 @@ gulp.task('rebuild', (done: any) => {
   runSequence('clean', 'build', done);
 });
 
+gulp.task('build.prod', (done: any) => {
+  runSequence('env.prod', 'clean', 'build', done);
+});
+
 // Test tasks
+gulp.task('test.server', (done: any) => {
+  runSequence('env.test', ['compile.server', 'compile.config'], 'mocha', done);
+});
+
+gulp.task('test.tools', (done: any) => {
+  runSequence('env.test', 'tslint.tools', 'compile.tools', 'mocha.tools', done);
+});
+
 gulp.task('test', (done: any) => {
-  runSequence('env.test', 'mocha', done);
+  runSequence('env.test', 'rebuild', 'mocha', done);
 });
 
 // Watch Files For Changes
@@ -58,7 +74,7 @@ gulp.task('watch', () => {
   gulp.watch(
     config.server.entry,
     () => {
-      runSequence(['tslint.entry', 'compile.entry'], NodeMon.reload);
+      runSequence(['tslint.server', 'compile.entry'], NodeMon.reload);
     })
     .on('change', onChange);
 
@@ -117,7 +133,7 @@ let firstRun = true;
 gulp.task('clean.once', (done: any) => {
   if (firstRun) {
     firstRun = false;
-    runSequence('clean.dev', 'clean.coverage', done);
+    runSequence('clean', done);
   } else {
     util.log('Skipping clean on rebuild');
     done();
