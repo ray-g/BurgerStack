@@ -8,8 +8,8 @@ const config = require('../config');
  */
 export = () => {
   let assets = assetsUnion(
-    config.server.ts,
-    config.server.entry
+    config.tools.allTS,
+    config.tools.gulpFile
   );
 
   return TSLinter.check(assets);
