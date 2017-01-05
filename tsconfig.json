@@ -10,6 +10,7 @@
     "removeComments": true,
     "newLine": "LF",
     "sourceMap": true,
+    "inlineSourceMap": true,
     "pretty": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
