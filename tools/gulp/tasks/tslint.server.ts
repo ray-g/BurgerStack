@@ -7,7 +7,10 @@ const config = require('../config');
  * Executes the build process, linting the TypeScript files using `codelyzer`.
  */
 export = () => {
-  let assets = assetsUnion(config.server.ts);
+  let assets = assetsUnion(
+    config.server.ts,
+    config.server.entry
+  );
 
   return TSLinter.check(assets);
 };
