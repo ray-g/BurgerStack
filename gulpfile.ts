@@ -48,11 +48,11 @@ gulp.task('test.server', (done: any) => {
 });
 
 gulp.task('test.tools', (done: any) => {
-  runSequence('env.test', 'tslint.tools', 'compile.tools', 'mocha.tools', done);
+  runSequence('env.test', 'tslint.tools', 'compile.tools', 'compile.test', 'mocha.tools', done);
 });
 
 gulp.task('test', (done: any) => {
-  runSequence('env.test', 'rebuild', 'mocha', done);
+  runSequence('env.test', 'clean', 'build', 'compile.tools', 'compile.test', 'mocha', done);
 });
 
 // Watch Files For Changes
