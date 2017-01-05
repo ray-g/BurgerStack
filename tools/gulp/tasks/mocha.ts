@@ -40,7 +40,7 @@ export = (done: any) => {
               // If an error occurs, save it
               error = err;
             })
-            .once('end', () => {
+            .on('end', () => {
               // When the tests are done, disconnect databases and pass the error state back to gulp
               Databases.disconnect(() => {
                 if (error) {
@@ -57,7 +57,11 @@ export = (done: any) => {
                     'text-summary': null,
                     'lcovonly': './coverage/lcov.info'
                   }
-                }));
+                }))
+                .on('finish', () => {
+                  gulp.src('./coverage/lcov.info')
+                  .pipe(plugins.coveralls());
+                });
 
               done();
             });

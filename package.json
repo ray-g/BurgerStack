@@ -123,6 +123,7 @@
     "gulp-clean-css": "2.0.11",
     "gulp-concat": "2.6.0",
     "gulp-concat-css": "2.3.0",
+    "gulp-coveralls": "0.1.4",
     "gulp-csslint": "1.0.0",
     "gulp-csso": "2.0.0",
     "gulp-eslint": "3.0.1",
