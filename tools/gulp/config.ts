@@ -43,20 +43,13 @@ const AppConfig = {
   },
   server: {
     ts: ['server/!(typings)/**/*.ts'],
-    entry: ['server.ts'],
-    runtime: {
-      postgresModels: 'server/*/pgmodels/**/*.js',
-      mongodbModels: 'server/*/mgmodels/**/*.js',
-      routes: ['server/!(core)/routes/**/*.js', 'server/core/routes/**/*.js'],
-      sockets: 'server/*/sockets/**/*.js',
-      config: ['server/*/config/**/*.js'],
-      policies: 'server/*/policies/**/*.js',
-    }
+    entry: ['server.ts']
   },
   tests: {
-    client: ['test/client/**/*.ts'],
-    server: ['test/server/**/*.ts'],
-    e2e: ['test/e2e/**/*.ts']
+    client: ['test/client/**/*.spec.ts'],
+    server: ['test/server/**/*.spec.ts'],
+    e2e: ['test/e2e/**/*.ts'],
+    coverageDir: 'coverage'
   },
   config: {
     serverConfig: ['config/**/*.ts'],
@@ -65,7 +58,8 @@ const AppConfig = {
     gulpFile: 'gulpfile.ts',
     gulpTasks: 'tools/gulp/tasks/!(_)*.ts',
     utils: 'tools/utils/*.ts',
-    tools: 'tools/**/*.ts'
+    tools: 'tools/**/*.ts',
+    manualTypings: 'tools/manual_typings/**/*.d.ts'
   },
   dist: {
     path: 'dist',
