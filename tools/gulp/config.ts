@@ -46,20 +46,20 @@ const AppConfig = {
     entry: ['server.ts']
   },
   tests: {
+    allTS: ['test/**/*.spec.ts'],
     client: ['test/client/**/*.spec.ts'],
     server: ['test/server/**/*.spec.ts'],
     tools: ['test/tools/**/*.spec.ts'],
-    e2e: ['test/e2e/**/*.ts'],
+    e2e: ['test/e2e/**/*.spec.ts'],
     coverageDir: 'coverage'
   },
   config: {
     serverConfig: ['config/**/*.ts'],
   },
   tools: {
-    gulpFile: 'gulpfile.ts',
+    allTS: ['tools/!(manual_typings)/**/*.ts'],
+    gulpFile: ['gulpfile.ts'],
     gulpTasks: 'tools/gulp/tasks/!(_)*.ts',
-    utils: 'tools/utils/*.ts',
-    tools: 'tools/**/*!(\.d).ts',
     manualTypings: 'tools/manual_typings/**/*.d.ts'
   },
   dist: {
@@ -68,6 +68,7 @@ const AppConfig = {
     server: 'dist/server',
     client: 'dist/client',
     tools: 'dist/tools',
+    tests: 'dist/test',
     npm_relative: '../node_modules',
     all: ['dist/*'],
     entry: 'dist/server.js',
