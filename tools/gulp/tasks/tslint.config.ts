@@ -1,13 +1,13 @@
 import { TSLinter } from '../libs/tslinter';
 import { assetsUnion } from '../../../config/utils';
 
-const baseAssets = require('../../../config/assets/base');
+const config = require('../config');
 
 /**
  * Executes the build process, linting the TypeScript files using `codelyzer`.
  */
 export = () => {
-  let assets = assetsUnion(baseAssets.config.serverConfig);
+  let assets = assetsUnion(config.config.serverConfig);
 
   return TSLinter.check(assets);
 };

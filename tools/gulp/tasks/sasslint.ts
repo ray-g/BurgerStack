@@ -3,11 +3,11 @@ import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { assetsUnion } from '../../../config/utils';
 
 const plugins = <any>gulpLoadPlugins();
-const baseAssets = require('../../../config/assets/base');
+const config = require('../config');
 
 export = () => {
   let assets = assetsUnion(
-    baseAssets.client.sass
+    config.client.sass
   );
 
   return gulp.src(assets)

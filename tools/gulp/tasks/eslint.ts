@@ -2,12 +2,12 @@ import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { assetsUnion } from '../../../config/utils';
 
-const baseAssets = require('../../../config/assets/base');
+const config = require('../config');
 const plugins = <any>gulpLoadPlugins();
 
 export = () => {
   let assets = assetsUnion(
-    baseAssets.client.systemJSConfig
+    config.client.systemJSConfig
   );
 
   return gulp.src(assets)

@@ -99,27 +99,12 @@ export class Config {
   };
 
   /**
- * Initialize global configuration files
- */
-  initGlobalConfigFolders(config: any, assets: any) {
-    // Appending files
-    config.folders = {
-      server: {},
-      client: {}
-    };
-
-    // Setting globbed client paths
-    config.folders.client = getGlobbedPaths(path.join(process.cwd(), 'modules/*/client/'), process.cwd().replace(new RegExp(/\\/g), '/'));
-  };
-
-  /**
    * Initialize global configuration files
    */
   private initGlobalConfigFiles(config: any, assets: any) {
     // Appending files
     config.files = {
-      server: {},
-      client: {}
+      server: {}
     };
 
     // Setting Globbed model files
@@ -137,17 +122,6 @@ export class Config {
 
     // Setting Globbed policies files
     config.files.server.policies = getGlobbedPaths(assets.server.policies, []);
-
-    // Setting Globbed js files
-    config.files.client.js = getGlobbedPaths(assets.client.lib.js, 'client/')
-      .concat(getGlobbedPaths(assets.client.js, ['client/']));
-
-    // Setting Globbed css files
-    config.files.client.css = getGlobbedPaths(assets.client.lib.css, 'client/')
-      .concat(getGlobbedPaths(assets.client.css, ['client/']));
-
-    // Setting Globbed test files
-    config.files.client.tests = getGlobbedPaths(assets.client.tests, []);
   };
 
   /**
@@ -187,9 +161,6 @@ export class Config {
 
     // Initialize global globbed files
     this.initGlobalConfigFiles(config, assets);
-
-    // Initialize global globbed folders
-    this.initGlobalConfigFolders(config, assets);
 
     // Validate Secure SSL mode can be used
     this.validateSecureMode(config);

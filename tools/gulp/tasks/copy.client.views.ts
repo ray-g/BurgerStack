@@ -1,10 +1,10 @@
 import * as gulp from 'gulp';
 
-const baseAssets = require('../../../config/assets/base');
+const config = require('../config');
 
 export = () => {
-  return gulp.src(baseAssets.client.views, {
-    base: baseAssets.client.path
+  return gulp.src(config.client.views, {
+    base: config.client.path
   })
-    .pipe(gulp.dest(baseAssets.dist.client));
+    .pipe(gulp.dest(config.dist.client));
 };

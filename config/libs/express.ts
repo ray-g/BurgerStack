@@ -94,8 +94,6 @@ export class ExpressServer {
       app.locals.secure = config.secure.ssl;
     }
     app.locals.keywords = config.app.keywords;
-    app.locals.jsFiles = config.files.client.js;
-    app.locals.cssFiles = config.files.client.css;
     app.locals.logo = config.logo;
     app.locals.favicon = config.favicon;
 
@@ -223,11 +221,6 @@ export class ExpressServer {
   private initModulesClientRoutes(app: Express) {
     // Setting the app router and static folder
     app.use('/', express.static(path.resolve('./client')));
-
-    // Globbing static routing
-    config.folders.client.forEach((staticPath: string) => {
-      app.use(staticPath, express.static(path.resolve('./' + staticPath)));
-    });
   };
 
   /**

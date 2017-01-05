@@ -1,6 +1,6 @@
 let del = require('del');
-const baseAssets = require('../../../config/assets/base');
+const config = require('../config');
 
 export = () => {
-  return del(baseAssets.dist.all);
+  return del(config.dist.all);
 };

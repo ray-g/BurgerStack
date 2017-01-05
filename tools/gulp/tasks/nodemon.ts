@@ -1,12 +1,12 @@
 import { NodeMon } from '../libs/nodemon';
 
-const baseAssets = require('../../../config/assets/base');
+const config = require('../config');
 
 // Nodemon task
 export = () => {
   NodeMon.start(
-    baseAssets.dist.entry,
-    baseAssets.dist.entry,
+    config.dist.entry,
+    config.dist.entry,
     'js, html',
     ['--debug']
   );

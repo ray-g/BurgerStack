@@ -5,9 +5,9 @@ import * as runSequence from 'run-sequence';
 import { loadTasks } from './tools/utils';
 import { NodeMon } from './tools/gulp/libs/nodemon';
 import { BrowserSync } from './tools/gulp/libs/browsersync';
-import * as baseAssets from './config/assets/base';
+const config = require('./tools/gulp/config');
 
-loadTasks(baseAssets.tools.gulpTasks);
+loadTasks(config.tools.gulpTasks);
 
 gulp.task('compile', (done: any) => {
   runSequence(['compile.config', 'compile.server', 'compile.entry', 'compile.client'], done);
@@ -48,7 +48,7 @@ gulp.task('watch', () => {
   // Add watch rules
   // All server TS files, do lint and compile, then restart server
   gulp.watch(
-    baseAssets.server.ts,
+    config.server.ts,
     () => {
       runSequence(['tslint.server', 'compile.server'], NodeMon.reload);
     })
@@ -56,7 +56,7 @@ gulp.task('watch', () => {
 
   // Server entry file, do lint and compile, then restart server
   gulp.watch(
-    baseAssets.server.entry,
+    config.server.entry,
     () => {
       runSequence(['tslint.entry', 'compile.entry'], NodeMon.reload);
     })
@@ -64,7 +64,7 @@ gulp.task('watch', () => {
 
   // All config TS files, do lint and compile, then restart server
   gulp.watch(
-    baseAssets.config.serverConfig,
+    config.config.serverConfig,
     () => {
       runSequence(['tslint.config', 'compile.config'], NodeMon.reload);
     })
@@ -72,7 +72,7 @@ gulp.task('watch', () => {
 
   // Client systemJS file, do lint and copy, then reload browser
   gulp.watch(
-    baseAssets.client.systemJSConfig,
+    config.client.systemJSConfig,
     () => {
       runSequence(['eslint', 'copy.client'], BrowserSync.reload);
     })
@@ -80,7 +80,7 @@ gulp.task('watch', () => {
 
   // All client TS files, do lint and compile, then reload browser
   gulp.watch(
-    baseAssets.client.ts,
+    config.client.ts,
     () => {
       runSequence(['tslint.client', 'compile.client'], BrowserSync.reload);
     })
@@ -88,7 +88,7 @@ gulp.task('watch', () => {
 
   // All client sass files, do lint and compile, then reload browser
   gulp.watch(
-    baseAssets.client.sass,
+    config.client.sass,
     () => {
       runSequence(['sasslint', 'sass'], BrowserSync.reload);
     })
@@ -96,7 +96,7 @@ gulp.task('watch', () => {
 
   // All client html files, do lint and copy, then reload browser
   gulp.watch(
-    baseAssets.client.views,
+    config.client.views,
     () => {
       runSequence(['copy.client.views'], BrowserSync.reload);
     })
@@ -104,7 +104,7 @@ gulp.task('watch', () => {
 
   // All client assets files, do copy, then reload browser
   gulp.watch(
-    baseAssets.client.assets,
+    config.client.assets,
     () => {
       runSequence(['copy.client.assets'], BrowserSync.reload);
     })

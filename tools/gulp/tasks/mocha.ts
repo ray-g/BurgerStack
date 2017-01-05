@@ -3,10 +3,10 @@ import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { Databases } from '../../../config/libs/databases';
 
 const plugins = <any>gulpLoadPlugins();
-const taseAssets = require('../../../config/assets/test');
+const config = require('../config');
 
 export = (done: any) => {
-  let testSuites = taseAssets.tests.server;
+  let testSuites = config.tests.server;
   let error: any = null;
 
   Databases.connect()

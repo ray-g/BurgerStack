@@ -1,10 +1,10 @@
 import { TSCompiler } from '../libs/tscompiler';
 
-const baseAssets = require('../../../config/assets/base');
+const config = require('../config');
 
 export = () => {
   return TSCompiler.compile(
-    baseAssets.server.ts,
-    baseAssets.dist.server,
+    config.server.ts,
+    config.dist.server,
     'tsconfig.json');
 };
