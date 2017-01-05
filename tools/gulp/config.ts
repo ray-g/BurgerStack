@@ -46,11 +46,20 @@ const AppConfig = {
     entry: ['server.ts']
   },
   tests: {
-    allTS: ['test/**/*.spec.ts'],
-    client: ['test/client/**/*.spec.ts'],
-    server: ['test/server/**/*.spec.ts'],
-    tools: ['test/tools/**/*.spec.ts'],
-    e2e: ['test/e2e/**/*.spec.ts'],
+    ts: {
+      all: ['test/**/*.spec.ts'],
+      client: ['test/client/**/*.spec.ts'],
+      server: ['test/server/**/*.spec.ts'],
+      tools: ['test/tools/**/*.spec.ts'],
+      e2e: ['test/e2e/**/*.spec.ts'],
+    },
+    js: {
+      all: ['test/**/*.spec.js'],
+      client: ['test/client/**/*.spec.js'],
+      server: ['test/server/**/*.spec.js'],
+      tools: ['test/tools/**/*.spec.js'],
+      e2e: ['test/e2e/**/*.spec.js'],
+    },
     coverageDir: 'coverage'
   },
   config: {

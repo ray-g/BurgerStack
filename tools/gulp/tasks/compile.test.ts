@@ -5,7 +5,7 @@ const config = require('../config');
 
 export = () => {
   let assets = assetsUnion(
-    config.tests.allTS
+    config.tests.ts.all
   );
 
   return TSCompiler.compile(
