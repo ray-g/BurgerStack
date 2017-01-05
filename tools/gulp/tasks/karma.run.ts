@@ -5,7 +5,7 @@ import { startKarma } from '../../utils/karma.start';
 export = (done: any) => {
   return startKarma(done, {
     preprocessors: {
-      'dist/**/!(*spec).js': ['coverage']
+      'dist/!(test)/**/*.js': ['coverage']
     },
     reporters: ['mocha', 'coverage'],
     coverageReporter: {
