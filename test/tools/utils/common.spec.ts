@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import chai = require('chai');
-import * as utilsCommon from '../../../../tools/utils/common';
+import * as utilsCommon from '../../../tools/utils/common';
 
 let expect = chai.expect;
 
