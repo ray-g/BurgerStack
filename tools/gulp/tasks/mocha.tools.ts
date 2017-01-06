@@ -13,7 +13,7 @@ export = (done: any) => {
 
   let coverageDir = config.tests.coverageDir + '/mocha.tools';
 
-  instrument(config.dist.allJS, coverageDir, gulp, plugins, isparta)
+  instrument(config.dist.allJS, coverageDir, gulp, plugins, isparta, true)
     .on('finish', () => {
       gulp.src(testSuites, { cwd: 'dist' })
         .pipe(plugins.mocha({
