@@ -5,6 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "postinstall": "npm prune",
+    "travis": "gulp test.travis",
     "test": "gulp test"
   },
   "repository": {

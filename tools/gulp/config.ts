@@ -80,6 +80,7 @@ const AppConfig = {
     tests: 'dist/test',
     npm_relative: '../node_modules',
     all: ['dist/*'],
+    allJS: ['dist/!(test)/**/*.js', 'dist/server.js'],
     entry: 'dist/server.js',
     serverAll: ['dist/server/**/*.*', 'dist/config/**/*.*', 'dist/server.js'],
     clientAll: ['dist/client/**/*.*']

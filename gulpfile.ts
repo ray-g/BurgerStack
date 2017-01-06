@@ -9,24 +9,42 @@ const config = require('./tools/gulp/config');
 
 loadTasks(config.tools.gulpTasks);
 
+// Clean tasks
 gulp.task('clean', (done: any) => {
   runSequence(['clean.dist', 'clean.coverage'], done);
 });
 
+// Clean dev/coverage that will only run once
+// this prevents karma watchers from being broken when directories are deleted
+let firstRun = true;
+gulp.task('clean.once', (done: any) => {
+  if (firstRun) {
+    firstRun = false;
+    runSequence('clean', done);
+  } else {
+    util.log('Skipping clean on rebuild');
+    done();
+  }
+});
+
+
+// Compile tasks
 gulp.task('compile', (done: any) => {
   runSequence(['compile.config', 'compile.server', 'compile.entry', 'compile.client'], done);
 });
 
+gulp.task('compile.all', (done: any) => {
+  runSequence(['compile', 'compile.tools', 'compile.test'], done);
+});
+
+
+// Linter tasks
 gulp.task('tslint', (done: any) => {
-  runSequence(['tslint.config', 'tslint.server', 'tslint.client'], done);
+  runSequence(['tslint.config', 'tslint.server', 'tslint.client', 'tslint.tools', 'tslint.test'], done);
 });
 
 gulp.task('lint', (done: any) => {
   runSequence(['tslint', 'eslint', 'sasslint'], done);
-});
-
-gulp.task('copy', (done: any) => {
-  runSequence(['copy.client.views', 'copy.client.assets'], done);
 });
 
 // Build tasks
@@ -42,6 +60,10 @@ gulp.task('build.prod', (done: any) => {
   runSequence('env.prod', 'clean', 'build', done);
 });
 
+gulp.task('copy', (done: any) => {
+  runSequence(['copy.client.views', 'copy.client.assets'], done);
+});
+
 // Test tasks
 gulp.task('test.server', (done: any) => {
   runSequence('env.test', ['compile.server', 'compile.config'], 'mocha', done);
@@ -53,6 +75,10 @@ gulp.task('test.tools', (done: any) => {
 
 gulp.task('test', (done: any) => {
   runSequence('env.test', 'clean', 'build', 'compile.tools', 'compile.test', 'mocha', done);
+});
+
+gulp.task('test.travis', (done: any) => {
+  runSequence('test', 'coveralls', done);
 });
 
 // Watch Files For Changes
@@ -125,19 +151,6 @@ gulp.task('watch', () => {
       runSequence(['copy.client.assets'], BrowserSync.reload);
     })
     .on('change', onChange);
-});
-
-// Clean dev/coverage that will only run once
-// this prevents karma watchers from being broken when directories are deleted
-let firstRun = true;
-gulp.task('clean.once', (done: any) => {
-  if (firstRun) {
-    firstRun = false;
-    runSequence('clean', done);
-  } else {
-    util.log('Skipping clean on rebuild');
-    done();
-  }
 });
 
 gulp.task('watch.and.serve', (done: any) => {

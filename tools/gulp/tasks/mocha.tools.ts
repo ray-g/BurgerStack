@@ -1,5 +1,6 @@
 import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
+import { instrument } from '../libs/instrument';
 
 const isparta = require('isparta');
 const remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
@@ -10,15 +11,9 @@ export = (done: any) => {
   let testSuites = config.tests.js.tools;
   let error: any = null;
 
-  gulp.src(['dist/tools/**/*.js'])
-    // Covering files
-    .pipe(plugins.sourcemaps.init())
-    .pipe(plugins.istanbul({
-      instrumenter: isparta.Instrumenter,
-      includeUntested: true
-    }))
-    // Force `require` to return covered files
-    .pipe(plugins.istanbul.hookRequire())
+  let coverageDir = config.tests.coverageDir + '/mocha.tools';
+
+  instrument(config.dist.allJS, coverageDir, gulp, plugins, isparta)
     .on('finish', () => {
       gulp.src(testSuites, { cwd: 'dist' })
         .pipe(plugins.mocha({
@@ -27,6 +22,7 @@ export = (done: any) => {
           timeout: 10000
         }))
         .pipe(plugins.istanbul.writeReports({
+          dir: coverageDir,
           reporters: ['json']
         }))
         .on('error', (err: any) => {
@@ -39,20 +35,17 @@ export = (done: any) => {
             // process.exit(1);
           }
 
-          gulp.src('./coverage/coverage-final.json')
+          gulp.src(coverageDir + '/coverage-final.json')
             .pipe(remapIstanbul({
               basePath: '.',
               reports: {
-                'html': './coverage',
+                'html': coverageDir + '/html',
                 'text-summary': null,
-                'lcovonly': './coverage/lcov.info'
+                'lcovonly': coverageDir + '/lcov.info'
               }
             }));
 
           done();
         });
     });
-
-
-
 };
