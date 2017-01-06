@@ -1,7 +1,7 @@
 import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { Databases } from '../../../config/libs/databases';
-// import { assetsUnion } from '../../../config/utils';
+import { assetsUnion } from '../../../config/utils';
 import { instrument } from '../libs/instrument';
 
 const isparta = require('isparta');
@@ -10,8 +10,7 @@ const plugins = <any>gulpLoadPlugins();
 const config = require('../config');
 
 export = (done: any) => {
-  // let testSuites = assetsUnion(config.tests.js.server, config.tests.js.tools);
-  let testSuites = config.tests.js.server;
+  let testSuites = assetsUnion(config.tests.js.server, config.tests.js.tools);
   let error: any = null;
 
   let coverageDir = config.tests.coverageDir + '/mocha';
