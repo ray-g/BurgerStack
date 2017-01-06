@@ -37,15 +37,16 @@ export = (done: any) => {
 
           gulp.src(coverageDir + '/coverage-final.json')
             .pipe(remapIstanbul({
-              basePath: '.',
+              basePath: './',
               reports: {
                 'html': coverageDir + '/html',
                 'text-summary': null,
                 'lcovonly': coverageDir + '/lcov.info'
               }
-            }));
-
-          done();
+            }))
+            .on('finish', () => {
+              done();
+            });
         });
     });
 };

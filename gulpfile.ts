@@ -78,7 +78,7 @@ gulp.task('test', (done: any) => {
 });
 
 gulp.task('test.travis', (done: any) => {
-  runSequence('test', 'coveralls', done);
+  runSequence('test', 'mocha.tools', 'coveralls', done);
 });
 
 // Watch Files For Changes
