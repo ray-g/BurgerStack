@@ -81,6 +81,10 @@ gulp.task('test.travis', (done: any) => {
   runSequence('test', 'coveralls', done);
 });
 
+gulp.task('test.watch', (done: any) => {
+  runSequence('test', 'watch', done);
+});
+
 // Watch Files For Changes
 let onChange = (event: any) => {
   console.log('File ' + event.path + ' was ' + event.type);
@@ -149,6 +153,21 @@ gulp.task('watch', () => {
     config.client.assets,
     () => {
       runSequence(['copy.client.assets'], BrowserSync.reload);
+    })
+    .on('change', onChange);
+
+  // Tools and Tests files, do lint and compile.
+  gulp.watch(
+    config.tests.ts.all,
+    () => {
+      runSequence(['tslint.test', 'compile.test']);
+    })
+    .on('change', onChange);
+
+  gulp.watch(
+    config.tools.allTS,
+    () => {
+      runSequence(['tslint.tools', 'compile.tools']);
     })
     .on('change', onChange);
 });
