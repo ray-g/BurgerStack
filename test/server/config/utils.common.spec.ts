@@ -39,8 +39,8 @@ describe('config/utils/common:', () => {
   describe('getGlobbedPaths()', () => {
     beforeEach(() => {
       sinon.stub(glob, 'sync')
-      .onFirstCall().returns(['aaa', 'bbb', 'ccc', 'exclude1'])
-      .onSecondCall().returns(['xxx', 'yyy', 'zzz', 'exclude2']);
+        .onFirstCall().returns(['aaa', 'bbb', 'ccc', 'exclude1'])
+        .onSecondCall().returns(['xxx', 'yyy', 'zzz', 'exclude2']);
     });
 
     afterEach(() => {
@@ -96,6 +96,12 @@ describe('config/utils/common:', () => {
       });
       expect(paths.length).to.equal(8);
       expect(hasUrl).to.equal(true);
+      done();
+    });
+
+    it('should not care about non string pattern', (done) => {
+      let paths = utilsCommon.getGlobbedPaths(['a', null], '');
+      expect(paths.length).to.equal(4);
       done();
     });
   });

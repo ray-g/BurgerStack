@@ -27,11 +27,6 @@ export function getGlobbedPaths(globPatterns: string | string[], excludes: strin
             excludes.forEach((item) => {
               file = file.replace(item, '');
             });
-            for (let i in excludes) {
-              if (excludes.hasOwnProperty(i)) {
-                file = file.replace(excludes[i], '');
-              }
-            }
           } else {
             file = file.replace(excludes, '');
           }
