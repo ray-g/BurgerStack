@@ -108,8 +108,8 @@ export class Config {
     };
 
     // Setting Globbed model files
-    config.files.server.mdmodels = getGlobbedPaths(assets.server.mdmodels, []);
-    config.files.server.pgmodels = getGlobbedPaths(assets.server.pgmodels, []);
+    config.files.server.mdmodels = getGlobbedPaths(assets.server.mongodbModels, []);
+    config.files.server.pgmodels = getGlobbedPaths(assets.server.postgresModels, []);
 
     // Setting Globbed route files
     config.files.server.routes = getGlobbedPaths(assets.server.routes, []);
