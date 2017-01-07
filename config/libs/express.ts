@@ -157,12 +157,12 @@ export class ExpressServer {
    */
   private initViewEngine(app: Express) {
     // Set views path and view engine
-    app.engine('.html', hbs.express4({
-      extname: '.html'
+    app.engine('hbs', hbs.express4({
+      extname: '.hbs.html',
     }));
 
     // Set views path and view engine
-    app.set('view engine', 'html');
+    app.set('view engine', 'hbs');
     app.set('views', path.resolve('./client'));
   };
 
@@ -220,14 +220,14 @@ export class ExpressServer {
    */
   private initModulesClientRoutes(app: Express) {
     // Setting the app router and static folder
-    app.use('/', express.static(path.resolve('./client')));
+    // app.use('/', express.static(path.resolve(config.assets.client.path)));
   };
 
   /**
    * Configure node_modules and third-parties relative to dist.
    */
   private init3rdModulesStatics(app: Express) {
-    app.use('/libs', express.static(path.resolve(__dirname, './client/libs')));
+    app.use('/libs', express.static(path.resolve(__dirname, config.assets.client.path, 'libs')));
     app.use(express.static(path.resolve(__dirname, '../node_modules')));
   };
 

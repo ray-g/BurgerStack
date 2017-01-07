@@ -39,7 +39,7 @@ const AppConfig = {
     assets: [
       'client/assets/**'
     ],
-    views: ['client/**/*.html']
+    views: ['client/**/*.html', 'client/**/*.hbs']
   },
   server: {
     ts: ['server/!(typings)/**/*.ts'],
