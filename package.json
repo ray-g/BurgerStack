@@ -104,7 +104,6 @@
     "@types/redis": "0.12.34",
     "@types/rimraf": "0.0.27",
     "@types/run-sequence": "0.0.27",
-    "@types/selenium-webdriver": "2.44.*",
     "@types/sequelize": "4.0.39",
     "@types/sinon": "1.16.34",
     "@types/socket.io": "1.4.27",
