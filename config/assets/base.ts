@@ -1,5 +1,6 @@
 const BaseAssets = {
   client: {
+    path: 'client',
     systemJSConfig: 'client/systemjs.config.js',
     assets: [
       'client/assets/**'

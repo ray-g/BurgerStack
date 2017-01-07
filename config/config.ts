@@ -102,8 +102,11 @@ export class Config {
    * Initialize global configuration files
    */
   private initGlobalConfigFiles(config: any, assets: any) {
+    config.assets = assets;
+
     // Appending files
     config.files = {
+      client: {},
       server: {}
     };
 
