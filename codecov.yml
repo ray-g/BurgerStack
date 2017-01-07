@@ -24,3 +24,7 @@ parsers:
       method: false
   javascript:
     enable_partials: false
+ignore:
+  - "tools/gulp/tasks/*.ts"
+  - "tools/manual_typings/*.d.ts"
+  - "gulpfile.ts"
