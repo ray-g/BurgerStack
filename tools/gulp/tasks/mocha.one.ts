@@ -1,3 +1,5 @@
+process.env.NODE_ENV = 'test';
+
 import * as gulp from 'gulp';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
