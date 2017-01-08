@@ -66,7 +66,7 @@ const AppConfig = {
     serverConfig: ['config/**/*.ts'],
   },
   tools: {
-    allTS: ['tools/!(manual_typings)/**/*.ts', '!tools/gulp/tasks/*.ts', 'tools/*.ts'],
+    allTS: ['tools/!(manual_typings)/**/*.ts', '!tools/gulp/**/*.ts', 'tools/*.ts'],
     gulpFile: ['gulpfile.ts'],
     gulpTasks: 'tools/gulp/tasks/!(_)*.ts',
     manualTypings: 'tools/manual_typings/**/*.d.ts'
