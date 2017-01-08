@@ -14,7 +14,7 @@
 //
 
 /* For example (Development):*/
-
+/*
 const LocalEnv = {
   postgres: {
     options: {
@@ -40,3 +40,4 @@ const LocalEnv = {
 
 export = LocalEnv;
 
+*/

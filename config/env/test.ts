@@ -8,7 +8,9 @@ const DevelopmentEnv = {
       username: 'postgres',
       password: '',
       database: 'burgerstack_test',
-      logging: process.env.PG_LOGGING === 'true' ? console.log : false
+      // Logging method
+      // 'console.log', 'false', default 'false'
+      logging: false
     },
     sync: {
       // If force is true, each DAO will do DROP TABLE IF EXISTS ...,
