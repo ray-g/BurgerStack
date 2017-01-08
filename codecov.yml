@@ -3,7 +3,7 @@ codecov:
     require_ci_to_pass: true
 comment:
   behavior: default
-  layout: header, diff
+  layout: "header, diff, changes, sunburst, uncovered, tree"
   require_changes: false
 coverage:
   precision: 2
