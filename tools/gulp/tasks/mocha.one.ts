@@ -4,7 +4,6 @@ import * as gulp from 'gulp';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
-import { Databases } from '../../../config/libs/databases';
 import { instrument } from '../libs/instrument';
 
 const isparta = require('isparta');
@@ -43,46 +42,38 @@ export = (done: any) => {
 
   instrument(config.dist.allJS, coverageDir, gulp, plugins, isparta, false)
     .on('finish', () => {
-      Databases.connect()
-        .then(() => {
-          Databases.loadModels(null);
+      gulp.src(testSuites, { cwd: './' })
+        .pipe(plugins.mocha({
+          ui: 'bdd',
+          reporter: 'spec',
+          timeout: 10000
+        }))
+        .pipe(plugins.istanbul.writeReports({
+          dir: coverageDir,
+          reporters: ['json']
+        }))
+        .on('error', (err: any) => {
+          // If an error occurs, save it
+          error = err;
         })
-        .then(() => {
-          gulp.src(testSuites, { cwd: './' })
-            .pipe(plugins.mocha({
-              ui: 'bdd',
-              reporter: 'spec',
-              timeout: 10000
-            }))
-            .pipe(plugins.istanbul.writeReports({
-              dir: coverageDir,
-              reporters: ['json']
-            }))
-            .on('error', (err: any) => {
-              // If an error occurs, save it
-              error = err;
-            })
-            .once('end', () => {
-              // When the tests are done, disconnect databases and pass the error state back to gulp
-              Databases.disconnect(() => {
-                if (error) {
-                  plugins.util.log(plugins.util.colors.red('Mocha got error(s).'));
-                  process.exit(1);
-                }
-              });
+        .once('end', () => {
+          // When the tests are done, disconnect databases and pass the error state back to gulp
+          if (error) {
+            plugins.util.log(plugins.util.colors.red('Mocha got error(s).'));
+            process.exit(1);
+          }
 
-              gulp.src(coverageDir + '/coverage-final.json')
-                .pipe(remapIstanbul({
-                  basePath: '.',
-                  reports: {
-                    'html': coverageDir + '/html',
-                    'text-summary': null,
-                    'lcovonly': coverageDir + '/lcov.info'
-                  }
-                }));
+          gulp.src(coverageDir + '/coverage-final.json')
+            .pipe(remapIstanbul({
+              basePath: '.',
+              reports: {
+                'html': coverageDir + '/html',
+                'text-summary': null,
+                'lcovonly': coverageDir + '/lcov.info'
+              }
+            }));
 
-              done();
-            });
+          done();
         });
     });
 };
