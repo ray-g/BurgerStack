@@ -222,9 +222,9 @@ describe('Config class', () => {
 
         restoreOutput();
 
-        expect(mergeSpy.getCall(0).args[1]).to.equal({});
-        expect(mergeSpy.getCall(1).args[1]).to.equal({});
-        expect(mergeSpy.getCall(2).args[1]).to.equal({});
+        expect(mergeSpy.getCall(0).args[1]).deep.equal({});
+        expect(mergeSpy.getCall(1).args[1]).deep.equal({});
+        expect(mergeSpy.getCall(2).args[1]).deep.equal({});
         process.env.NODE_ENV = currentEnv;
       });
     });
