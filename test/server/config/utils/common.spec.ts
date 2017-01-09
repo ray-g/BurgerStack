@@ -2,9 +2,9 @@ import * as _ from 'lodash';
 import chai = require('chai');
 import sinon = require('sinon');
 import * as glob from 'glob';
-import { isStringArray } from '../../../tools/utils';
+import { isStringArray } from '../../../../tools/utils';
 
-import * as utilsCommon from '../../../config/utils/common';
+import * as utilsCommon from '../../../../config/utils/common';
 
 let expect = chai.expect;
 
@@ -53,13 +53,13 @@ describe('config/utils/common:', () => {
       done();
     });
 
-    it('should return 4 items', (done) => {
+    it('should return correct items', (done) => {
       let paths = utilsCommon.getGlobbedPaths('a', '');
       expect(paths.length).to.equal(4);
       done();
     });
 
-    it('should return 4 items without "exclude1" when exclude it', (done) => {
+    it('should not return excluded items', (done) => {
       let paths = utilsCommon.getGlobbedPaths('a', 'exclude1');
       let hasExclude = false;
       paths.forEach((path) => {
@@ -72,7 +72,7 @@ describe('config/utils/common:', () => {
       done();
     });
 
-    it('should return 7 items when excludes provide and 2 patterns provide', (done) => {
+    it('should combine excluded item, this means all the empty strings', (done) => {
       let paths = utilsCommon.getGlobbedPaths(['a', 'b'], ['exclude1', 'exclude2']);
       let hasExclude = false;
       paths.forEach((path) => {
