@@ -62,7 +62,7 @@ describe('Config class', () => {
 
         config.validateEnvironmentVariable();
 
-        expect(errStub.calledOnce);
+        expect(errStub.calledOnce).to.be.true;
         restoreOutput();
 
         expect(process.env.NODE_ENV).equal('development');
@@ -77,7 +77,7 @@ describe('Config class', () => {
 
         config.validateEnvironmentVariable();
 
-        expect(errStub.calledOnce);
+        expect(errStub.calledOnce).to.be.true;
         restoreOutput();
 
         expect(process.env.NODE_ENV).equal('development');
@@ -114,9 +114,8 @@ describe('Config class', () => {
           sinon.stub(fs, 'existsSync').returns(false));
 
         let ret = config.validateSecureMode({ secure: { ssl: true } });
-        expect(errStub.calledOnce);
+        expect(logStub.called).to.be.true;
         restoreOutput();
-
         expect(ret).to.equal(false);
       });
     });
@@ -146,7 +145,7 @@ describe('Config class', () => {
         process.env.NODE_ENV = 'production';
 
         let ret = config.validateSessionSecret({ sessionSecret: 'BurgerStack' }, true);
-        expect(logStub.notCalled);
+        expect(logStub.notCalled).to.be.true;
         restoreOutput();
 
         expect(ret).to.be.false;
@@ -159,7 +158,7 @@ describe('Config class', () => {
         process.env.NODE_ENV = 'production';
 
         let ret = config.validateSessionSecret({ sessionSecret: 'BurgerStack' }, false);
-        expect(logStub.called);
+        expect(logStub.called).to.be.true;
         restoreOutput();
 
         expect(ret).to.be.false;
@@ -178,7 +177,7 @@ describe('Config class', () => {
         config.initGlobalConfig();
         restoreOutput();
 
-        expect(mergeSpy.calledWithExactly(2));
+        expect(mergeSpy.calledTwice).to.be.true;
       });
 
       it('should not merge local env if there are too many', () => {
@@ -191,7 +190,7 @@ describe('Config class', () => {
         config.initGlobalConfig();
         restoreOutput();
 
-        expect(mergeSpy.calledWithExactly(2));
+        expect(mergeSpy.calledTwice).to.be.true;
       });
 
       it('should not merge local env if there is none', () => {
@@ -203,7 +202,7 @@ describe('Config class', () => {
         config.initGlobalConfig();
         restoreOutput();
 
-        expect(mergeSpy.calledWithExactly(2));
+        expect(mergeSpy.calledTwice).to.be.true;
       });
 
       it('should use default {} to merge if require failed', () => {
