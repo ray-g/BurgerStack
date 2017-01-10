@@ -64,7 +64,7 @@ describe('AppServer class', () => {
       stubs.push(sinon.stub(ExpressServer, 'init', mockExpressServerInit));
 
       AppServer.start();
-      expect(logStub.called);
+      expect(logStub.called).to.be.true;
       restoreOutput();
     });
 
@@ -76,7 +76,7 @@ describe('AppServer class', () => {
       stubs.push(sinon.stub(ExpressServer, 'init', mockExpressServerInit));
 
       AppServer.start();
-      expect(logStub.called);
+      expect(logStub.called).to.be.true;
       process.env.NODE_ENV = currentEnv;
       restoreOutput();
     });
@@ -87,7 +87,7 @@ describe('AppServer class', () => {
       stubs.push(sinon.stub(ExpressServer, 'init', mockExpressServerInit));
 
       AppServer.start();
-      expect(errStub.called);
+      expect(logStub.called).to.be.true;
       restoreOutput();
     });
   });
