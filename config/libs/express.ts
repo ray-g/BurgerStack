@@ -8,7 +8,7 @@ import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
 import favicon = require('serve-favicon');
 import flash = require('connect-flash');
-import { Express, Request, Response } from 'express';
+import { Express, Request, Response, NextFunction } from 'express';
 import { Config } from '../config';
 import { Logger } from './logger';
 import { SocketIO } from './socket.io';
@@ -98,7 +98,7 @@ export class ExpressServer {
     app.locals.favicon = config.favicon;
 
     // Passing the request url to environment locals
-    app.use((req: Request, res, next) => {
+    app.use((req: Request, res: Response, next: NextFunction) => {
       res.locals.host = req.protocol + '://' + req.hostname;
       let headers = <any>req.headers;
       res.locals.url = req.protocol + '://' + <any>(headers).host + req.originalUrl;
@@ -157,13 +157,13 @@ export class ExpressServer {
    */
   private initViewEngine(app: Express) {
     // Set views path and view engine
-    app.engine('hbs', hbs.express4({
+    app.engine('.hbs.html', hbs.express4({
       extname: '.hbs.html',
     }));
 
     // Set views path and view engine
-    app.set('view engine', 'hbs');
-    app.set('views', path.resolve('./client'));
+    app.set('view engine', '.hbs.html');
+    app.set('views', path.resolve(config.assets.client.path));
   };
 
   /**
@@ -220,14 +220,15 @@ export class ExpressServer {
    */
   private initModulesClientRoutes(app: Express) {
     // Setting the app router and static folder
-    // app.use('/', express.static(path.resolve(config.assets.client.path)));
+    app.use('/', express.static(path.resolve(config.assets.client.path)));
+    app.use('/', express.static(path.resolve('./')));
   };
 
   /**
    * Configure node_modules and third-parties relative to dist.
    */
   private init3rdModulesStatics(app: Express) {
-    app.use('/libs', express.static(path.resolve(__dirname, config.assets.client.path, 'libs')));
+    app.use('/libs', express.static(path.resolve(config.assets.client.path, 'libs')));
     app.use(express.static(path.resolve(__dirname, '../node_modules')));
   };
 
