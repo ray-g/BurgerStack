@@ -38,8 +38,8 @@ describe('tools/utils/task_tools', () => {
       stubs.push(sinon.stub(utilsCommon, 'getGlobbedPaths').returns(tasks));
 
       taskTools.loadTasks('path/to/tasks/*.ts');
-      expect(gulpTask.calledWith('dot.in.name'));
-      expect(gulpTask.calledWith('noDotName'));
+      expect(gulpTask.calledWith('dot.in.name')).to.be.true;
+      expect(gulpTask.calledWith('noDotName')).to.be.true;
     });
 
     it('should not register any task if target is not a file', () => {
@@ -60,21 +60,20 @@ describe('tools/utils/task_tools', () => {
       mockRequire(resolve('tasks/fake.task.ts'), () => { });
 
       taskTools.loadTasks('path/to/tasks/*.ts');
-      expect(spy.calledOnce);
+      expect(spy.calledOnce).to.be.true;
     });
 
     it('should call task with done() if task receives callback', () => {
       gulpTask.restore();
       let spy = sinon.spy();
       let task = function(done: any) { done(); };
-      let taskSpy = sinon.spy(task);
       gulpTask = sinon.stub(gulp, 'task', (name: string, cb: any) => { cb(spy); });
       tasks = ['tasks/fake.task.ts'];
       stubs.push(sinon.stub(utilsCommon, 'getGlobbedPaths').returns(tasks));
       mockRequire(resolve('tasks/fake.task.ts'), task);
 
       taskTools.loadTasks('path/to/tasks/*.ts');
-      expect(taskSpy.calledWith(spy));
+      expect(spy.called).to.be.true;
     });
 
     it('should return stream value if in stream', () => {
