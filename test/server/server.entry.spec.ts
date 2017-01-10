@@ -9,8 +9,8 @@ describe('Server entry file', () => {
     let startStub = sinon.stub(AppServer, 'start');
     let chdirStub = sinon.stub(process, 'chdir', () => { });
     require(resolve('dist/server.js'));
-    expect(chdirStub.calledWith('dist'));
-    expect(startStub.called);
+    expect(chdirStub.calledWith(resolve('dist'))).to.be.true;
+    expect(startStub.called).to.be.true;
     chdirStub.restore();
     startStub.restore();
   });
