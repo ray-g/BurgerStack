@@ -221,7 +221,7 @@ export class ExpressServer {
   private initModulesClientRoutes(app: Express) {
     // Setting the app router and static folder
     app.use('/', express.static(path.resolve(config.assets.client.path)));
-    app.use('/', express.static(path.resolve('./')));
+    app.use('/client', express.static(path.resolve(config.assets.client.path)));
   };
 
   /**
