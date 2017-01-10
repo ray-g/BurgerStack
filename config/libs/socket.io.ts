@@ -10,8 +10,6 @@ import { Express, Response } from 'express';
 import { Databases } from './databases';
 import { Config } from '../config';
 
-let config = Config.config();
-
 export class SocketIO {
   private static _instance: SocketIO = new SocketIO();
 
@@ -21,6 +19,7 @@ export class SocketIO {
 
   public static startServer(app: Express) {
     let server;
+    let config = Config.config();
     if (config.secure && config.secure.ssl === true) {
       // Load SSL key and certificate
       let privateKey = fs.readFileSync(path.resolve(config.secure.privateKey), 'utf8');
