@@ -5,9 +5,7 @@ export class CoreServerController {
  * Render the main application page
  */
   public static renderIndex(req: Request, res: Response) {
-    res.render('index', {
-      layout: 'layout'
-    });
+    res.render('index');
   }
 
   /**
