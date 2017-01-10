@@ -12,7 +12,7 @@
 
 All cool staffs in one stack.
 
-![Logo](docs/images/logo.svg)
+![Logo](docs/images/logo.png)
 
 webpack, angular2, redis, mongodb, postgres, express, typescript...
 
