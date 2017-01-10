@@ -12,6 +12,8 @@
 
 All cool staffs in one stack.
 
+![Logo](docs/images/logo.svg)
+
 webpack, angular2, redis, mongodb, postgres, express, typescript...
 
 Still heavily WIP...
