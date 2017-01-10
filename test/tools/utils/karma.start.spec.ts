@@ -11,12 +11,11 @@ describe('tools/utils/karma.start', () => {
       let mockServer = {
         start: function (done: any) { done(); }
       };
-      let emptyDone = function () { };
-      let doneSpy = sinon.spy(emptyDone);
+      let doneSpy = sinon.spy();
       sinon.stub(karma, 'Server').returns(mockServer);
 
-      karmaStart.startKarma(emptyDone, {});
-      expect(doneSpy.calledOnce);
+      karmaStart.startKarma(doneSpy, {});
+      expect(doneSpy.called).to.be.true;
     });
   });
 });
