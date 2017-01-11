@@ -32,9 +32,13 @@ export class Redis {
   private connect(connectCB: Function): Promise<any> {
     const config = Config.config();
     return new Promise((resolve, reject) => {
-      this.client = redis.createClient(config.redis.uri, config.redis.options);
-      if (config.redis.auth.enabled) {
-        this.client.auth(config.redis.auth.pass);
+      if (this.client) {
+        resolve(this.client);
+      } else {
+        this.client = redis.createClient(config.redis.uri, config.redis.options);
+        if (config.redis.auth.enabled) {
+          this.client.auth(config.redis.auth.pass);
+        }
       }
 
       this.client.on('error', (err: any) => {

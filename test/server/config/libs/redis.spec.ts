@@ -10,6 +10,7 @@ import { Redis } from '../../../../config/libs/redis';
 describe('Redis class', () => {
   let redisClient: any;
   let config: any;
+  let createStub: any;
 
   let stubs: any[] = [];
 
@@ -27,7 +28,8 @@ describe('Redis class', () => {
       on: (event: string, cb: Function) => { cb(); },
       quit: sinon.spy()
     };
-    stubs.push(sinon.stub(redis, 'createClient').returns(redisClient));
+    createStub = sinon.stub(redis, 'createClient').returns(redisClient);
+    stubs.push(createStub);
     stubs.push(sinon.stub(Config, 'config').returns(config));
   });
 
@@ -61,6 +63,12 @@ describe('Redis class', () => {
       let cb = sinon.spy();
       Redis.connect(cb);
       assert(cb.withArgs(redisClient).called);
+    });
+
+    it('should not connect multiple times', () => {
+      Redis.connect(null);
+      Redis.connect(null);
+      assert(createStub.calledOnce);
     });
   });
 
