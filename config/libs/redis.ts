@@ -1,6 +1,5 @@
 import * as redis from 'redis';
 import { Config } from '../config';
-const config = Config.config();
 
 export class Redis {
   private static _instance: Redis = new Redis();
@@ -31,6 +30,7 @@ export class Redis {
   }
 
   private connect(connectCB: Function): Promise<any> {
+    const config = Config.config();
     return new Promise((resolve, reject) => {
       this.client = redis.createClient(config.redis.uri, config.redis.options);
       if (config.redis.auth.enabled) {
