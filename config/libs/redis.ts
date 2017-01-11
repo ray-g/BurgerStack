@@ -4,7 +4,7 @@ import { Config } from '../config';
 export class Redis {
   private static _instance: Redis = new Redis();
 
-  private client: any = {};
+  private client: any = undefined;
 
   public static getInstance(): Redis {
     return Redis._instance;
@@ -51,7 +51,10 @@ export class Redis {
   }
 
   private disconnect() {
-    this.client.quit();
+    if (this.client) {
+      this.client.quit();
+      this.client = undefined;
+    }
   }
 
   private getClient() {
