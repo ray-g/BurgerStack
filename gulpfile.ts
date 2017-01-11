@@ -85,6 +85,10 @@ gulp.task('test.watch', (done: any) => {
   runSequence('test', 'watch', done);
 });
 
+gulp.task('test.only', (done: any) => {
+  runSequence('env.test', 'clean.coverage', 'tslint.test', 'compile.test', 'mocha', done);
+});
+
 // Watch Files For Changes
 let onChange = (event: any) => {
   console.log('File ' + event.path + ' was ' + event.type);
