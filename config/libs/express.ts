@@ -32,7 +32,7 @@ export class ExpressServer {
 
   constructor() {
     if (ExpressServer._instance) {
-      throw new Error('Error: Instantiation failed: Use Express.getInstance() instead of new.');
+      throw new Error('Error: Instantiation failed: Use ExpressServer.getInstance() instead of new.');
     }
     ExpressServer._instance = this;
   }
