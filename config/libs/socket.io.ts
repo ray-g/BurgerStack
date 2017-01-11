@@ -2,11 +2,11 @@ import * as path from 'path';
 import * as fs from 'fs';
 import * as http from 'http';
 import * as https from 'https';
-import * as cookieParser from 'cookie-parser';
 import * as passport from 'passport';
 import * as socketio from 'socket.io';
 import { Express, Response } from 'express';
 
+import { ThirdPartyModules } from './3rd_party_modules';
 import { Databases } from './databases';
 import { Config } from '../config';
 
@@ -71,7 +71,7 @@ export class SocketIO {
     // Intercept Socket.io's handshake request
     io.use((socket, next: any) => {
       // Use the 'cookie-parser' module to parse the request cookies
-      cookieParser(config.sessionSecret)(socket.request, <Response>{}, (err: any) => {
+      ThirdPartyModules.cookieParser()(config.sessionSecret)(socket.request, <Response>{}, (err: any) => {
         // Get the session id from the request cookies
         let sessionId = socket.request.signedCookies ? socket.request.signedCookies[config.sessionKey] : undefined;
 
