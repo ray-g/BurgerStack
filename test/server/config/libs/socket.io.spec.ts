@@ -29,7 +29,7 @@ describe('SockerIO class', () => {
       expect(SocketIO.getInstance()).instanceOf(SocketIO);
     });
 
-    it('new Config instance should get an error', () => {
+    it('new SocketIO instance should get an error', () => {
       expect(() => { new SocketIO(); }).throws('Error: Instantiation failed: Use SocketIO.getInstance() instead of new.');
     });
   });

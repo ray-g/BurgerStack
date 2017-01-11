@@ -35,7 +35,7 @@ describe('AppServer class', () => {
       expect(AppServer.getInstance()).instanceOf(AppServer);
     });
 
-    it('new Config instance should get an error', () => {
+    it('new AppServer instance should get an error', () => {
       expect(() => { new AppServer(); }).throws('Error: Instantiation failed: Use AppServer.getInstance() instead of new.');
     });
   });
