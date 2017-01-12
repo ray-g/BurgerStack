@@ -23,7 +23,7 @@ export class Databases {
       .sync({
         force: config.postgres.sync.force
       })
-      .then((db) => {
+      .then((db: any) => {
         Databases.postgresDB = db;
       });
 
