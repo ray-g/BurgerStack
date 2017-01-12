@@ -9,4 +9,8 @@ export class ThirdPartyModules {
   public static cookieParser() {
     return require('cookie-parser');
   }
+
+  public static Sequelize() {
+    return require('sequelize');
+  }
 }

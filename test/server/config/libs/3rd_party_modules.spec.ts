@@ -7,4 +7,8 @@ describe('ThirdPartyModules', () => {
   it('.cookieParser should return module "cookie-parser"', () => {
     expect(Modules.cookieParser()).to.equal(require('cookie-parser'));
   });
+
+  it('.Sequelize should return module "sequelize"', () => {
+    expect(Modules.Sequelize()).to.equal(require('sequelize'));
+  });
 });
