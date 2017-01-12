@@ -1,13 +1,13 @@
 import * as path from 'path';
 import * as  chalk from 'chalk';
-import * as Sequelize from 'sequelize';
+// import * as Sequelize from 'sequelize';
+import { ThirdPartyModules } from './3rd_party_modules';
 
 import { Config } from '../config';
-const config = Config.config();
 
 export class PostgreSql {
   private static _instance: PostgreSql = new PostgreSql();
-  private static sequelize: Sequelize.Sequelize;
+  private static sequelize: any; // Sequelize.Sequelize;
   private static db: any = {};
   private static uri: string = '';
 
@@ -19,17 +19,18 @@ export class PostgreSql {
     return PostgreSql.sequelize;
   }
 
-  public static getDb() {
-    return PostgreSql.db;
-  }
+  // public static getDb() {
+  //   return PostgreSql.db;
+  // }
 
   public static getUri(): string {
     return PostgreSql.uri;
   }
 
   public static connect(connectCB: Function): Promise<any> {
+    const config = Config.config();
     // Sequelize
-    PostgreSql.sequelize = new Sequelize(
+    PostgreSql.sequelize = new (ThirdPartyModules.Sequelize())(
       config.postgres.options.database,
       config.postgres.options.username,
       config.postgres.options.password, {
@@ -45,7 +46,7 @@ export class PostgreSql {
       + config.postgres.options.database;
 
     return new Promise((resolve, reject) => {
-      let db = PostgreSql.sequelize.authenticate().then((error) => {
+      let db = PostgreSql.sequelize.authenticate().then((error: any) => {
         if (error) {
           console.error(chalk.red('Could not connect to PostgreSQL!'));
           console.log(error);
@@ -61,10 +62,15 @@ export class PostgreSql {
   }
 
   public static disconnect() {
-    PostgreSql.sequelize.close();
+    if (PostgreSql.sequelize) {
+      PostgreSql.sequelize.close();
+      PostgreSql.sequelize = undefined;
+      PostgreSql.uri = '';
+    }
   }
 
   public static loadModels() {
+    const config = Config.config();
     // Import models
     config.files.server.runtime.postgresModels.forEach((modelPath: string) => {
       let model = PostgreSql.sequelize.import(path.resolve(modelPath));
