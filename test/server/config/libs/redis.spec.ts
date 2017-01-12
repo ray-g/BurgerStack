@@ -11,10 +11,13 @@ describe('Redis class', () => {
   let redisClient: any;
   let config: any;
   let createStub: any;
+  let eventType: string;
+  let fakeError = new Error('fake error msg');
 
   let stubs: any[] = [];
 
   beforeEach(() => {
+    eventType = 'ready';
     config = {
       redis: {
         auth: {
@@ -25,7 +28,13 @@ describe('Redis class', () => {
     };
     redisClient = {
       auth: sinon.spy(),
-      on: (event: string, cb: Function) => { cb(); },
+      on: (event: string, cb: Function) => {
+        if (event === eventType) {
+          cb(fakeError);
+        } else if (event === eventType) {
+          cb();
+        }
+      },
       quit: sinon.spy()
     };
     createStub = sinon.stub(redis, 'createClient').returns(redisClient);
@@ -69,6 +78,21 @@ describe('Redis class', () => {
       Redis.connect(null);
       Redis.connect(null);
       assert(createStub.calledOnce);
+    });
+
+    it('should resolve redis client', () => {
+      Redis.connect(null)
+      .then((client) => {
+        expect(client).to.equals(redisClient);
+      });
+    });
+
+    it('should reject with error', () => {
+      eventType = 'error';
+      Redis.connect(null)
+      .catch((err) => {
+        expect(err).to.equals(fakeError);
+      });
     });
   });
 
