@@ -58,7 +58,7 @@ export class Databases {
 
   public static disconnect(errorHandlerCB: Function): void {
     Redis.disconnect();
-    Mongoose.disconnect(() => {});
+    Mongoose.disconnect(null);
     PostgreSql.disconnect();
     if (errorHandlerCB) {
       errorHandlerCB();
@@ -66,7 +66,8 @@ export class Databases {
   }
 
   public static loadModels(callback: Function): void {
-
+    PostgreSql.loadModels();
+    Mongoose.loadModels(null);
   }
 
   public static getSessionStore() {
