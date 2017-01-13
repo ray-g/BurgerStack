@@ -27,7 +27,7 @@ export class PostgreSql {
     return PostgreSql.uri;
   }
 
-  public static connect(connectCB: Function): Promise<any> {
+  public static connect(): Promise<any> {
     const config = Config.config();
     // Sequelize
     PostgreSql.sequelize = new (ThirdPartyModules.Sequelize())(

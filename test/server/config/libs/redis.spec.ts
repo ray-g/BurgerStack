@@ -64,24 +64,18 @@ describe('Redis class', () => {
   describe('.connect', () => {
     it('should call auth if auth is enabled', () => {
       config.redis.auth.enabled = true;
-      Redis.connect(null);
+      Redis.connect();
       assert(redisClient.auth.called);
     });
 
-    it('should invoke callback if provided', () => {
-      let cb = sinon.spy();
-      Redis.connect(cb);
-      assert(cb.withArgs(redisClient).called);
-    });
-
     it('should not connect multiple times', () => {
-      Redis.connect(null);
-      Redis.connect(null);
+      Redis.connect();
+      Redis.connect();
       assert(createStub.calledOnce);
     });
 
     it('should resolve redis client', () => {
-      Redis.connect(null)
+      Redis.connect()
       .then((client) => {
         expect(client).to.equals(redisClient);
       });
@@ -89,7 +83,7 @@ describe('Redis class', () => {
 
     it('should reject with error', () => {
       eventType = 'error';
-      Redis.connect(null)
+      Redis.connect()
       .catch((err) => {
         expect(err).to.equals(fakeError);
       });
@@ -98,7 +92,7 @@ describe('Redis class', () => {
 
   describe('.disconnect', () => {
     it('should call redis client quit', () => {
-      Redis.connect(null);
+      Redis.connect();
       Redis.disconnect();
       assert(redisClient.quit.called);
     });
@@ -111,7 +105,7 @@ describe('Redis class', () => {
 
   describe('.getClient', () => {
     it('should return redis client', () => {
-      Redis.connect(null);
+      Redis.connect();
       expect(Redis.getClient()).to.equal(redisClient);
     });
 
@@ -120,7 +114,7 @@ describe('Redis class', () => {
     });
 
     it('should get {} if Redis is disconnected', () => {
-      Redis.connect(null);
+      Redis.connect();
       Redis.disconnect();
       expect(Redis.getClient()).to.equal(undefined);
     });

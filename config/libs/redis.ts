@@ -10,8 +10,8 @@ export class Redis {
     return Redis._instance;
   }
 
-  public static connect(connectCB: Function) {
-    return Redis.getInstance().connect(connectCB);
+  public static connect() {
+    return Redis.getInstance().connect();
   }
 
   public static disconnect() {
@@ -29,7 +29,7 @@ export class Redis {
     Redis._instance = this;
   }
 
-  private connect(connectCB: Function): Promise<any> {
+  private connect(): Promise<any> {
     const config = Config.config();
     return new Promise((resolve, reject) => {
       if (this.client) {
@@ -46,9 +46,6 @@ export class Redis {
       });
 
       this.client.on('ready', () => {
-        if (connectCB) {
-          connectCB(this.client);
-        }
         resolve(this.client);
       });
     });

@@ -26,7 +26,7 @@ export class Mongoose {
     }
   }
 
-  public static connect(connectCB: Function): Promise<any> {
+  public static connect(): Promise<any> {
     const config = Config.config();
     Mongoose.debug = config.mongodb.debug;
     return new Promise((resolve, reject) => {
@@ -34,9 +34,6 @@ export class Mongoose {
       db.then(() => {
         // Enabling mongoose debug mode if required
         mongoose.set('debug', config.mongodb.debug);
-        if (connectCB) {
-          connectCB(db);
-        }
         Mongoose.connected = true;
         resolve(db);
       }).catch((err: any) => {

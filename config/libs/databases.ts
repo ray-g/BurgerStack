@@ -14,7 +14,7 @@ export class Databases {
   private static redisDB: any = {};
 
   public static async connect(): Promise<any> {
-    await PostgreSql.connect(null)
+    await PostgreSql.connect()
     .then((db: any) => {
       Databases.postgresDB = db;
     })
@@ -22,13 +22,15 @@ export class Databases {
       console.log(err);
     });
 
-    await Mongoose.connect((db: any) => {
+    await Mongoose.connect()
+    .then((db: any) => {
       Databases.mongoDB = db;
     }).catch((err) => {
       console.log(err);
     });
 
-    await Redis.connect((db: any) => {
+    await Redis.connect()
+    .then((db: any) => {
       Databases.redisDB = db;
     }).catch((err) => {
       console.log(err);
