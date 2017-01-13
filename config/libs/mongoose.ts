@@ -5,17 +5,18 @@ import * as mongoose from 'mongoose';
 
 import { Config } from '../config';
 
-const config = Config.config();
-
 // The mongoose singleton /**
 export class Mongoose {
   private static _instance: Mongoose = new Mongoose();
+  private static debug = false;
+  private static connected = false;
 
   public static getInstance(): Mongoose {
     return Mongoose._instance;
   }
 
   public static loadModels(callback: Function): void {
+    const config = Config.config();
     config.files.server.runtime.mongodbModels.forEach((modelPath: string) => {
       require(path.resolve(modelPath));
     });
@@ -26,8 +27,10 @@ export class Mongoose {
   }
 
   public static connect(connectCB: Function): Promise<any> {
+    const config = Config.config();
+    Mongoose.debug = config.mongodb.debug;
     return new Promise((resolve, reject) => {
-      let db = mongoose.connect(config.mongodb.uri, config.mongodb.options, (err) => {
+      let db = mongoose.connect(config.mongodb.uri, config.mongodb.options, (err: any) => {
         // Log Error
         if (err) {
           console.error(chalk.red('Could not connect to MongoDB!'));
@@ -38,6 +41,7 @@ export class Mongoose {
           if (connectCB) {
             connectCB(db);
           }
+          Mongoose.connected = true;
           resolve(db);
         }
       });
@@ -45,10 +49,17 @@ export class Mongoose {
   }
 
   public static disconnect(errorHandlerCB: Function): void {
-    mongoose.disconnect((error) => {
-      console.log(chalk.yellow('Disconnected from MongoDB.'));
-      errorHandlerCB(error);
-    });
+    if (Mongoose.connected) {
+      mongoose.disconnect((error: any) => {
+        Mongoose.connected = false;
+        if (Mongoose.debug) {
+          console.log(chalk.yellow('Disconnected from MongoDB.'));
+        }
+        if (error && errorHandlerCB) {
+          errorHandlerCB(error);
+        }
+      });
+    }
   }
 
   constructor() {
