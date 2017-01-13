@@ -14,18 +14,13 @@ export class Databases {
   private static redisDB: any = {};
 
   public static async connect(): Promise<any> {
-    await PostgreSql.connect((db: any) => {
-      // Databases.postgresDB = PostgreSql.getDb();
-    }).catch((err) => {
+    await PostgreSql.connect(null)
+    .then((db: any) => {
+      Databases.postgresDB = db;
+    })
+    .catch((err) => {
       console.log(err);
     });
-    await PostgreSql.getSequelize()
-      .sync({
-        force: config.postgres.sync.force
-      })
-      .then((db: any) => {
-        Databases.postgresDB = db;
-      });
 
     await Mongoose.connect((db: any) => {
       Databases.mongoDB = db;

@@ -13,7 +13,8 @@ describe('PostgreSql  class', () => {
   let sequelizeMock: any;
   let config: any;
   let mockError: any;
-  let dbMock: any;
+  let mockError2: any;
+  let dbMock: any = { sequelizeDB: 'db' };
 
   function sequelizeImport(model: string) {
     if (model === resolve('associate')) {
@@ -25,6 +26,7 @@ describe('PostgreSql  class', () => {
 
   beforeEach(() => {
     mockError = undefined;
+    mockError2 = undefined;
     modelMock = {
       name: 'noAssociate'
     };
@@ -34,8 +36,18 @@ describe('PostgreSql  class', () => {
     };
     sequelizeMock = {
       authenticate: () => {
-        dbMock = sinon.stub().resolves(mockError)();
-        return dbMock;
+        return new Promise((resolve) => {
+          resolve(mockError);
+        });
+      },
+      sync: (options: any) => {
+        return new Promise((resolve, reject) => {
+          if (mockError2) {
+            reject(mockError2);
+          } else if (dbMock) {
+            resolve(dbMock);
+          }
+        });
       },
       close: sinon.spy(),
       import: sinon.spy(sequelizeImport)
@@ -49,9 +61,7 @@ describe('PostgreSql  class', () => {
     config = {
       files: {
         server: {
-          runtime: {
-            postgresModels: []
-          }
+          postgresModels: []
         }
       },
       postgres: {
@@ -90,27 +100,27 @@ describe('PostgreSql  class', () => {
   });
 
   describe('.getSequelize', () => {
-    it('should return sequelize instance after connect', () => {
-      PostgreSql.connect(null);
+    it('should return sequelize instance after connect', async () => {
+      await PostgreSql.connect(null);
       expect(PostgreSql.getSequelize()).to.equals(sequelizeMock);
     });
 
-    it('should get undefined after disconnect', () => {
-      PostgreSql.connect(null);
+    it('should get undefined after disconnect', async () => {
+      await PostgreSql.connect(null);
       PostgreSql.disconnect();
       expect(PostgreSql.getSequelize()).to.equals(undefined);
     });
   });
 
   describe('.getUri', () => {
-    it('should return correct postgres uri after connect', () => {
+    it('should return correct postgres uri after connect', async () => {
       let uri = 'postgres://localhost:5432/burgerstack_test';
-      PostgreSql.connect(null);
+      await PostgreSql.connect(null);
       expect(PostgreSql.getUri()).to.equals(uri);
     });
 
-    it('should get "" after disconnect', () => {
-      PostgreSql.connect(null);
+    it('should get "" after disconnect', async () => {
+      await PostgreSql.connect(null);
       PostgreSql.disconnect();
       expect(PostgreSql.getUri()).to.equals('');
     });
@@ -122,21 +132,28 @@ describe('PostgreSql  class', () => {
       let logStub = sinon.stub(console, 'log', () => { });
       let errStub = sinon.stub(console, 'error', () => { });
       await PostgreSql.connect(null).catch((err: any) => {
-        expect(err).to.equal(mockError);
         logStub.restore();
         errStub.restore();
+        expect(err).to.equal(mockError);
       });
     });
 
-    it('should invoke callback if provided', () => {
-      PostgreSql.connect((db: any) => {
+    it('should reject with error if any error occurs in sequilzie.sync', async () => {
+      mockError2 = new Error('fake error msg2');
+      await PostgreSql.connect(null).catch((err: any) => {
+        expect(err).to.equal(mockError2);
+      });
+    });
+
+    it('should invoke callback if provided', async () => {
+      await PostgreSql.connect((db: any) => {
         // expect(db).to.equal(dbMock);
         assert(true);
       });
     });
 
-    it('should resolve db connection if successful', () => {
-      PostgreSql.connect(null).then((db) => {
+    it('should resolve db connection if successful', async () => {
+      await PostgreSql.connect(null).then((db) => {
         // console.log(db);
         assert(true);
       });
@@ -144,8 +161,8 @@ describe('PostgreSql  class', () => {
   });
 
   describe('.diconnect', () => {
-    it('should call sequelize.close if connected to db', () => {
-      PostgreSql.connect(null);
+    it('should call sequelize.close if connected to db', async () => {
+      await PostgreSql.connect(null);
       PostgreSql.disconnect();
       assert(sequelizeMock.close.called);
     });
@@ -157,20 +174,20 @@ describe('PostgreSql  class', () => {
   });
 
   describe('.loadModels', () => {
-    it('should load modules', () => {
-      config.files.server.runtime.postgresModels = ['noAssociate'];
-      PostgreSql.connect(null);
+    it('should load modules', async () => {
+      config.files.server.postgresModels = ['noAssociate'];
+      await PostgreSql.connect(null);
       PostgreSql.loadModels();
       assert(sequelizeMock.import.withArgs(resolve('noAssociate')).called);
     });
 
-    it('should associate db if model has associate method', () => {
+    it('should associate db if model has associate method', async () => {
       modelMock = {
         name: 'fakeModel',
         associate: sinon.spy()
       };
-      config.files.server.runtime.postgresModels = ['associate'];
-      PostgreSql.connect(null);
+      config.files.server.postgresModels = ['associate'];
+      await PostgreSql.connect(null);
       PostgreSql.loadModels();
       assert(modelMockAssociate.associate.called);
     });

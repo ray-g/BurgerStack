@@ -46,16 +46,22 @@ export class PostgreSql {
       + config.postgres.options.database;
 
     return new Promise((resolve, reject) => {
-      let db = PostgreSql.sequelize.authenticate().then((error: any) => {
+      PostgreSql.sequelize.authenticate().then(async (error: any) => {
         if (error) {
           console.error(chalk.red('Could not connect to PostgreSQL!'));
           console.log(error);
           reject(error);
         } else {
-          if (connectCB) {
-            connectCB(db);
-          }
-          resolve(db);
+          await PostgreSql.sequelize
+            .sync({
+              force: config.postgres.sync.force
+            })
+            .then((db: any) => {
+              resolve(db);
+            })
+            .catch((err: any) => {
+              reject(err);
+            });
         }
       });
     });
@@ -72,7 +78,7 @@ export class PostgreSql {
   public static loadModels() {
     const config = Config.config();
     // Import models
-    config.files.server.runtime.postgresModels.forEach((modelPath: string) => {
+    config.files.server.postgresModels.forEach((modelPath: string) => {
       let model = PostgreSql.sequelize.import(path.resolve(modelPath));
       PostgreSql.db[(<any>model).name] = model;
     });
