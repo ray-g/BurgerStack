@@ -13,4 +13,8 @@ export class ThirdPartyModules {
   public static Sequelize() {
     return require('sequelize');
   }
+
+  public static mongoose() {
+    return require('mongoose');
+  }
 }

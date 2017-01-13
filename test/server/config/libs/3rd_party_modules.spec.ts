@@ -11,4 +11,8 @@ describe('ThirdPartyModules', () => {
   it('.Sequelize should return module "sequelize"', () => {
     expect(Modules.Sequelize()).to.equal(require('sequelize'));
   });
+
+  it('mongoose should return module "mongoose"', () => {
+    expect(Modules.mongoose()).to.equal(require('mongoose'));
+  });
 });
