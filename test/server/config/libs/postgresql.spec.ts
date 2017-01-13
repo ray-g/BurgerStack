@@ -147,8 +147,7 @@ describe('PostgreSql  class', () => {
 
     it('should resolve db connection if successful', async () => {
       await PostgreSql.connect().then((db) => {
-        // console.log(db);
-        assert(true);
+        expect(db).to.equal(dbMock);
       });
     });
   });
