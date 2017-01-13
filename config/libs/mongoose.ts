@@ -17,7 +17,7 @@ export class Mongoose {
 
   public static loadModels(callback: Function): void {
     const config = Config.config();
-    config.files.server.runtime.mongodbModels.forEach((modelPath: string) => {
+    config.files.server.mongodbModels.forEach((modelPath: string) => {
       require(path.resolve(modelPath));
     });
 
@@ -37,10 +37,8 @@ export class Mongoose {
         Mongoose.connected = true;
         resolve(db);
       }).catch((err: any) => {
-        if (err) {
-          console.error(chalk.red('Could not connect to MongoDB!'));
-          reject(err);
-        }
+        console.error(chalk.red('Could not connect to MongoDB!'));
+        reject(err);
       });
     });
   };
