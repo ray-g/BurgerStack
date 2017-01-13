@@ -1,7 +1,7 @@
 import * as chalk from 'chalk';
 import * as path from 'path';
 import * as mongoose from 'mongoose';
-(<any>mongoose).Promise = global.Promise;
+(<any>mongoose).Promise = Promise;
 
 import { Config } from '../config';
 
@@ -30,23 +30,23 @@ export class Mongoose {
     const config = Config.config();
     Mongoose.debug = config.mongodb.debug;
     return new Promise((resolve, reject) => {
-      let db = mongoose.connect(config.mongodb.uri, config.mongodb.options, (err: any) => {
-        // Log Error
+      let db = mongoose.connect(config.mongodb.uri, config.mongodb.options);
+      db.then(() => {
+        // Enabling mongoose debug mode if required
+        mongoose.set('debug', config.mongodb.debug);
+        if (connectCB) {
+          connectCB(db);
+        }
+        Mongoose.connected = true;
+        resolve(db);
+      }).catch((err: any) => {
         if (err) {
           console.error(chalk.red('Could not connect to MongoDB!'));
           reject(err);
-        } else {
-          // Enabling mongoose debug mode if required
-          mongoose.set('debug', config.mongodb.debug);
-          if (connectCB) {
-            connectCB(db);
-          }
-          Mongoose.connected = true;
-          resolve(db);
         }
       });
     });
-  }
+  };
 
   public static disconnect(errorHandlerCB: Function): void {
     if (Mongoose.connected) {
@@ -60,7 +60,7 @@ export class Mongoose {
         }
       });
     }
-  }
+  };
 
   constructor() {
     if (Mongoose._instance) {
