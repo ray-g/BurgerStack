@@ -8,13 +8,13 @@ describe('Databases class', () => {
   let stubs: any[] = [];
 
   afterEach(() => {
-     stubs.forEach((stub) => {
-       stub.restore();
-     });
+    stubs.forEach((stub) => {
+      stub.restore();
+    });
     stubs = [];
   });
 
-   describe('Singleton staffs', () => {
+  describe('Singleton staffs', () => {
     it('.getInstance(), should return an Databases instance.', () => {
       expect(Databases.getInstance()).instanceOf(Databases);
     });

@@ -8,13 +8,13 @@ describe('ExpressServer class', () => {
   let stubs: any[] = [];
 
   afterEach(() => {
-     stubs.forEach((stub) => {
-       stub.restore();
-     });
+    stubs.forEach((stub) => {
+      stub.restore();
+    });
     stubs = [];
   });
 
-   describe('Singleton staffs', () => {
+  describe('Singleton staffs', () => {
     it('.getInstance(), should return an ExpressServer instance.', () => {
       expect(ExpressServer.getInstance()).instanceOf(ExpressServer);
     });
