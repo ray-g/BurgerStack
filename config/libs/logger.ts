@@ -4,8 +4,6 @@ import * as fs from 'fs';
 import * as winston from 'winston';
 import { Config } from '../config';
 
-let config = Config.config();
-
 // list of valid formats for the logging
 const VALID_FORMATS = ['combined', 'common', 'dev', 'short', 'tiny'];
 
@@ -40,7 +38,7 @@ logger.stream = {
  * @param logger a valid winston logger object
  */
 logger.setupFileLogger = function setupFileLogger(options: any) {
-
+  let config = Config.config();
   let fileLoggerTransport = this.getLogOptions();
   if (!fileLoggerTransport) {
     return false;
@@ -77,7 +75,7 @@ logger.setupFileLogger = function setupFileLogger(options: any) {
  * Returns a Winston object for logging with the File transport
  */
 logger.getLogOptions = function getLogOptions(configOptions: any): any {
-
+  let config = Config.config();
   let _config = JSON.parse(JSON.stringify(config));
   if (configOptions) {
     _config = configOptions;
@@ -129,6 +127,7 @@ logger.getMorganOptions = function getMorganOptions() {
  * Returns the log.format option set in the current environment configuration
  */
 logger.getLogFormat = function getLogFormat() {
+  let config = Config.config();
   let format = config.log && config.log.format ? config.log.format.toString() : 'combined';
 
   // make sure we have a valid format
