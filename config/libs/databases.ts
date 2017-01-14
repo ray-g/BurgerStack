@@ -62,7 +62,7 @@ export class Databases {
     }
   }
 
-  public static loadModels(callback: Function): void {
+  public static loadModels(): void {
     PostgreSql.loadModels();
     Mongoose.loadModels(null);
   }
