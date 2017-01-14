@@ -3,8 +3,6 @@ import { PostgreSql } from './postgresql';
 import { Redis } from './redis';
 import { Config } from '../config';
 
-const config = Config.config();
-
 export class Databases {
   private static _instance: Databases = new Databases();
 
@@ -14,41 +12,54 @@ export class Databases {
   private static redisDB: any = {};
 
   public static async connect(): Promise<any> {
+    const config = Config.config();
+    let error: any;
     await PostgreSql.connect()
-    .then((db: any) => {
-      Databases.postgresDB = db;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .then((db: any) => {
+        Databases.postgresDB = db;
+      })
+      .catch((err) => {
+        error = err;
+        console.log(err);
+      });
 
-    await Mongoose.connect()
-    .then((db: any) => {
-      Databases.mongoDB = db;
-    }).catch((err) => {
-      console.log(err);
-    });
+    if (!error) {
+      await Mongoose.connect()
+        .then((db: any) => {
+          Databases.mongoDB = db;
+        }).catch((err) => {
+          error = err;
+          console.log(err);
+        });
+    }
 
-    await Redis.connect()
-    .then((db: any) => {
-      Databases.redisDB = db;
-    }).catch((err) => {
-      console.log(err);
-    });
+    if (!error) {
+      await Redis.connect()
+        .then((db: any) => {
+          Databases.redisDB = db;
+        }).catch((err) => {
+          error = err;
+          console.log(err);
+        });
+    }
 
     return new Promise((resolve, reject) => {
-      switch (config.sessionStorage) {
-        case 'mongodb':
-          resolve(Databases.mongoDB);
-          break;
-        case 'postgresql':
-          resolve(Databases.postgresDB);
-          break;
-        case 'redis':
-          resolve(Databases.redisDB);
-          break;
-        default:
-          reject(new Error('Invalid session storage type'));
+      if (error) {
+        reject(error);
+      } else {
+        switch (config.sessionStorage) {
+          case 'mongodb':
+            resolve(Databases.mongoDB);
+            break;
+          case 'postgresql':
+            resolve(Databases.postgresDB);
+            break;
+          case 'redis':
+            resolve(Databases.redisDB);
+            break;
+          default:
+            reject(new Error('Invalid session storage type'));
+        }
       }
     });
   }
@@ -68,12 +79,13 @@ export class Databases {
   }
 
   public static getSessionStore() {
+    const config = Config.config();
     switch (config.sessionStorage) {
       case 'mongodb':
         let MongoStore = require('connect-mongo')(Databases.session);
         return new MongoStore({
           mongooseConnection: Databases.mongoDB.connection,
-          collection: config.sessionCollection
+          collection: config.sessionStoreName
         });
       case 'postgresql':
         let SequelizeStore = require('connect-session-sequelize')(Databases.session.Store);
@@ -89,7 +101,7 @@ export class Databases {
         });
         return redisStore;
       default:
-        return new Error('Invalid session storage type');
+        throw new Error('Invalid session storage type');
     }
 
   }
