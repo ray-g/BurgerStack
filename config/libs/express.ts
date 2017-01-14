@@ -17,7 +17,6 @@ let express = require('express');
 let session = require('express-session');
 let hbs = require('express-hbs');
 let lusca = require('lusca');
-let config = Config.config();
 
 export class ExpressServer {
   private static _instance: ExpressServer = new ExpressServer();
@@ -87,6 +86,7 @@ export class ExpressServer {
    * Initialize local variables
    */
   private initLocalVariables(app: Express) {
+    let config = Config.config();
     // Setting application local variables
     app.locals.title = config.app.title;
     app.locals.description = config.app.description;
@@ -110,6 +110,7 @@ export class ExpressServer {
    * Initialize application middleware
    */
   private initMiddleware(app: Express) {
+    let config = Config.config();
     // Showing stack errors
     app.set('showStackError', true);
 
@@ -156,6 +157,7 @@ export class ExpressServer {
    * Configure view engine
    */
   private initViewEngine(app: Express) {
+    let config = Config.config();
     // Set views path and view engine
     app.engine('.hbs.html', hbs.express4({
       extname: '.hbs.html',
@@ -170,6 +172,7 @@ export class ExpressServer {
    * Configure Express session
    */
   private initSession(app: Express) {
+    let config = Config.config();
     // Express MongoDB session storage
     app.use(session({
       saveUninitialized: true,
@@ -192,6 +195,7 @@ export class ExpressServer {
    * Invoke modules server configuration
    */
   private initModulesConfiguration(app: Express) {
+    let config = Config.config();
     config.files.server.configs.forEach((configPath: string) => {
       require(path.resolve(configPath))(app);
     });
@@ -219,6 +223,7 @@ export class ExpressServer {
    * Configure the modules static routes
    */
   private initModulesClientRoutes(app: Express) {
+    let config = Config.config();
     // Setting the app router and static folder
     app.use('/', express.static(path.resolve(config.assets.client.path)));
     app.use('/client', express.static(path.resolve(config.assets.client.path)));
@@ -228,6 +233,7 @@ export class ExpressServer {
    * Configure node_modules and third-parties relative to dist.
    */
   private init3rdModulesStatics(app: Express) {
+    let config = Config.config();
     app.use('/libs', express.static(path.resolve(config.assets.client.path, 'libs')));
     app.use(express.static(path.resolve(__dirname, '../node_modules')));
   };
@@ -236,8 +242,9 @@ export class ExpressServer {
    * Configure the modules ACL policies
    */
   private initModulesServerPolicies(app: Express) {
+    let config = Config.config();
     // Globbing policy files
-    config.files.server.policies.forEach((policyPath: Express) => {
+    config.files.server.policies.forEach((policyPath: string) => {
       require(path.resolve(policyPath)).invokeRolesPolicies();
     });
   };
@@ -246,6 +253,7 @@ export class ExpressServer {
    * Configure the modules server routes
    */
   private initModulesServerRoutes(app: Express) {
+    let config = Config.config();
     // Globbing routing files
     config.files.server.routes.forEach((routePath: string) => {
       require(path.resolve(routePath))(app);
