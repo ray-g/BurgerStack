@@ -15,4 +15,8 @@ describe('ThirdPartyModules', () => {
   it('mongoose should return module "mongoose"', () => {
     expect(Modules.mongoose()).to.equal(require('mongoose'));
   });
+
+  it('compression should return module "compression"', () => {
+    expect(Modules.compression()).to.equal(require('compression'));
+  });
 });

@@ -2,6 +2,8 @@ import { expect } from 'chai';
 let sinon = require('sinon');
 require('sinon-as-promised');
 let mockRequire = require('mock-require');
+import { ThirdPartyModules } from '../../../../config/libs/3rd_party_modules';
+import * as _ from 'lodash';
 
 import * as fs from 'fs';
 import { resolve } from 'path';
@@ -19,8 +21,17 @@ describe('ExpressServer class', () => {
 
   let config: any;
 
-  let resMock = {
+  let reqMock = {
+    protocol: 'http',
+    hostname: 'localhost',
+    headers: 'some headers'
+  };
+  let resMock: any = {
     redirect: sinon.mock(),
+    locals: {
+      host: '',
+      url: ''
+    }
   };
   let nextMock = sinon.mock();
 
@@ -244,6 +255,98 @@ describe('ExpressServer class', () => {
         expressServer.initViewEngine(appMock);
         expressInstanceMock.engine.verify();
         expressInstanceMock.set.verify();
+      });
+    });
+
+    describe('private #initMiddleware', () => {
+      it('should init morgan if has configured', () => {
+        config = _.merge(config, { log: { format: 'dev' } });
+        expressInstanceMock = {
+          locals: {
+            favicon: 'favicon.ico',
+            cache: ''
+          },
+          set: sinon.spy(),
+          use: sinon.spy(),
+          enable: sinon.spy()
+        };
+        stubs.push(sinon.stub(fs, 'statSync').returns({ isDirectory: () => { return false; } }));
+        stubs.push(sinon.stub(ThirdPartyModules, 'compression').returns((options: any) => {
+          if (_.has(options, 'filter')) {
+            options.filter(null, { getHeader: (section: string) => { } });
+          }
+        }));
+        let appMock = expressStub();
+        expressServer.initMiddleware(appMock);
+      });
+
+      it('should set view cache as false if NODE_ENV is development', () => {
+        config = _.merge(config, { log: { format: 'dev' } });
+        expressInstanceMock = {
+          locals: {
+            favicon: 'favicon.ico',
+            cache: ''
+          },
+          set: sinon.spy(),
+          use: sinon.spy(),
+          enable: sinon.spy()
+        };
+        stubs.push(sinon.stub(fs, 'statSync').returns({ isDirectory: () => { return false; } }));
+        stubs.push(sinon.stub(ThirdPartyModules, 'compression').returns((options: any) => {
+          if (_.has(options, 'filter')) {
+            options.filter(null, { getHeader: (section: string) => { } });
+          }
+        }));
+        let appMock = expressStub();
+        let nodeEnv = process.env.NODE_ENV;
+        process.env.NODE_ENV = 'development';
+        expressServer.initMiddleware(appMock);
+        process.env.NODE_ENV = nodeEnv;
+      });
+
+      it('should set locals.cache as memory if NODE_ENV is production', () => {
+        config = _.merge(config, { log: { format: 'dev' } });
+        expressInstanceMock = {
+          locals: {
+            favicon: 'favicon.ico',
+            cache: ''
+          },
+          set: sinon.spy(),
+          use: sinon.spy(),
+          enable: sinon.spy()
+        };
+        stubs.push(sinon.stub(fs, 'statSync').returns({ isDirectory: () => { return false; } }));
+        stubs.push(sinon.stub(ThirdPartyModules, 'compression').returns((options: any) => {
+          if (_.has(options, 'filter')) {
+            options.filter(null, { getHeader: (section: string) => { } });
+          }
+        }));
+        let appMock = expressStub();
+        let nodeEnv = process.env.NODE_ENV;
+        process.env.NODE_ENV = 'production';
+        expressServer.initMiddleware(appMock);
+        process.env.NODE_ENV = nodeEnv;
+      });
+    });
+
+    describe('private #initLocalVariables', () => {
+      it('should init local variable and set protocal', () => {
+        config.secure.ssl = false;
+        expressInstanceMock = {
+          locals: {
+            title: '',
+            description: '',
+            keywords: '',
+            logo: '',
+            favicon: '',
+            secure: false
+          },
+          use: (cb: Function) => { cb(reqMock, resMock, nextMock); }
+        };
+        let appMock = expressStub();
+        // nextMock.once();
+        expressServer.initLocalVariables(appMock);
+        nextMock.verify();
       });
     });
   });

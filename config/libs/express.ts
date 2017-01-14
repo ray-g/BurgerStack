@@ -2,7 +2,8 @@ import * as path from 'path';
 import * as _ from 'lodash';
 import * as morgan from 'morgan';
 import * as bodyParser from 'body-parser';
-import * as compress from 'compression';
+// import * as compress from 'compression';
+import { ThirdPartyModules } from './3rd_party_modules';
 import * as methodOverride from 'method-override';
 import * as cookieParser from 'cookie-parser';
 import * as helmet from 'helmet';
@@ -118,6 +119,7 @@ export class ExpressServer {
     app.enable('jsonp callback');
 
     // Should be placed before express.static
+    let compress = ThirdPartyModules.compression();
     app.use(compress({
       filter: (req: Request, res: Response) => {
         return (/json|text|javascript|css|font|svg/).test(res.getHeader('Content-Type'));

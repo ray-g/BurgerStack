@@ -17,4 +17,8 @@ export class ThirdPartyModules {
   public static mongoose() {
     return require('mongoose');
   }
+
+  public static compression() {
+    return require('compression');
+  }
 }
