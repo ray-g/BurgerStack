@@ -19,10 +19,6 @@ export class PostgreSql {
     return PostgreSql.sequelize;
   }
 
-  // public static getDb() {
-  //   return PostgreSql.db;
-  // }
-
   public static getUri(): string {
     return PostgreSql.uri;
   }

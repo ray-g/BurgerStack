@@ -1,4 +1,3 @@
-// import { expect } from 'chai';
 let sinon = require('sinon');
 
 import { Request, Response } from 'express';
