@@ -24,6 +24,20 @@
   <!-- Application CSS Files -->
   {{#each cssFiles}}
   <link rel="stylesheet" href="{{this}}">{{/each}}
+
+  <!-- Polyfills for older browsers -->
+    <script src="https://unpkg.com/core-js/client/shim.min.js"></script>
+
+    <script src="https://unpkg.com/zone.js@0.6.25?main=browser"></script>
+    <script src="https://unpkg.com/reflect-metadata@0.1.8"></script>
+    <script src="https://unpkg.com/systemjs@0.19.39/dist/system.src.js"></script>
+
+    <script> window.autoBootstrap = true; </script>
+
+    <script src="app/systemjs.config.js"></script>
+    <script>
+      System.import('app.browser').catch(function(err){ console.error(err); });
+    </script>
 </head>
 
 <body>
@@ -37,11 +51,7 @@
       <strong>This page requires JavaScript.</strong> Please enable it in your browser.
     </div>
   </noscript>
-  <!--Embedding The User Object-->
-  <script type="text/javascript">
-    var user = {{{ user }}};
-    var env = "{{ env }}";
-  </script>
+
   <!--Load The Socket.io File-->
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <!--Application JavaScript Files-->
