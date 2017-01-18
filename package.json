@@ -175,6 +175,7 @@
     "remap-istanbul": "0.8.4",
     "rewire": "2.5.2",
     "run-sequence": "1.2.2",
+    "semver": "5.3.0",
     "sinon": "1.17.7",
     "sinon-as-promised": "4.0.2",
     "tildify": "1.2.0",
