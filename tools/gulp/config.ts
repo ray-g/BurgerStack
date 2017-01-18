@@ -1,4 +1,8 @@
 const AppConfig = {
+  Node: {
+    NodeVersion: '3.10.0',
+    NpmVersion: '6.0.0',
+  },
   client: {
     path: 'client',
     lib: {
