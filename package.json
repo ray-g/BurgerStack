@@ -6,7 +6,9 @@
   "scripts": {
     "postinstall": "npm prune",
     "travis": "gulp test.travis",
-    "test": "gulp test"
+    "test": "gulp test",
+    "webpack-dev-server": "webpack-dev-server",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
@@ -94,6 +96,7 @@
     "@types/gulp-sass": "0.0.28",
     "@types/gulp-shell": "0.0.28",
     "@types/gulp-util": "3.0.28",
+    "@types/hammerjs": "2.0.33",
     "@types/helmet": "0.0.33",
     "@types/karma": "0.13.33",
     "@types/lodash": "4.14.40",
@@ -200,6 +203,8 @@
     "typescript": "2.1.4",
     "v8-lazy-parse-webpack-plugin": "0.3.0",
     "webpack": "2.2.0-rc.4",
+    "webpack-dev-middleware": "1.9.0",
+    "webpack-dev-server": "2.2.0-rc.0",
     "webpack-dll-bundles-plugin": "1.0.0-beta.5",
     "webpack-md5-hash": "0.0.5",
     "webpack-merge": "2.4.0",
