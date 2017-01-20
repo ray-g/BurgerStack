@@ -1,12 +1,11 @@
 import { NodeMon } from '../libs/nodemon';
-
-const config = require('../config');
+import Config from '../../config';
 
 // Nodemon task
 export = () => {
   NodeMon.start(
-    config.dist.entry,
-    config.dist.entry,
+    Config.dist.entry,
+    Config.dist.entry,
     'js, html',
     ['--debug']
   );

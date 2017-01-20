@@ -1,6 +1,6 @@
 let del = require('del');
-const config = require('../config');
+import Config from '../../config';
 
 export = () => {
-  return del(config.dist.all);
+  return del(Config.dist.all);
 };

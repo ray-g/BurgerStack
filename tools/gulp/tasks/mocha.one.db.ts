@@ -6,11 +6,11 @@ import { resolve } from 'path';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { Databases } from '../../../config/libs/databases';
 import { instrument } from '../libs/instrument';
+import Config from '../../config';
 
 const isparta = require('isparta');
 const remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 const plugins = <any>gulpLoadPlugins();
-const config = require('../config');
 const del = require('del');
 
 const argv = require('yargs')
@@ -37,11 +37,11 @@ export = (done: any) => {
 
   let error: any = null;
 
-  let coverageDir = config.tests.coverageDir + '/tmp';
+  let coverageDir = Config.tests.coverageDir + '/tmp';
 
   del(coverageDir + '/*');
 
-  instrument(config.dist.allJS, coverageDir, gulp, plugins, isparta, false)
+  instrument(Config.dist.allJS, coverageDir, gulp, plugins, isparta, false)
     .on('finish', () => {
       Databases.connect()
         .then(() => {

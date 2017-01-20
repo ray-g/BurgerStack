@@ -1,15 +1,15 @@
 import { assetsUnion } from '../../../config/utils';
 import { TSCompiler } from '../libs/tscompiler';
 
-const config = require('../config');
+import Config from '../../config';
 
 export = () => {
   let assets = assetsUnion(
-    config.tests.ts.all
+    Config.tests.ts.all
   );
 
   return TSCompiler.compile(
     assets,
-    config.dist.path,
+    Config.dist.path,
     'tsconfig.json');
 };

@@ -1,10 +1,10 @@
 import { TSCompiler } from '../libs/tscompiler';
 
-const config = require('../config');
+import Config from '../../config';
 
 export = () => {
   return TSCompiler.compile(
-    config.server.entry,
-    config.dist.path,
+    Config.server.entry,
+    Config.dist.path,
     'tsconfig.json');
 };

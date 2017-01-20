@@ -1,4 +1,4 @@
-const AppConfig = {
+const Config = {
   Node: {
     NodeVersion: '3.10.0',
     NpmVersion: '6.0.0',
@@ -91,4 +91,4 @@ const AppConfig = {
   }
 };
 
-export = AppConfig;
+export default Config;

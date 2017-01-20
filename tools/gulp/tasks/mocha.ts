@@ -2,19 +2,19 @@ import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { assetsUnion } from '../../../config/utils';
 import { instrument } from '../libs/instrument';
+import Config from '../../config';
 
 const isparta = require('isparta');
 const remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
 const plugins = <any>gulpLoadPlugins();
-const config = require('../config');
 
 export = (done: any) => {
-  let testSuites = assetsUnion(config.tests.js.server, config.tests.js.tools);
+  let testSuites = assetsUnion(Config.tests.js.server, Config.tests.js.tools);
   let error: any = null;
 
-  let coverageDir = config.tests.coverageDir + '/mocha';
+  let coverageDir = Config.tests.coverageDir + '/mocha';
 
-  instrument(config.dist.allJS, coverageDir, gulp, plugins, isparta, true)
+  instrument(Config.dist.allJS, coverageDir, gulp, plugins, isparta, true)
     .on('finish', () => {
       gulp.src(testSuites, { cwd: 'dist' })
         .pipe(plugins.mocha({

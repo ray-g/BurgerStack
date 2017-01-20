@@ -1,10 +1,10 @@
 import * as gulp from 'gulp';
 
-const config = require('../config');
+import Config from '../../config';
 
 export = () => {
-  return gulp.src(config.client.assets, {
-    base: config.client.path
+  return gulp.src(Config.client.assets, {
+    base: Config.client.path
   })
-    .pipe(gulp.dest(config.dist.client));
+    .pipe(gulp.dest(Config.dist.client));
 };

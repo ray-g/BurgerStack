@@ -1,5 +1,5 @@
 import * as util from 'gulp-util';
-import * as Config from '../config';
+import Config from '../../config';
 
 function reportError(message: string) {
   console.error(util.colors.white.bgRed.bold(message));
