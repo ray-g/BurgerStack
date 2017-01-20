@@ -11,7 +11,7 @@ loadTasks(Config.tools.gulpTasks);
 
 // Clean tasks
 gulp.task('clean', (done: any) => {
-  runSequence(['clean.dist', 'clean.coverage'], done);
+  runSequence(['clean.dist', 'clean.coverage', 'clean.dll'], done);
 });
 
 // Clean dev/coverage that will only run once

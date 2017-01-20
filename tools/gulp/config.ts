@@ -77,6 +77,7 @@ const Config = {
   },
   dist: {
     path: 'dist',
+    dll: 'dll',
     config: 'dist/config',
     server: 'dist/server',
     client: 'dist/client',
