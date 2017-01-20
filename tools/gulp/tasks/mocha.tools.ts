@@ -1,7 +1,7 @@
 import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { instrument } from '../libs/instrument';
-import Config from '../../config';
+import Config from '../config';
 
 const isparta = require('isparta');
 const remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');

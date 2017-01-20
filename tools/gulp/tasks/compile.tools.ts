@@ -1,6 +1,6 @@
 import { TSCompiler } from '../libs/tscompiler';
 
-import Config from '../../config';
+import Config from '../config';
 
 export = () => {
   return TSCompiler.compile(

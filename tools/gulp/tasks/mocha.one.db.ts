@@ -6,7 +6,7 @@ import { resolve } from 'path';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { Databases } from '../../../config/libs/databases';
 import { instrument } from '../libs/instrument';
-import Config from '../../config';
+import Config from '../config';
 
 const isparta = require('isparta');
 const remapIstanbul = require('remap-istanbul/lib/gulpRemapIstanbul');
@@ -45,7 +45,7 @@ export = (done: any) => {
     .on('finish', () => {
       Databases.connect()
         .then(() => {
-          Databases.loadModels(null);
+          Databases.loadModels();
         })
         .then(() => {
           gulp.src(testSuites, { cwd: './' })

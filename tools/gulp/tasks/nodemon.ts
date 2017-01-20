@@ -1,5 +1,5 @@
 import { NodeMon } from '../libs/nodemon';
-import Config from '../../config';
+import Config from '../config';
 
 // Nodemon task
 export = () => {

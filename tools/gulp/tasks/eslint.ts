@@ -1,7 +1,7 @@
 import * as gulp from 'gulp';
 import * as gulpLoadPlugins from 'gulp-load-plugins';
 import { assetsUnion } from '../../../config/utils';
-import Config from '../../config';
+import Config from '../config';
 const plugins = <any>gulpLoadPlugins();
 
 export = () => {

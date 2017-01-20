@@ -5,7 +5,7 @@ import * as runSequence from 'run-sequence';
 import { loadTasks } from './tools/utils';
 import { NodeMon } from './tools/gulp/libs/nodemon';
 import { BrowserSync } from './tools/gulp/libs/browsersync';
-import Config from './tools/config';
+import Config from './tools/gulp/config';
 
 loadTasks(Config.tools.gulpTasks);
 

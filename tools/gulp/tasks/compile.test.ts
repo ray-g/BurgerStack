@@ -1,7 +1,7 @@
 import { assetsUnion } from '../../../config/utils';
 import { TSCompiler } from '../libs/tscompiler';
 
-import Config from '../../config';
+import Config from '../config';
 
 export = () => {
   let assets = assetsUnion(
