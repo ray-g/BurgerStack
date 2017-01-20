@@ -54,10 +54,8 @@ module.exports = function (options) {
      */
     entry: {
 
-      'polyfills': './client/polyfills.browser.ts',
-      'main':      AOT ? './client/main.browser.aot.ts' :
-                  './client/main.browser.ts'
-
+      'polyfills': helpers.src('polyfills.browser.ts'),
+      'main':      helpers.src(AOT ? 'main.browser.aot.ts' : 'main.browser.ts')
     },
 
     /*
@@ -75,7 +73,7 @@ module.exports = function (options) {
       extensions: ['.ts', '.js', '.json'],
 
       // An array of directory names to be resolved to the current directory
-      modules: [helpers.root('client'), helpers.root('node_modules')],
+      modules: [helpers.src(''), helpers.root('node_modules')],
 
     },
 
@@ -131,7 +129,7 @@ module.exports = function (options) {
         {
           test: /\.css$/,
           use: ['to-string-loader', 'css-loader'],
-          exclude: [helpers.root('client', 'styles')]
+          exclude: [helpers.src('styles')]
         },
 
         /*
@@ -142,7 +140,7 @@ module.exports = function (options) {
         {
           test: /\.scss$/,
           use: ['to-string-loader', 'css-loader', 'sass-loader'],
-          exclude: [helpers.root('client', 'styles')]
+          exclude: [helpers.src('styles')]
         },
 
         /* Raw loader support for *.html
@@ -153,7 +151,7 @@ module.exports = function (options) {
         {
           test: /\.html$/,
           use: 'raw-loader',
-          exclude: [helpers.root('client/index.hbs.html')]
+          exclude: [helpers.src('index.hbs.html')]
         },
 
         /* File loader for supporting images, for example, in CSS files.
@@ -174,7 +172,7 @@ module.exports = function (options) {
      */
     plugins: [
       new AssetsPlugin({
-        path: helpers.root('dist'),
+        path: helpers.dest(''),
         filename: 'webpack-assets.json',
         prettyPrint: true
       }),
@@ -219,7 +217,7 @@ module.exports = function (options) {
       new ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
         /angular(\\|\/)core(\\|\/)src(\\|\/)linker/,
-        helpers.root('client'), // location of your src
+        helpers.src(''), // location of your src
         {
           // your Angular Async Route paths relative to this root directory
         }
@@ -234,8 +232,8 @@ module.exports = function (options) {
        * See: https://www.npmjs.com/package/copy-webpack-plugin
        */
       new CopyWebpackPlugin([
-        { from: 'client/assets', to: 'assets' },
-        { from: 'client/meta'}
+        { from: helpers.src('assets'), to: 'assets' },
+        { from: helpers.src('meta')}
       ]),
 
 
@@ -248,7 +246,7 @@ module.exports = function (options) {
        * See: https://github.com/ampedandwired/html-webpack-plugin
        */
       new HtmlWebpackPlugin({
-        template: 'client/index.hbs.html',
+        template: helpers.src('index.hbs.html'),
         title: METADATA.title,
         chunksSortMode: 'dependency',
         metadata: METADATA,

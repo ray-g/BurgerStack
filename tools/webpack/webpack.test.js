@@ -47,7 +47,7 @@ module.exports = function (options) {
       /**
        * Make sure root is src
        */
-      modules: [path.resolve(__dirname, 'src'), 'node_modules']
+      modules: [helpers.src(''), 'node_modules']
 
     },
 
@@ -116,7 +116,7 @@ module.exports = function (options) {
         {
           test: /\.json$/,
           loader: 'json-loader',
-          exclude: [helpers.root('src/index.html')]
+          exclude: [helpers.src('index.hbs.html')]
         },
 
         /**
@@ -128,7 +128,7 @@ module.exports = function (options) {
         {
           test: /\.css$/,
           loader: ['to-string-loader', 'css-loader'],
-          exclude: [helpers.root('src/index.html')]
+          exclude: [helpers.src('index.hbs.html')]
         },
 
         /**
@@ -140,7 +140,7 @@ module.exports = function (options) {
         {
           test: /\.html$/,
           loader: 'raw-loader',
-          exclude: [helpers.root('src/index.html')]
+          exclude: [helpers.src('index.hbs.html')]
         },
 
         /**
@@ -153,7 +153,7 @@ module.exports = function (options) {
           enforce: 'post',
           test: /\.(js|ts)$/,
           loader: 'istanbul-instrumenter-loader',
-          include: helpers.root('src'),
+          include: helpers.src(''),
           exclude: [
             /\.(e2e|spec)\.ts$/,
             /node_modules/
@@ -200,7 +200,7 @@ module.exports = function (options) {
       new ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
         /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-        helpers.root('src'), // location of your src
+        helpers.src(''), // location of your src
         {
           // your Angular Async Route paths relative to this root directory
         }

@@ -56,7 +56,7 @@ module.exports = function (options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#output-path
        */
-      path: helpers.root('dist'),
+      path: helpers.dest(''),
 
       /**
        * Specifies the name of each output file on disk.
@@ -97,7 +97,7 @@ module.exports = function (options) {
         {
           test: /\.css$/,
           use: ['style-loader', 'css-loader'],
-          include: [helpers.root('src', 'styles')]
+          include: [helpers.src('styles')]
         },
 
         /*
@@ -108,7 +108,7 @@ module.exports = function (options) {
         {
           test: /\.scss$/,
           use: ['style-loader', 'css-loader', 'sass-loader'],
-          include: [helpers.root('src', 'styles')]
+          include: [helpers.src('styles')]
         },
 
       ]
