@@ -116,7 +116,7 @@ module.exports = function (options) {
         {
           test: /\.json$/,
           loader: 'json-loader',
-          exclude: [helpers.src('index.hbs.html')]
+          exclude: [helpers.src('index.webpack.html')]
         },
 
         /**
@@ -128,7 +128,7 @@ module.exports = function (options) {
         {
           test: /\.css$/,
           loader: ['to-string-loader', 'css-loader'],
-          exclude: [helpers.src('index.hbs.html')]
+          exclude: [helpers.src('index.webpack.html')]
         },
 
         /**
@@ -140,7 +140,7 @@ module.exports = function (options) {
         {
           test: /\.html$/,
           loader: 'raw-loader',
-          exclude: [helpers.src('index.hbs.html')]
+          exclude: [helpers.src('index.webpack.html')]
         },
 
         /**

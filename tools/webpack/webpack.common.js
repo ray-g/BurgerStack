@@ -151,7 +151,7 @@ module.exports = function (options) {
         {
           test: /\.html$/,
           use: 'raw-loader',
-          exclude: [helpers.src('index.hbs.html')]
+          exclude: [helpers.src('index.webpack.html')]
         },
 
         /* File loader for supporting images, for example, in CSS files.
@@ -246,7 +246,7 @@ module.exports = function (options) {
        * See: https://github.com/ampedandwired/html-webpack-plugin
        */
       new HtmlWebpackPlugin({
-        template: helpers.src('index.hbs.html'),
+        template: helpers.src('index.webpack.html'),
         title: METADATA.title,
         chunksSortMode: 'dependency',
         metadata: METADATA,
@@ -343,4 +343,4 @@ module.exports = function (options) {
     }
 
   };
-}
+};
