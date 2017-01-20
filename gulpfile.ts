@@ -182,7 +182,7 @@ gulp.task('watch.and.serve', (done: any) => {
 
 // Default task
 gulp.task('default', (done: any) => {
-  runSequence('env.dev', 'build', 'watch.and.serve', done);
+  runSequence('env.dev', 'rebuild', 'watch.and.serve', done);
 });
 
 gulp.task('start', (done: any) => {

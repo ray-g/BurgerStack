@@ -237,7 +237,7 @@ export class ExpressServer {
   private init3rdModulesStatics(app: Express) {
     let config = Config.config();
     app.use('/libs', express.static(path.resolve(config.assets.client.path, 'libs')));
-    app.use(express.static(path.resolve(__dirname, '../node_modules')));
+    app.use('/npm', express.static(path.resolve('../node_modules')));
   };
 
   /**

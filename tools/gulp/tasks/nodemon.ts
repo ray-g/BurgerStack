@@ -5,7 +5,7 @@ import Config from '../config';
 export = () => {
   NodeMon.start(
     Config.dist.entry,
-    Config.dist.entry,
+    [Config.dist.entry],
     'js, html',
     ['--debug']
   );

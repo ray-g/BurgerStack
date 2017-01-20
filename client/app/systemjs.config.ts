@@ -5,7 +5,7 @@ let SYSTEM_CONFIG = {
 
   paths: {
     // paths serve as alias
-    'npm:': 'https://unpkg.com/'
+    'npm:': 'npm/'
   },
   // map tells the System loader where to look for things
   map: {
