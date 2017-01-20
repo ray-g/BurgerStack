@@ -1,6 +1,9 @@
 import * as gulp from 'gulp';
 import * as util from 'gulp-util';
 import * as runSequence from 'run-sequence';
+import { existsSync, lstatSync } from 'fs';
+import { join } from 'path';
+import { exec } from 'child_process';
 
 import { loadTasks } from './tools/utils';
 import { NodeMon } from './tools/gulp/libs/nodemon';
@@ -89,9 +92,47 @@ gulp.task('test.only', (done: any) => {
   runSequence('env.test', 'clean.coverage', 'tslint.test', 'compile.test', 'mocha', done);
 });
 
+// Execute UT on change.
+let executeUT = (changedPath: string) => {
+  // Changed staff should be a TypeScript file, then run its' UT if exists
+  let currentDir = process.cwd();
+  let re = /(.+)\.ts$/g;
+  let target: string;
+  if (lstatSync(changedPath).isFile() && changedPath.endsWith('.ts')) {
+    if (changedPath.endsWith('.spec.ts')) {
+      target = re.exec(join(Config.dist.path, changedPath.replace(currentDir, '')))[1] + '.js';
+    } else if (changedPath.endsWith('.e2e.ts')) {
+      // TODO: deal with E2E later.
+    } else {
+      target = re.exec(join(Config.dist.path, changedPath.replace(currentDir, '')))[1] + '.spec.js';
+    }
+
+    re = /[\s\S]+(Running with:[\s]*\[.+\][\s\S]+)/g;
+    if (existsSync(target)) {
+      console.log('Try execute UT with: ' + target);
+      let cmd = 'gulp mocha.one -f ' + target;
+      exec(cmd, {timeout: 5000}, (error, stdout, stderr) => {
+        if (error) {
+          console.error(`exec error: ${error}`);
+          return;
+        }
+        console.log(`Execute UT: ${re.exec(stdout)[1]}`);
+        if (stderr.length > 0) {
+          console.error(`stderr: ${stderr}`);
+        }
+      });
+    } else {
+      console.log('No UT file: ' + target + ' found');
+    }
+  }
+};
+
 // Watch Files For Changes
 let onChange = (event: any) => {
-  console.log('File ' + event.path + ' was ' + event.type);
+  let changedPath = event.path;
+  console.log('File ' + changedPath + ' was ' + event.type);
+
+  executeUT(changedPath);
 };
 
 gulp.task('watch', () => {
