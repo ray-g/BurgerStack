@@ -93,7 +93,8 @@ gulp.task('test.only', (done: any) => {
 });
 
 // Execute UT on change.
-let executeUT = (changedPath: string) => {
+let testSuite: string[] = [];
+let prepareTests = (changedPath: string) => {
   // Changed staff should be a TypeScript file, then run its' UT if exists
   let currentDir = process.cwd();
   let re = /(.+)\.ts$/g;
@@ -107,32 +108,39 @@ let executeUT = (changedPath: string) => {
       target = re.exec(join(Config.dist.path, changedPath.replace(currentDir, '')))[1] + '.spec.js';
     }
 
-    re = /[\s\S]+(Running with:[\s]*\[.+\][\s\S]+)/g;
     if (existsSync(target)) {
-      console.log('Try execute UT with: ' + target);
+      testSuite.push(target);
+    }
+  }
+};
+
+gulp.task('executeTests', () => {
+  if (testSuite.length > 0) {
+    testSuite.forEach((target: string) => {
+      let re = /[\s\S]+(Running with:[\s]*\[.+\][\s\S]+)/g;
+      console.log('Try execute test with: ' + target);
       let cmd = 'gulp mocha.one -f ' + target;
-      exec(cmd, {timeout: 5000}, (error, stdout, stderr) => {
+      exec(cmd, { timeout: 5000 }, (error, stdout, stderr) => {
         if (error) {
           console.error(`exec error: ${error}`);
           return;
         }
-        console.log(`Execute UT: ${re.exec(stdout)[1]}`);
+        console.log(`Execute test: ${re.exec(stdout)[1]}`);
         if (stderr.length > 0) {
           console.error(`stderr: ${stderr}`);
         }
       });
-    } else {
-      console.log('No UT file: ' + target + ' found');
-    }
+    });
+    testSuite = [];
   }
-};
+});
 
 // Watch Files For Changes
 let onChange = (event: any) => {
   let changedPath = event.path;
   console.log('File ' + changedPath + ' was ' + event.type);
 
-  executeUT(changedPath);
+  prepareTests(changedPath);
 };
 
 gulp.task('watch', () => {
@@ -141,7 +149,7 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.server.ts,
     () => {
-      runSequence(['tslint.server', 'compile.server'], NodeMon.reload);
+      runSequence(['tslint.server', 'compile.server'], 'executeTests', NodeMon.reload);
     })
     .on('change', onChange);
 
@@ -149,7 +157,7 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.server.entry,
     () => {
-      runSequence(['tslint.server', 'compile.entry'], NodeMon.reload);
+      runSequence(['tslint.server', 'compile.entry'], 'executeTests', NodeMon.reload);
     })
     .on('change', onChange);
 
@@ -157,7 +165,7 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.config.serverConfig,
     () => {
-      runSequence(['tslint.config', 'compile.config'], NodeMon.reload);
+      runSequence(['tslint.config', 'compile.config'], 'executeTests', NodeMon.reload);
     })
     .on('change', onChange);
 
@@ -173,7 +181,7 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.client.ts,
     () => {
-      runSequence(['tslint.client', 'compile.client'], BrowserSync.reload);
+      runSequence(['tslint.client', 'compile.client'], 'executeTests', BrowserSync.reload);
     })
     .on('change', onChange);
 
@@ -205,14 +213,14 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.tests.ts.all,
     () => {
-      runSequence(['tslint.test', 'compile.test']);
+      runSequence(['tslint.test', 'compile.test'], 'executeTests');
     })
     .on('change', onChange);
 
   gulp.watch(
     Config.tools.allTS,
     () => {
-      runSequence(['tslint.tools', 'compile.tools']);
+      runSequence(['tslint.tools', 'compile.tools'], 'executeTests');
     })
     .on('change', onChange);
 });
