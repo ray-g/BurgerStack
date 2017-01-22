@@ -5,11 +5,11 @@ import { startKarma } from '../../utils/karma.start';
 export = (done: any) => {
   return startKarma(done, {
     preprocessors: {
-      'dist/!(test)/**/*.js': ['coverage']
+      'dist/client/**/*.js': ['coverage']
     },
     reporters: ['mocha', 'coverage'],
     coverageReporter: {
-      dir: 'coverage/',
+      dir: 'coverage/karma/',
       reporters: [
         { type: 'json', subdir: '.', file: 'coverage-final.json' }
       ]
