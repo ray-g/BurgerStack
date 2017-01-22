@@ -1,4 +1,19 @@
 language: node_js
+
+sudo: false
+
+os:
+  - linux
+
+dist: trusty
+
+# addons:
+#   apt:
+#     sources:
+#       - google-chrome
+#     packages:
+#       - google-chrome-stable
+
 node_js:
   - 6
 
@@ -15,23 +30,10 @@ before_install:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then export DISPLAY=:99.0; fi
 
 before_script:
-  - sleep 15
-  - mongo mydb_test --eval 'db.addUser("travis", "test");'
+  # - sleep 15
+  # - mongo mydb_test --eval 'db.addUser("travis", "test");'
   - psql -c 'create database burgerstack_test;' -U postgres
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
-
-# sudo: false
-sudo: required
-dist: trusty
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-
-os:
-  - linux
 
 branches:
   only: master
