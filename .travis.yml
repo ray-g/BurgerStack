@@ -20,7 +20,15 @@ before_script:
   - psql -c 'create database burgerstack_test;' -U postgres
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh -e /etc/init.d/xvfb start; fi
 
-sudo: false
+# sudo: false
+sudo: required
+dist: trusty
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 
 os:
   - linux
