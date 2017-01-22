@@ -33,25 +33,80 @@ module.exports = function (config) {
       'node_modules/zone.js/dist/mocha-patch.js',
 
       // RxJs.
-      { pattern: 'node_modules/rxjs/**/*.js', included: false, watched: false },
-      { pattern: 'node_modules/rxjs/**/*.js.map', included: false, watched: false },
+      {
+        pattern: 'node_modules/rxjs/**/*.js',
+        included: false,
+        watched: false
+      },
+      {
+        pattern: 'node_modules/rxjs/**/*.js.map',
+        included: false,
+        watched: false
+      },
 
       // paths loaded via module imports
       // Angular itself
-      { pattern: 'node_modules/@angular/**/*.js', included: false, watched: true },
-      { pattern: 'node_modules/@angular/**/*.js.map', included: false, watched: false },
+      {
+        pattern: 'node_modules/@angular/**/*.js',
+        included: false,
+        watched: true
+      },
+      {
+        pattern: 'node_modules/@angular/**/*.js.map',
+        included: false,
+        watched: false
+      },
 
-      { pattern: 'dist/client/**/*.js', included: false, watched: true },
-      { pattern: 'dist/test/client/**/*.js', included: false, watched: true },
-      { pattern: 'dist/client/**/*.html', included: false, watched: true, served: true },
-      { pattern: 'dist/client/**/*.css', included: false, watched: true, served: true },
-      { pattern: 'node_modules/systemjs/dist/system-polyfills.js', included: false, watched: false }, // PhantomJS2 (and possibly others) might require it
-      { pattern: 'node_modules/chai/**/*.js', included: false, watched: false },
-      { pattern: 'node_modules/assertion-error/**/*.js', included: false, watched: false },
-      { pattern: 'node_modules/sinon/**/*.js', included: false, watched: false },
+      {
+        pattern: 'dist/client/**/*.js',
+        included: false,
+        watched: true
+      },
+      {
+        pattern: 'dist/test/client/**/*.js',
+        included: false,
+        watched: true
+      },
+      {
+        pattern: 'dist/client/**/*.html',
+        included: false,
+        watched: true,
+        served: true
+      },
+      {
+        pattern: 'dist/client/**/*.css',
+        included: false,
+        watched: true,
+        served: true
+      },
+      {
+        pattern: 'node_modules/systemjs/dist/system-polyfills.js',
+        included: false,
+        watched: false
+      }, // PhantomJS2 (and possibly others) might require it
+      {
+        pattern: 'node_modules/chai/**/*.js',
+        included: false,
+        watched: false
+      },
+      {
+        pattern: 'node_modules/assertion-error/**/*.js',
+        included: false,
+        watched: false
+      },
+      {
+        pattern: 'node_modules/sinon/**/*.js',
+        included: false,
+        watched: false
+      },
 
       // suppress annoying 404 warnings for resources, images, etc.
-      { pattern: 'dist/client/assets/**/*', watched: false, included: false, served: true },
+      {
+        pattern: 'dist/client/assets/**/*',
+        watched: false,
+        included: false,
+        served: true
+      },
 
       'tools/testconfig/test.config.js',
       'dist/client/app/systemjs.config.js',
@@ -103,6 +158,13 @@ module.exports = function (config) {
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     //browsers: ['PhantomJS'],
     browsers: ['Chrome'],
+
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
 
 
     // Continuous Integration mode
