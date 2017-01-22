@@ -5,5 +5,5 @@ export const startKarma = (done: any, karmaConfig: any = {}) => {
   return new (<any>karma).Server(Object.assign({
     configFile: join(process.cwd(), 'karma.conf.js'),
     singleRun: true
-  }, karmaConfig)).start(done);
+  }, karmaConfig), done).start();
 };
