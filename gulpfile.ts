@@ -68,8 +68,16 @@ gulp.task('copy', (done: any) => {
 });
 
 // Test tasks
+gulp.task('karma', (done: any) => {
+  runSequence('env.test', 'karma.run', 'karma.report', done);
+});
+
+gulp.task('test.client', (done: any) => {
+  runSequence('env.test', ['compile.client', 'compile.test'], 'karma.run', 'karma.report', done);
+});
+
 gulp.task('test.server', (done: any) => {
-  runSequence('env.test', ['compile.server', 'compile.config'], 'mocha', done);
+  runSequence('env.test', ['compile.server', 'compile.config', 'compile.test'], 'mocha', done);
 });
 
 gulp.task('test.tools', (done: any) => {
