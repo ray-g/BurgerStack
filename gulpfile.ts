@@ -85,7 +85,7 @@ gulp.task('test.tools', (done: any) => {
 });
 
 gulp.task('test', (done: any) => {
-  runSequence('env.test', 'clean', 'build', 'compile.tools', 'compile.test', 'mocha', done);
+  runSequence('env.test', 'clean', 'build', 'compile.tools', 'compile.test', 'mocha', 'karma', done);
 });
 
 gulp.task('test.travis', (done: any) => {
