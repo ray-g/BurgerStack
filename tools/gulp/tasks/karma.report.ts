@@ -21,5 +21,7 @@ export = (done: any) => {
             'lcovonly': coverageDir + '/lcov.info'
           }
         }));
+
+      done();
     });
 };
