@@ -55,7 +55,7 @@ module.exports = function (options) {
     entry: {
 
       'polyfills': helpers.src('polyfills.browser.ts'),
-      'main':      helpers.src(AOT ? 'main.browser.aot.ts' : 'main.browser.ts')
+      'main': helpers.src(AOT ? 'main.browser.aot.ts' : 'main.browser.ts')
     },
 
     /*
@@ -231,9 +231,13 @@ module.exports = function (options) {
        *
        * See: https://www.npmjs.com/package/copy-webpack-plugin
        */
-      new CopyWebpackPlugin([
-        { from: helpers.src('assets'), to: 'assets' },
-        { from: helpers.src('meta')}
+      new CopyWebpackPlugin([{
+          from: helpers.src('assets'),
+          to: 'assets'
+        },
+        {
+          from: helpers.src('meta')
+        }
       ]),
 
 

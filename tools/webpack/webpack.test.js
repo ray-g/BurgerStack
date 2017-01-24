@@ -87,8 +87,7 @@ module.exports = function (options) {
          */
         {
           test: /\.ts$/,
-          use: [
-            {
+          use: [{
               loader: 'awesome-typescript-loader',
               query: {
                 // use inline sourcemaps for "karma-remap-coverage" reporter
@@ -243,6 +242,5 @@ module.exports = function (options) {
       clearImmediate: false,
       setImmediate: false
     }
-
   };
 };
