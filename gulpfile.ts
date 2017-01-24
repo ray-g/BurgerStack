@@ -14,7 +14,7 @@ loadTasks(Config.tools.gulpTasks);
 
 // Clean tasks
 gulp.task('clean', (done: any) => {
-  runSequence(['clean.dist', 'clean.coverage', 'clean.dll'], done);
+  runSequence(['clean.dist', 'clean.covreports', 'clean.dll'], done);
 });
 
 // Clean dev/coverage that will only run once
@@ -97,7 +97,7 @@ gulp.task('test.watch', (done: any) => {
 });
 
 gulp.task('test.only', (done: any) => {
-  runSequence('env.test', 'clean.coverage', 'tslint.test', 'compile.test', 'mocha', done);
+  runSequence('env.test', 'clean.covreports', 'tslint.test', 'compile.test', 'mocha', done);
 });
 
 // Execute UT on change.
