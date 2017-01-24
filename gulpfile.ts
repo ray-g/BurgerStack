@@ -122,7 +122,7 @@ let prepareTests = (changedPath: string) => {
   }
 };
 
-gulp.task('executeTests', () => {
+gulp.task('testChanged', () => {
   if (testSuite.length > 0) {
     testSuite.forEach((target: string) => {
       let re = /[\s\S]+(Running with:[\s]*\[.+\][\s\S]+)/g;
@@ -157,7 +157,7 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.server.ts,
     () => {
-      runSequence(['tslint.server', 'compile.server'], 'executeTests', NodeMon.reload);
+      runSequence(['tslint.server', 'compile.server'], 'testChanged', NodeMon.reload);
     })
     .on('change', onChange);
 
@@ -165,7 +165,7 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.server.entry,
     () => {
-      runSequence(['tslint.server', 'compile.entry'], 'executeTests', NodeMon.reload);
+      runSequence(['tslint.server', 'compile.entry'], 'testChanged', NodeMon.reload);
     })
     .on('change', onChange);
 
@@ -173,7 +173,7 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.config.serverConfig,
     () => {
-      runSequence(['tslint.config', 'compile.config'], 'executeTests', NodeMon.reload);
+      runSequence(['tslint.config', 'compile.config'], 'testChanged', NodeMon.reload);
     })
     .on('change', onChange);
 
@@ -189,7 +189,7 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.client.ts,
     () => {
-      runSequence(['tslint.client', 'compile.client'], 'executeTests', BrowserSync.reload);
+      runSequence(['tslint.client', 'compile.client'], 'testChanged', BrowserSync.reload);
     })
     .on('change', onChange);
 
@@ -221,14 +221,14 @@ gulp.task('watch', () => {
   gulp.watch(
     Config.tests.ts.all,
     () => {
-      runSequence(['tslint.test', 'compile.test'], 'executeTests');
+      runSequence(['tslint.test', 'compile.test'], 'testChanged');
     })
     .on('change', onChange);
 
   gulp.watch(
     Config.tools.allTS,
     () => {
-      runSequence(['tslint.tools', 'compile.tools'], 'executeTests');
+      runSequence(['tslint.tools', 'compile.tools'], 'testChanged');
     })
     .on('change', onChange);
 });
