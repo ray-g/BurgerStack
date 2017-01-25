@@ -1,12 +1,36 @@
+# OS generated files #
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Logs
+logs
 *.log
 *.log.*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory
+coverage/
+
+# Node Files
 node_modules/
+npm-debug.log
+
+# IDE
+.idea/
+*.swp
+
+# Dist
 .sass-cache
 .netrc
 release/
 dist/
 sandbox/
-coverage/
 dll/
 
 # BurgerStack Ignored
