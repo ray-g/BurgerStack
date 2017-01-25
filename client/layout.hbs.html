@@ -24,20 +24,21 @@
   <!-- Application CSS Files -->
   {{#each cssFiles}}
   <link rel="stylesheet" href="{{this}}">{{/each}}
-
+  <link rel="stylesheet" href="app/theme/spinner.css">
   <!-- Polyfills for older browsers -->
-    <script src="npm/core-js/client/shim.min.js"></script>
-
-    <script src="npm/zone.js/dist/zone.js"></script>
-    <script src="npm/reflect-metadata/Reflect.js"></script>
-    <script src="npm/systemjs/dist/system.src.js"></script>
-
-    <script> window.autoBootstrap = true; </script>
-
-    <script src="app/systemjs.config.js"></script>
-    <script>
-      System.import('main.browser').catch(function(err){ console.error(err); });
-    </script>
+  <script src="npm/core-js/client/shim.min.js"></script>
+  <script src="npm/zone.js/dist/zone.js"></script>
+  <script src="npm/reflect-metadata/Reflect.js"></script>
+  <script src="npm/systemjs/dist/system.src.js"></script>
+  <script>
+    window.autoBootstrap = true;
+  </script>
+  <script src="app/systemjs.config.js"></script>
+  <script>
+    System.import('main.browser').catch(function (err) {
+      console.error(err);
+    });
+  </script>
 </head>
 
 <body>
@@ -51,13 +52,11 @@
       <strong>This page requires JavaScript.</strong> Please enable it in your browser.
     </div>
   </noscript>
-
   <!--Load The Socket.io File-->
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <!--Application JavaScript Files-->
   {{#each jsFiles}}
-  <script type="text/javascript" src="{{this}}"></script>{{/each}} {{#if livereload}}
-  {{/if}}
+  <script type="text/javascript" src="{{this}}"></script>{{/each}} {{#if livereload}} {{/if}}
 </body>
 
 </html>
