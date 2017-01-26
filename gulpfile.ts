@@ -159,7 +159,8 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.server', 'compile.server'], 'testChanged', NodeMon.reload);
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   // Server entry file, do lint and compile, then restart server
   gulp.watch(
@@ -167,7 +168,8 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.server', 'compile.entry'], 'testChanged', NodeMon.reload);
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   // All config TS files, do lint and compile, then restart server
   gulp.watch(
@@ -175,7 +177,8 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.config', 'compile.config'], 'testChanged', NodeMon.reload);
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   // Client systemJS file, do lint and copy, then reload browser
   gulp.watch(
@@ -183,7 +186,8 @@ gulp.task('watch', () => {
     () => {
       runSequence(['eslint', 'copy.client'], BrowserSync.reload);
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   // All client TS files, do lint and compile, then reload browser
   gulp.watch(
@@ -191,7 +195,8 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.client', 'compile.client'], 'testChanged', BrowserSync.reload);
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   // All client sass files, do lint and compile, then reload browser
   gulp.watch(
@@ -199,7 +204,8 @@ gulp.task('watch', () => {
     () => {
       runSequence(['sasslint', 'sass'], BrowserSync.reload);
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   // All client html files, do lint and copy, then reload browser
   gulp.watch(
@@ -207,7 +213,8 @@ gulp.task('watch', () => {
     () => {
       runSequence(['copy.client.views'], BrowserSync.reload);
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   // All client assets files, do copy, then reload browser
   gulp.watch(
@@ -215,7 +222,8 @@ gulp.task('watch', () => {
     () => {
       runSequence(['copy.client.assets'], BrowserSync.reload);
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   // Tools and Tests files, do lint and compile.
   gulp.watch(
@@ -223,14 +231,16 @@ gulp.task('watch', () => {
     () => {
       runSequence(['tslint.test', 'compile.test'], 'testChanged');
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 
   gulp.watch(
     Config.tools.allTS,
     () => {
       runSequence(['tslint.tools', 'compile.tools'], 'testChanged');
     })
-    .on('change', onChange);
+    .on('change', onChange)
+    .on('error', util.log);
 });
 
 gulp.task('watch.and.serve', (done: any) => {
