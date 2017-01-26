@@ -32,7 +32,7 @@ const Config = {
       tests: ['']
     },
     ts: ['client/!(typings)/**/*.ts', 'client/*.ts', '!client/*.d.ts'],
-    sass: ['client/app/**/*.s+(a|c)ss'],
+    sass: ['client/**/*.s+(a|c)ss'],
     systemJSConfig: 'client/systemjs.config.js',
     img: [
       'client/assets/img/**/*.jpg',
