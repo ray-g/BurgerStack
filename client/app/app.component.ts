@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   template: `
     <h1>Hello {{name}}</h1>
     <main>
+      <h1>Happy Chinese New Year!</h1>
       <h2>Value: {{ value }}</h2>
       <button class="increment" (click)="onIncrementClick()">+</button>
       <button class="decrement" (click)="onDecrementClick()">-</button>
