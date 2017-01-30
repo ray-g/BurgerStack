@@ -1,12 +1,16 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-// App is our top level component
+// Import our app staffs:
 import { AppComponent } from './app.component';
+import { GlobalState } from './global.state';
 
-/**
- * `AppModule` is the main entry point into Angular2's bootstraping process
- */
+// Application Wide Providers
+const APP_PROVIDERS = [
+  GlobalState
+];
+
+// Declare Ng2 Module
 @NgModule({
   bootstrap: [AppComponent],
   declarations: [
@@ -16,6 +20,7 @@ import { AppComponent } from './app.component';
     BrowserModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
+    APP_PROVIDERS
   ]
 })
 
