@@ -4,8 +4,8 @@ import { GlobalState } from '../../../global.state';
 
 @Component({
   selector: 'bs-page-top',
-  styles: [require('./bsPageTop.scss')],
-  template: require('./bsPageTop.html'),
+  styles: ['./bsPageTop.css'],
+  template: './bsPageTop.html',
   encapsulation: ViewEncapsulation.None
 })
 export class BsPageTop {
