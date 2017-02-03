@@ -1,0 +1,41 @@
+$font-family: 'Roboto', sans-serif;
+
+$res-xxl: 1280px;
+$res-xl: 1170px;
+$res-l: 991px;
+$res-m: 768px;
+$res-s: 660px;
+$res-xs: 500px;
+$res-xxs: 435px;
+$res-min: 320px;
+
+$top-height: 66px;
+$sidebar-width: 180px;
+
+$small-card-height: 114px;
+$xsmall-card-height: 187px;
+$medium-card-height: 400px;
+$extra-medium-card-height: 550px;
+$large-card-height: 974px;
+
+$default-animation-duration: 0.2s;
+$default-animation-style: ease-out;
+
+$assets-root: 'assets/';
+$images-root: $assets-root + 'img/';
+$fonts-root: $assets-root + 'fonts/';
+$font-thin: 100;
+$font-light: 300;
+$font-normal: 400;
+$font-bold: 700;
+$font-bolder: 500;
+$font-ultra-bold: 900;
+
+$facebook-color: #3B5998;
+$twitter-color: #55ACEE;
+$google-color: #DD4B39;
+$linkedin-color: #0177B5;
+$github-color: #6B6B6B;
+$stackoverflow-color: #2F96E8;
+$dribble-color: #F26798;
+$behace-color: #0093FA;
