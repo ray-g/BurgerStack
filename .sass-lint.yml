@@ -40,10 +40,10 @@ rules:
       convention: hyphenatedlowercase
   hex-length:
     - 1
-    - style: short
+    - style: long
   hex-notation:
     - 1
-    - style: lowercase
+    - style: uppercase
   id-name-format:
     - 0
     - convention: hyphenatedlowercase
@@ -62,7 +62,10 @@ rules:
   no-color-literals: 0
   no-css-comments: 1
   no-debug: 1
-  no-duplicate-properties: 1
+  no-duplicate-properties:
+    - 1
+    - exclude:
+      - background
   no-empty-rulesets: 1
   no-extends: 0
   no-ids: 1
@@ -71,7 +74,10 @@ rules:
   no-mergeable-selectors: 0
   no-misspelled-properties:
     - 1
-    - extra-properties: []
+    - extra-properties:
+      # Internet Explorer
+      - scrollbar-face-color
+      - scrollbar-track-color
   no-transition-all: 0
   no-url-protocols: 1
   placeholder-in-extend: 0
