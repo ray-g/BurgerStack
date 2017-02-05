@@ -1,0 +1,16 @@
+<aside class="al-sidebar" (mouseleave)="hoverElemTop=outOfArea" sidebarResize>
+  <ul id="al-sidebar-list"
+      class="al-sidebar-list"
+      bsSlimScroll [bsSlimScrollOptions]="{height: menuHeight}">
+    <bs-menu-item
+      [menuItem]="item"
+      (itemHover)="hoverItem($event)"
+      (toggleSubMenu)="toggleSubMenu($event)"
+      *ngFor="let item of menuItems">
+    </bs-menu-item>
+  </ul>
+  <div class="sidebar-hover-elem"
+       [ngStyle]="{top: hoverElemTop + 'px', height: hoverElemHeight + 'px'}"
+       [ngClass]="{'show-hover-elem': showHoverElem }">
+  </div>
+</aside>
