@@ -1,6 +1,7 @@
 import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angular/core';
 import { Router, Routes, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
+import * as jQuery from 'jquery';
 
 import { BsMenuService } from './bsMenu.service';
 import { GlobalState } from '../../../global.state';

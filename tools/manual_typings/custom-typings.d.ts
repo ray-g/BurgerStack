@@ -1,1 +1,1 @@
-declare var jQuery: any;
+

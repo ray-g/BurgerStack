@@ -100,6 +100,7 @@
     "@types/gulp-util": "3.0.28",
     "@types/hammerjs": "2.0.33",
     "@types/helmet": "0.0.33",
+    "@types/jquery": "2.0.40",
     "@types/karma": "0.13.33",
     "@types/lodash": "4.14.40",
     "@types/method-override": "0.0.29",
