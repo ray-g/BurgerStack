@@ -46,3 +46,4 @@ It's a full stack, easy to use, modern web framework. Just pick it up and use it
 * Angular2 Template Pages with Bootstrap4
 * Some E2E features showing how this full stack works
 * Documentation
+* Fix socket.io risk
