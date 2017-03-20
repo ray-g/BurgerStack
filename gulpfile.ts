@@ -89,7 +89,8 @@ gulp.task('test', (done: any) => {
 });
 
 gulp.task('test.travis', (done: any) => {
-  runSequence('test', 'coveralls', done);
+  // runSequence('test', 'coveralls', done);
+  runSequence('test', done);
 });
 
 gulp.task('test.watch', (done: any) => {
