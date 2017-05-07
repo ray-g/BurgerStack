@@ -16,7 +16,7 @@ import { GlobalState } from '../../../global.state';
 export class BsMenu {
 
   @Input() menuRoutes: Routes = [];
-  @Input() sidebarCollapsed: boolean = false;
+  @Input() sidebarCollapsed = false;
   @Input() menuHeight: number;
 
   @Output() expandMenu = new EventEmitter<any>();

@@ -9,7 +9,7 @@ export class PostgreSql {
   private static _instance: PostgreSql = new PostgreSql();
   private static sequelize: any; // Sequelize.Sequelize;
   private static db: any = {};
-  private static uri: string = '';
+  private static uri = '';
 
   public static getInstance(): PostgreSql {
     return PostgreSql._instance;

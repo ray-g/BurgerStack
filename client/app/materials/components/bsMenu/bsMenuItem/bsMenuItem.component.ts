@@ -9,7 +9,7 @@ import { Component, ViewEncapsulation, Input, Output, EventEmitter } from '@angu
 export class BsMenuItem {
 
   @Input() menuItem: any;
-  @Input() child: boolean = false;
+  @Input() child = false;
 
   @Output() itemHover = new EventEmitter<any>();
   @Output() toggleSubMenu = new EventEmitter<any>();
