@@ -14,7 +14,6 @@
       "spaces"
     ],
     "label-position": true,
-    "label-undefined": true,
     "max-line-length": [
       true,
       140
@@ -37,7 +36,6 @@
     ],
     "no-construct": true,
     "no-debugger": true,
-    "no-duplicate-key": true,
     "no-duplicate-variable": true,
     "no-empty": false,
     "no-eval": true,
@@ -51,7 +49,7 @@
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
     "no-unused-variable": true,
-    "no-unreachable": true,
+    "no-unused-expression": false,
     "no-use-before-declare": true,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
