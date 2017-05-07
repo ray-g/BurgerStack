@@ -205,6 +205,7 @@
     "ts-helpers": "1.1.2",
     "ts-node": "1.0.0",
     "tslint": "5.2.0",
+    "tslint-language-service": "0.9.3",
     "typescript": "2.3.2",
     "v8-lazy-parse-webpack-plugin": "0.3.0",
     "webpack": "2.2.0-rc.4",

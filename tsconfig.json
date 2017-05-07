@@ -30,6 +30,9 @@
       "node",
       "protractor",
       "systemjs"
+    ],
+    "plugins": [
+      { "name": "tslint-language-service" }
     ]
   },
   "exclude": [
