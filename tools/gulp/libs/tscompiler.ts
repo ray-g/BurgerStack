@@ -56,7 +56,7 @@ export class TSCompiler {
     result = projectFiles
       .pipe(plugins.plumber())
       .pipe(plugins.sourcemaps.init())
-      .pipe(plugins.typescript(tsProject))
+      .pipe(tsProject())
       .on('error', () => {
         this.typedBuildCounter = TYPED_COMPILE_INTERVAL;
       });
