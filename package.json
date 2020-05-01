@@ -80,7 +80,7 @@
     "systemjs": "0.19.39",
     "winston": "2.2.0",
     "zone.js": "0.8.10",
-    "snyk": "^1.231.0"
+    "snyk": "^1.316.2"
   },
   "devDependencies": {
     "@angular/compiler-cli": "4.1.1",
