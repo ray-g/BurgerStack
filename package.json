@@ -65,7 +65,7 @@
     "lodash": "4.17.16",
     "lusca": "1.4.1",
     "method-override": "2.3.10",
-    "mongoose": "5.7.5",
+    "mongoose": "5.11.7",
     "morgan": "1.9.1",
     "passport": "0.3.2",
     "pg": "6.1.6",
