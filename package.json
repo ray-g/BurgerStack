@@ -67,7 +67,7 @@
     "method-override": "2.3.10",
     "mongoose": "5.7.5",
     "morgan": "1.9.1",
-    "passport": "0.3.2",
+    "passport": "0.6.0",
     "pg": "6.1.6",
     "redis": "2.6.3",
     "reflect-metadata": "0.1.8",
