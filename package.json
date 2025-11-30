@@ -33,7 +33,7 @@
   "homepage": "https://github.com/ray-g/BurgerStack#readme",
   "dependencies": {
     "@angular/animations": "4.1.1",
-    "@angular/common": "4.1.1",
+    "@angular/common": "19.2.16",
     "@angular/compiler": "4.1.1",
     "@angular/core": "4.1.1",
     "@angular/forms": "4.1.1",
@@ -72,7 +72,7 @@
     "redis": "2.6.3",
     "reflect-metadata": "0.1.8",
     "rxjs": "5.0.2",
-    "sequelize": "5.15.1",
+    "sequelize": "6.6.5",
     "serve-favicon": "2.4.5",
     "socket.io": "2.4.0",
     "socket.io-client": "2.4.0",
